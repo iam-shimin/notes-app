@@ -1,0 +1,21 @@
+.edit-note-title {
+	font-size: 1.6rem;
+}
+
+.edit-note-text {
+	font-size: 1.2rem;
+	height: 50vh;
+}
+
+.edit-note-title,
+.edit-note-text {
+	width: 80%;
+	padding: 0.4rem 1rem;
+}
+
+.warning-msg {
+	background: #e83939;
+	padding: 0.2rem 1rem;
+	margin-top: 0.4rem;
+	color: #464141;
+}

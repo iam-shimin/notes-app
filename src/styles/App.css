@@ -1,0 +1,78 @@
+body {
+  cursor: default;
+}
+
+.app-bar {
+  background: #0bcc9f;
+  display: flex;
+  height: 12vh;
+}
+.app-bar-search-box {
+  font-size: 1.8rem;
+  background: transparent;
+  border: none;
+  color: yellow;
+  padding-left: 3rem;
+}
+.app-bar-nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.app-bar-nav-link {
+  padding: 2rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #000;
+}
+.app-bar-nav-link.active {
+  color: #0bcc9f;
+  background: #000;
+}
+.app-bar-nav-link:hover {
+  color: #b8eade;
+  background: #393838;
+}
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: #00f;
+  color: #b19999;
+  border: solid 1px #000;
+  height: 3rem;
+  width: 15%;
+  animation: toaster 0.15s linear;
+}
+
+@keyframes toaster {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1)
+  }
+}
+
+.sidenav-left {
+  height: 88vh;
+  position: fixed;
+  background: #718078;
+  color: cadetblue;
+  width: 30%;
+  overflow: auto;
+  scrollbar-width: thin;
+  /* background: #806565; */
+}
+
+.main-notes {
+  position: fixed;
+  right: 0px;
+  width: 70%;
+  height: 88vh;
+  overflow: auto;
+  background:#d7d7d7;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+}

@@ -1,0 +1,66 @@
+.todo-link {
+	display: block;
+	font-size: 1.2rem;
+	padding: 0.5rem 1.5rem;
+	text-decoration: none;
+	color: #ddd;
+}
+
+.todo-link.active {
+	color: #d7d7d7;
+	background: cadetblue;
+}
+
+.todo-link:hover {
+	background: #888;
+	color: whitesmoke;
+}
+
+.todo-link.active:hover {
+	background: #51afb3;
+}
+
+.todo-link.selected,
+.todo-link.selected.active {
+	background: #db0f32e6;
+}
+
+.todo-link.selected:hover,
+.todo-link.selected.active:hover {
+	background: #91041be6;
+}
+
+.btn-float {
+	position: fixed;
+	bottom: 10%;
+	left: 1rem;
+	font-size: 3rem;
+	height: 4rem;
+	width: 4rem;
+	border-radius: 2rem;
+	border: none;
+	background: #db0f32e6;
+	color: #eee;
+	text-decoration: none;
+	text-align: center;
+}
+
+.msg-sidenav-empty {
+    padding: 1rem 2.5rem;
+}
+
+.msg-sidenav-empty i {
+	color: #ddd;
+}
+
+.sidenav-context-menu {
+	position: fixed;
+	top: 10vh;
+	left: 2vw;
+	transform: scale(0);
+	transition: transform 0.3s ease-in;
+}
+
+.sidenav-context-menu.active {
+	transform: scale(1);
+}
