@@ -17,6 +17,7 @@ export function TodoProvider(props) {
 	// 			dateAdded: Date,
 	// 			dateModified: Date,
 	// 			lastChecked: Date,
+	//			dueDate: Date,
 	// 			checkFrequency: Number
 	// 		}
 	// 	},
