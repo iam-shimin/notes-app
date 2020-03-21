@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
+import Toast from './Toast';
 
 export default function Notifications(props) {
-	const [notifications, _setNotifications] = useState([]);
+	const [notifications, setNotifications] = useState([]);
+	const [toasts, setToasts] = useState([]);
 
-	function setNotifications(notifications) {
-		localStorage.setItem('notifications', JSON.stringify(notifications));
-		_setNotifications(notifications);
-	}
-
-	function pushToast(message) {
-		_setNotifications(noto)
-	}
+	const pushToast = useCallback((message) => {
+		let tmp = toasts;
+		if (toasts.length > 5) {
+			tmp = toasts.slice(1);
+		}
+		setToasts([...tmp, {_id: Date.now(), message}]);
+	});
 
 	return (
 		<div className="notifications">
-			
+			<div className="notifications-toasts">
+				{notifications.map(msg => <Toast key={msg._id} message={msg.message} />)}
+			</div>
 		</div>
 	)
 }

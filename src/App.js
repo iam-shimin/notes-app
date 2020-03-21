@@ -5,6 +5,7 @@ import './styles/App.css';
 import TodoList from './components/TodoList';
 import { NavLink } from 'react-router-dom';
 // import { Provider } from 'react-redux';
+import Notifications from './components/Notifications';
 
 function search(event) {
   window.history.pushState(null, 'Search', `?q=${event.target.value}`);
@@ -28,6 +29,7 @@ function App() {
           </Switch>
         </article>
       </main>
+      <Notifications />
     </BrowserRouter>
   );
 }

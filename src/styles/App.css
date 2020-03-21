@@ -34,16 +34,31 @@ body {
   background: #393838;
 }
 
-.toast {
+.notifications,
+.notifications-toasts {
+  width: 20%;
   position: fixed;
-  bottom: 2rem;
-  left: 2rem;
+  height: 100%;
+}
+
+.notifications {
+  height: 100%;
+  left: 2%;
+}
+.notifications-toasts {
+  bottom: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.toast {
   background: #00f;
   color: #b19999;
   border: solid 1px #000;
   height: 3rem;
-  width: 15%;
-  animation: toaster 0.15s linear;
+  width: 90%;
+  margin: 0.5rem;
+  /* animation: toaster 0.15s linear; */
 }
 
 @keyframes toaster {

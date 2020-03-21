@@ -29,7 +29,7 @@ const userTodoData = {
 	}
 }
 
-// GET /users/:id/todos
+// GET /users/:id/todos?name&priority
 const todosData = {
 	todos: [{
 		id: Number,
