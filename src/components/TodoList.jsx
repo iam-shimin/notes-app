@@ -2,10 +2,9 @@ import React, { /* createContext */ } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import Todo from './Todo';
 import SideNav from './SideNav';
-import { TodoProvider } from '../context/todoContext';
 
 function NotImplimented(testString, i) {
-	return function(props) {
+	return function (props) {
 		return (
 			<div>
 				<h1>Not Implimented</h1>
@@ -20,7 +19,7 @@ export default function TodoList(props) {
 	const testString = 'it worked';
 	const i = Date.now();
 	return (
-		<TodoProvider>
+		<React.Fragment>
 			<SideNav />
 			<article className="main-notes">
 				<Switch>
@@ -30,6 +29,6 @@ export default function TodoList(props) {
 					<Redirect to="/todos/1" />
 				</Switch>
 			</article>
-		</TodoProvider>
+		</React.Fragment>
 	)
 }

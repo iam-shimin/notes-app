@@ -50,17 +50,12 @@ export default function Todo(props) {
 function TodoMain(props) {
 
 	useEffect(() => {
-		const id = props.urlmatch.params.id;
-		if (id === 'new') {
-			let newid = props.context.addTodo({ title: 'Untitled', notes: '' }).id;
-			props.setNoteId(newid);
-			props.history.push(`/todos/${newid}`);
-		}
+		props.urlmatch.params.id === 'new' && newTodo({title: 'Untitled', notes: ''});
 	});
 
 	return (
 		<React.Fragment>
-			{!props.data && !Number.isNaN(props.noteId) && <div className="warning-msg">
+			{props.urlmatch.params.id && !props.data && !Number.isNaN(props.noteId) && <div className="warning-msg">
 				<h2>Invalid URL</h2>
 				<p>The note was either deleted or the url is mispelled.</p>
 			</div>}
@@ -74,6 +69,16 @@ function TodoMain(props) {
 
 	function onInputChange(event) {
 		const { name, value } = event.target;
-		props.context.setTodoField(props.noteId, name, value);
+		if (Number.isNaN(props.noteId) || !props.context.todoExists(props.noteId)) {
+			newTodo({ title: 'Untitled', notes: '', [name]: value });
+		} else {
+			props.context.setTodoField(props.noteId, name, value);
+		}
+	}
+
+	function newTodo(todo = { title: '', notes: '' }) {
+		let newid = props.context.addTodo(todo).id;
+		props.setNoteId(newid);
+		props.history.push(`/todos/${newid}`);
 	}
 }

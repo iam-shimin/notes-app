@@ -41,7 +41,20 @@ body {
   height: 3rem;
   width: 90%;
   margin: 0.5rem;
-  /* animation: toaster 0.15s linear; */
+  animation: toaster 0.15s linear;
+  display: flex;
+}
+
+.toast,
+.toast span {
+  padding: 0.5rem;
+}
+
+.toast button {
+  color: #fff;
+  background: #f00;
+  border-radius: 0.5rem;
+  border: solid 1px #718078
 }
 
 @keyframes toaster {

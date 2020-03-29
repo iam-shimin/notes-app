@@ -54,9 +54,11 @@ export function TodoProvider(props) {
 		}
 		return todo;
 	}));
+
+	const search = (title) => todoData.filter(todo => todo.title.includes(title))
 	
 	return (
-		<TodoContext.Provider value={{ todoData, todoExists, addTodo, deleteTodo, setTodoField }}>
+		<TodoContext.Provider value={{ todoData, todoExists, addTodo, deleteTodo, setTodoField, search }}>
 			{props.children}
 		</TodoContext.Provider>
 	);

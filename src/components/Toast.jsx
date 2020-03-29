@@ -16,5 +16,8 @@ export default function Toast({messageObj, dismissTime, onDismiss}) {
 		return () => clear && clearTimeout(clear);
 	});
 
-	return active && <div className="toast">{messageObj.message}</div>
+	return active && <div className="toast">
+		<span>{messageObj.message}</span>
+		<button onClick={() => onDismiss(messageObj._id)}>Dismiss</button>
+	</div>
 }
