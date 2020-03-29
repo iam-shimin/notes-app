@@ -1,26 +1,20 @@
-import React, {useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 // import TodoItem from './TodoItem';
 import TodoContext from '../context/todoContext';
 import '../styles/list.css';
 
 export default function SideNav(props) {
 	const [contextmenu, setContextmenu] = useState(false);
+	const todos = useContext(TodoContext);
 	return (
 		<React.Fragment>
-			<TodoContext>
-				{context => (
-					<React.Fragment>
-						<aside className="sidenav-left">
-							{TLMenuItems(context.todoData, {show: contextmenu, setContextmenu})}
-						</aside>
-						<AddTodo />
-						<SideNavContextMenu show={contextmenu} />
-					</React.Fragment>
-				)}
-			</TodoContext>
+			<aside className="sidenav-left">
+				{TLMenuItems(todos.todoData, { show: contextmenu, setContextmenu })}
+			</aside>
+			<AddTodo />
+			<SideNavContextMenu show={contextmenu} />
 		</React.Fragment>
-
 	);
 }
 
@@ -48,7 +42,7 @@ function AddTodo(props) {
 
 function SideNavContextMenu(props) {
 	return (
-		<div className={`sidenav-context-menu${props.show? ' active': ''}`}>
+		<div className={`sidenav-context-menu${props.show ? ' active' : ''}`}>
 			<button>Delete</button>
 		</div>
 	)

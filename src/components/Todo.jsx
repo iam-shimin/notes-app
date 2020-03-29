@@ -1,49 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../styles/note.css';
 import TodoContext from '../context/todoContext';
+
 const textareaPlaceholder = `Write notes on:
 * How to achieve the goal
 * Deadlines
 * Who is going to help ?`;
+
 export default function Todo(props) {
 
 	const paramid = props.match.params.id;
 	const [noteId, setNoteId] = useState(parseInt(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
 	const toggleEdit = () => setDisableEdit(!disableEdit);
+	const todos = useContext(TodoContext);
 
 	useEffect(() => setNoteId(parseInt(paramid)), [paramid])
 
+	const data = todos.todoData.find(todo => todo.id === noteId);
 	return (
-		<TodoContext>
-			{context => {
-				const data = context.todoData.find(todo => todo.id === noteId);
-				return (
-					<article>
-						<div>
-							<button onClick={toggleEdit}>Edit</button>
-							<select value={(data && data.priority) || 'low'} onChange={({ target }) => context.setTodoField(noteId, 'priority', target.value)}>
-								<option value="high">High</option>
-								<option value="med">Medium</option>
-								<option value="low">Low</option>
-							</select>
-							<button onClick={e => {
-								context.deleteTodo(noteId);
-								props.history.push('/todos');
-							}}>Delete</button>
-						</div>
-						<TodoMain
-							urlmatch={props.match}
-							noteId={noteId}
-							setNoteId={setNoteId}
-							data={data}
-							context={context}
-							history={props.history}
-							disableEdit={disableEdit} />
-					</article>
-				)
-			}}
-		</TodoContext>
+		<article>
+			<div>
+				<button onClick={toggleEdit}>Edit</button>
+				<select value={(data && data.priority) || 'low'} onChange={({ target }) => todos.setTodoField(noteId, 'priority', target.value)}>
+					<option value="high">High</option>
+					<option value="med">Medium</option>
+					<option value="low">Low</option>
+				</select>
+				<button onClick={e => {
+					todos.deleteTodo(noteId);
+					// Notifications.pushToast(`Note ${noteId} deleted`)
+					props.history.push('/todos');
+				}}>Delete</button>
+			</div>
+			<TodoMain
+				urlmatch={props.match}
+				noteId={noteId}
+				setNoteId={setNoteId}
+				data={data}
+				context={todos}
+				history={props.history}
+				disableEdit={disableEdit} />
+		</article>
 	);
 }
 
@@ -52,7 +50,7 @@ function TodoMain(props) {
 	useEffect(() => {
 		const id = props.urlmatch.params.id;
 		if (id === 'new') {
-			let newid = props.context.addTodo({title: 'Untitled', notes: ''}).id;
+			let newid = props.context.addTodo({ title: 'Untitled', notes: '' }).id;
 			props.setNoteId(newid);
 			props.history.push(`/todos/${newid}`);
 		}

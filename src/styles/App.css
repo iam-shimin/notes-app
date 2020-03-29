@@ -34,23 +34,6 @@ body {
   background: #393838;
 }
 
-.notifications,
-.notifications-toasts {
-  width: 20%;
-  position: fixed;
-  height: 100%;
-}
-
-.notifications {
-  height: 100%;
-  left: 2%;
-}
-.notifications-toasts {
-  bottom: 0;
-  overflow: auto;
-  scrollbar-width: thin;
-}
-
 .toast {
   background: #00f;
   color: #b19999;

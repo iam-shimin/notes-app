@@ -1,22 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, { useContext } from 'react';
 import Toast from './Toast';
+import notificationContext from '../context/notificationContext';
 
 export default function Notifications(props) {
-	const [notifications, setNotifications] = useState([]);
-	const [toasts, setToasts] = useState([]);
-
-	const pushToast = useCallback((message) => {
-		let tmp = toasts;
-		if (toasts.length > 5) {
-			tmp = toasts.slice(1);
-		}
-		setToasts([...tmp, {_id: Date.now(), message}]);
-	});
+	// const [notifications, setNotifications] = useState([]);
+	const notifications = useContext(notificationContext);
+	console.log(notifications);
 
 	return (
 		<div className="notifications">
 			<div className="notifications-toasts">
-				{notifications.map(msg => <Toast key={msg._id} message={msg.message} />)}
+				{notifications.toasts.map(msg => <Toast key={msg._id} message={msg.message} />)}
 			</div>
 		</div>
 	)
