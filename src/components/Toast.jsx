@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Toast({message}) {
+export default function Toast({messageObj, dismissTime, onDismiss}) {
+	const _dismissTime = dismissTime || 3000;
 	const [active, setActive] = useState(true);
 
 	useEffect(function() {
@@ -8,11 +9,12 @@ export default function Toast({message}) {
 		if (active) {
 			clear = setTimeout(function() {
 				setActive(!active);
+				onDismiss && onDismiss(messageObj._id);
 				clearTimeout(clear);
-			}, 3000);
+			}, _dismissTime);
 		}
 		return () => clear && clearTimeout(clear);
 	});
 
-	return active && <div className="toast">{message}</div>
+	return active && <div className="toast">{messageObj.message}</div>
 }

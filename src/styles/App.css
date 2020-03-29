@@ -74,3 +74,9 @@ body {
   padding: 1rem 2rem;
   box-sizing: border-box;
 }
+
+.notifications {
+  position: fixed;
+  bottom: 0;
+  right: 3%;
+}

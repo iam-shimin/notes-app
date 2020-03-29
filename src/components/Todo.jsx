@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../styles/note.css';
 import TodoContext from '../context/todoContext';
+import NotificationContext from '../context/notificationContext';
 
 const textareaPlaceholder = `Write notes on:
 * How to achieve the goal
@@ -12,8 +13,9 @@ export default function Todo(props) {
 	const paramid = props.match.params.id;
 	const [noteId, setNoteId] = useState(parseInt(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
-	const toggleEdit = () => setDisableEdit(!disableEdit);
 	const todos = useContext(TodoContext);
+	const notifications = useContext(NotificationContext);
+	const toggleEdit = () => setDisableEdit(!disableEdit);
 
 	useEffect(() => setNoteId(parseInt(paramid)), [paramid])
 
@@ -29,7 +31,7 @@ export default function Todo(props) {
 				</select>
 				<button onClick={e => {
 					todos.deleteTodo(noteId);
-					// Notifications.pushToast(`Note ${noteId} deleted`)
+					notifications.pushToast(`Note ${noteId} deleted`)
 					props.history.push('/todos');
 				}}>Delete</button>
 			</div>
