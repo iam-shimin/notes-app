@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch, Redirect } from 'react-router';
 import './styles/App.css';
@@ -26,7 +26,7 @@ function App() {
             <article>
               <Switch>
                 <Route path='/todos' component={TodoList} />
-                <Redirect from='/' to='/todos' />
+                <Redirect to='/todos' />
               </Switch>
             </article>
           </main>

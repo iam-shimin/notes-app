@@ -23,12 +23,17 @@ export default function TodoList(props) {
 			<SideNav />
 			<article className="main-notes">
 				<Switch>
-					<Route path="/todos/recent" component={NotImplimented('Test string for recent filter', i)} />
+					<Route path="/todos/recent" component={RecentTodo} />
 					<Route path="/todos/most-checked" component={NotImplimented(testString, i)} />
-					<Route path="/todos/:id?" component={Todo} />
-					<Redirect to="/todos/1" />
+					<Route path="/todos/:id" component={Todo} />
+					<Redirect to="/todos/recent" />
 				</Switch>
 			</article>
 		</React.Fragment>
 	)
+}
+
+function RecentTodo(props) {
+	const todoid = localStorage.getItem('last-viewed');
+	return <Todo todoid={todoid} {...props} />
 }

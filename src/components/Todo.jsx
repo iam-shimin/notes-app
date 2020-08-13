@@ -10,14 +10,17 @@ const textareaPlaceholder = `Write notes on:
 
 export default function Todo(props) {
 
-	const paramid = props.match.params.id;
+	const paramid = props.todoid || props.match.params.id;
 	const [noteId, setNoteId] = useState(parseInt(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
 	const todos = useContext(TodoContext);
 	const notifications = useContext(NotificationContext);
 	const toggleEdit = () => setDisableEdit(!disableEdit);
 
-	useEffect(() => setNoteId(parseInt(paramid)), [paramid])
+	useEffect(() => {
+		setNoteId(parseInt(paramid));
+		localStorage.setItem('last-viewed', paramid);
+	}, [paramid])
 
 	const data = todos.todoData.find(todo => todo.id === noteId);
 	return (
@@ -60,12 +63,16 @@ function TodoMain(props) {
 				<p>The note was either deleted or the url is mispelled.</p>
 			</div>}
 			<hgroup>
-				<h1><input placeholder="What do you need to do ?" value={(props.data && props.data.title) || ''} name="title" onChange={onInputChange} disabled={props.disableEdit} className="edit-note-title" /></h1>
+				<h1><input placeholder="What do you need to do ?" value={(props.data && props.data.title) || ''} onFocus={handleInputFocus} name="title" onChange={onInputChange} disabled={props.disableEdit} className="edit-note-title" /></h1>
 				<h3>static link: {props.urlmatch.params.id}</h3>
 			</hgroup>
 			<textarea placeholder={textareaPlaceholder} value={(props.data && props.data.notes) || ''} name="notes" onChange={onInputChange} disabled={props.disableEdit} className="edit-note-text" />
 		</React.Fragment>
 	);
+
+	function handleInputFocus(event) {
+		event.currentTarget.select();
+	}
 
 	function onInputChange(event) {
 		const { name, value } = event.target;

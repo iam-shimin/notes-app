@@ -20,9 +20,22 @@ export default function SideNav(props) {
 	);
 }
 
+function Test(props) {
+	React.useEffect(() => console.log('mounted'), []);
+	return null;
+}
+
 function TLMenuItems(data, contextmenu, query) {
 	if (data.length) {
-		return data.map(todo => <NavLink to={`/todos/${todo.id}`} onClick={e => contextmenu.show && toggleTodoSelect(e)} onContextMenu={toggleTodoSelect} className="todo-link" key={todo.id}>{todo.title}</NavLink>)
+		return data.map(todo => {
+		const numberOftasksTotal = todo.notes.split('\n').filter(item => item.startsWith('o ') || item.startsWith('* ') || item.startsWith('x ')).length;
+		const numberOftasksDone = todo.notes.split('\n').filter(item => item.startsWith('* ') || item.startsWith('x ')).length;
+		const isComplete = numberOftasksDone === numberOftasksTotal;
+		return <NavLink to={`/todos/${todo.id}`} onClick={e => contextmenu.show && toggleTodoSelect(e)} onContextMenu={toggleTodoSelect} className="todo-link" key={todo.id}>
+			{todo.title} {numberOftasksTotal !== 0? `[${isComplete? 'Done': `${numberOftasksDone}/${numberOftasksTotal}`}]`: null}
+			<Test />
+			</NavLink>
+		})
 	}
 	return (
 		<div className="msg-sidenav-empty">
