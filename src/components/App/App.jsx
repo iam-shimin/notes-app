@@ -1,23 +1,23 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch, Redirect } from 'react-router';
-import './styles/App.css';
-import TodoList from './components/TodoList';
-// import { Provider } from 'react-redux';
-import Notifications from './components/Notifications';
-import { NotificationProvider } from './context/notificationContext';
-import { TodoProvider } from './context/todoContext';
-import AppHeader from './components/AppHeader';
+import { Provider } from 'react-redux';
+
+import 'styles/App.css';
+
+import TodoList from 'components/todoList';
+import Notifications from 'components/notifications';
+import AppHeader from './AppHeader';
+
+import store from 'store';
 
 function App() {
   return (
     <BrowserRouter>
-      <TodoProvider>
-        <NotificationProvider>
+        <Provider store={store}>
           <AppLayout />
           <Notifications />
-        </NotificationProvider>
-      </TodoProvider>
+        </Provider>
     </BrowserRouter>
   );
 }
