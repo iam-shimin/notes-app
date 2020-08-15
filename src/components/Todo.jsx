@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../styles/note.css';
-import TodoContext from '../context/todoContext';
-import NotificationContext from '../context/notificationContext';
+import 'styles/note.css';
+import TodoContext from 'context/todoContext';
+import NotificationContext from 'context/notificationContext';
 
 const textareaPlaceholder = `Write notes on:
 * How to achieve the goal

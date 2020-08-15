@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Toast from './Toast';
-import notificationContext from '../context/notificationContext';
+import notificationContext from 'context/notificationContext';
 
 export default function Notifications(props) {
 	const notifications = useContext(notificationContext);

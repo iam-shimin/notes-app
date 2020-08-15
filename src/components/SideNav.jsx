@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 // import TodoItem from './TodoItem';
-import TodoContext from '../context/todoContext';
-import '../styles/list.css';
+import TodoContext from 'context/todoContext';
+import 'styles/list.css';
 
 export default function SideNav(props) {
 	const [contextmenu, setContextmenu] = useState(false);
