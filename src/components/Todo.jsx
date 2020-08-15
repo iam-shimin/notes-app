@@ -17,12 +17,13 @@ export default function Todo(props) {
 	const notifications = useContext(NotificationContext);
 	const toggleEdit = () => setDisableEdit(!disableEdit);
 
+	const data = todos.todoData.find(todo => todo.id === noteId);
+
 	useEffect(() => {
 		setNoteId(parseInt(paramid));
 		localStorage.setItem('last-viewed', paramid);
 	}, [paramid])
 
-	const data = todos.todoData.find(todo => todo.id === noteId);
 	return (
 		<article>
 			<div>
@@ -53,7 +54,9 @@ export default function Todo(props) {
 function TodoMain(props) {
 
 	useEffect(() => {
-		props.urlmatch.params.id === 'new' && newTodo({title: 'Untitled', notes: ''});
+		if (props.urlmatch.params.id === 'new') {
+			newTodo({title: 'Untitled', notes: ''});
+		}
 	});
 
 	return (
