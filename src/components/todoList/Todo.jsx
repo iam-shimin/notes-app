@@ -12,6 +12,9 @@ function Todo({
 	todoid,
 	todos,
 	match,
+	pushToast,
+	setTodoField,
+	deleteTodo,
 	history
 }) {
 
@@ -23,9 +26,13 @@ function Todo({
 	const data = todos.find(todo => todo.id === noteId);
 
 	function deleteThisTodo() {
+		const thisTodoIndex = todos.findIndex(todo => todo.id === noteId);
+		const prevTodoIndex = thisTodoIndex !== 0 && thisTodoIndex - 1;
+		const prevTodoId = todos[prevTodoIndex]? `/${todos[prevTodoIndex].id}`: '';
+
 		deleteTodo(noteId);
 		pushToast(`Note ${noteId} deleted`)
-		history.push('/todos');
+		history.push(`/todos${prevTodoId}`);
 	}
 
 	useEffect(() => {
