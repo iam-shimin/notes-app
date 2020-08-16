@@ -18,7 +18,9 @@ function TodoContent({
 }) {
 
 	function handleInputFocus(event) {
-		event.currentTarget.select();
+		if (event.currentTarget.value === 'Untitled') {
+			event.currentTarget.select();
+		}
 	}
 
 	function onInputChange(event) {
