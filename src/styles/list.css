@@ -64,3 +64,16 @@
 .sidenav-context-menu.active {
 	transform: scale(1);
 }
+
+@media (max-width: 500px) {
+	.btn-float {
+		z-index: 1000;
+		font-size: 2rem;
+		height: 2rem;
+		width: 2rem;
+	}
+	
+	.btn-float:active {
+		font-size: 2.5rem;
+	}
+}

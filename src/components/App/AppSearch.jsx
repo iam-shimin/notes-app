@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 
 import {queryString} from 'utils/url';
 
-export default function AppSearch() {
+export default function AppSearch({onSearch}) {
 	const history = useHistory();
 	const {search: query, pathname} = useLocation();
 
@@ -13,6 +13,9 @@ export default function AppSearch() {
 			history.push(`${pathname}?q=${query}`);
 		} else {
 			history.push(pathname);
+		}
+		if (onSearch) {
+			onSearch();
 		}
 	}
 

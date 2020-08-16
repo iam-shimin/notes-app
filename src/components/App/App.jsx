@@ -8,6 +8,7 @@ import 'styles/App.css';
 import TodoList from 'components/todoList';
 import Notifications from 'components/notifications';
 import AppHeader from './AppHeader';
+import {SidebarProvider} from 'context/sidebar';
 
 import store from 'store';
 
@@ -25,13 +26,15 @@ function App() {
 function AppLayout() {
   return (
     <main>
-      <AppHeader />
-      <article>
-        <Switch>
-          <Route path='/todos' component={TodoList} />
-          <Redirect to='/todos' />
-        </Switch>
-      </article>
+      <SidebarProvider>
+        <AppHeader />
+        <article>
+          <Switch>
+            <Route path='/todos' component={TodoList} />
+            <Redirect to='/todos' />
+          </Switch>
+        </article>
+      </SidebarProvider>
     </main>
   )
 }

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
-function SideNavItems({ data, contextmenu, query }) {
+function SideNavItems({ data, contextmenu, query, onClick }) {
 	if (data.length) {
 
 		function toggleTodoSelect(event) {
@@ -22,10 +22,22 @@ function SideNavItems({ data, contextmenu, query }) {
 			const isComplete = numberOftasksDone === numberOftasksTotal;
 			const progress = isComplete ? 'Done' : `${numberOftasksDone}/${numberOftasksTotal}`;
 
+			function handleClick(event) {
+
+				if (contextmenu.show) {
+					toggleTodoSelect(event)
+				}
+
+				if (onClick) {
+					onClick();
+				}
+
+			}
+
 			return (
 				<NavLink
 					to={`/todos/${todo.id}`}
-					onClick={e => contextmenu.show && toggleTodoSelect(e)}
+					onClick={handleClick}
 					onContextMenu={toggleTodoSelect}
 					className="todo-link"
 					key={todo.id}>
