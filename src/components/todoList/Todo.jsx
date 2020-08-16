@@ -38,6 +38,7 @@ function Todo({
 	useEffect(() => {
 		setNoteId(parseInt(paramid));
 		localStorage.setItem('last-viewed', paramid);
+		setDisableEdit(true);
 	}, [paramid])
 
 	return (
