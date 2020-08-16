@@ -19,3 +19,20 @@
 	margin-top: 0.4rem;
 	color: #464141;
 }
+
+.todo-controls {
+	border: solid 2px #888;
+	font-size: 0.8rem;
+	border-radius: 4px;
+	background: transparent;
+	height: 25px;
+	margin: 2px;
+}
+
+.todo-controls:hover {
+	background: white;
+}
+
+.todo-controls:active {
+	background: #bbb;
+}

@@ -44,15 +44,16 @@ function Todo({
 	return (
 		<article>
 			<div>
-				<button onClick={toggleEdit}>Edit</button>
+				<button className="todo-controls" onClick={toggleEdit}>Edit</button>
 				<select
+					className="todo-controls"
 					value={data?.priority || 'low'}
 					onChange={({ target }) => setTodoField(noteId, 'priority', target.value)}>
 					<option value="high">High</option>
 					<option value="med">Medium</option>
 					<option value="low">Low</option>
 				</select>
-				<button onClick={deleteThisTodo}>Delete</button>
+				<button className="todo-controls" onClick={deleteThisTodo}>Delete</button>
 			</div>
 			<TodoContent
 				noteId={noteId}
