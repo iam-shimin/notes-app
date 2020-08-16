@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 // import TodoItem from './TodoItem';
 
@@ -16,6 +16,20 @@ export default function SideNav() {
 	const [contextmenu, setContextmenu] = useState(false);
 	const query = queryString(useLocation().search, 'q');
 	const sidebarClass = `sidenav-left${isOpenForMobile? ' open': ''}`
+
+	useEffect(() => {
+		const [sidebar] = document.getElementsByClassName('sidenav-left');
+
+		function handleClickOutside(event) {
+			const isClickOutside = !sidebar.contains(event.target);
+			if (isOpenForMobile && isClickOutside) {
+				toggle(false);
+			}
+		}
+
+		window.addEventListener('click', handleClickOutside);
+		return () => window.removeEventListener('click', handleClickOutside);
+	}, [isOpenForMobile, toggle]);
 	
 	return (
 		<React.Fragment>

@@ -12,8 +12,8 @@ export function SidebarProvider({children}) {
 	const toggle = useMemo(() => ({
 		isOpenForMobile,
 		isMobile,
-		toggle() {
-			setIsOpenForMobile(isOpen => !isOpen);
+		toggle(setvalue = isOpen => !isOpen) {
+			setIsOpenForMobile(setvalue);
 		}
 	}), [isOpenForMobile, isMobile]);
 
