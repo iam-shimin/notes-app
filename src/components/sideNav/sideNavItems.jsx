@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 
 
 function SideNavItems({ data, contextmenu, query, onClick }) {
-	if (data.length) {
+
+	const matchedTodos = data.filter(todo => query === null || todo.title.toLowerCase().includes(query.toLowerCase()));
+
+	if (matchedTodos.length) {
 
 		function toggleTodoSelect(event) {
 			event.preventDefault();
@@ -12,7 +15,7 @@ function SideNavItems({ data, contextmenu, query, onClick }) {
 			event.target.classList.toggle('selected');
 		}
 
-		return data.map(todo => {
+		return matchedTodos.map(todo => {
 
 			const numberOftasksTotal = todo.notes.split('\n').filter(total).length;
 			const numberOftasksDone = todo.notes.split('\n').filter(done).length;
