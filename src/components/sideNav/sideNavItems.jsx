@@ -1,10 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
+import {queryString} from 'utils/url';
 
 
-function SideNavItems({ data, contextmenu, query, onClick }) {
+function SideNavItems({ data, contextmenu, onClick }) {
 
+	const search = useLocation().search;
+	const query = queryString(search, 'q');
+	
 	const matchedTodos = data.filter(todo => (
 		query === null ||
 		todo.title.toLowerCase().includes(query.toLowerCase())
@@ -43,7 +48,7 @@ function SideNavItems({ data, contextmenu, query, onClick }) {
 
 			return (
 				<NavLink
-					to={`/notes/${todo.id}`}
+					to={`/notes/${todo.id}${search}`}
 					onClick={handleClick}
 					onContextMenu={toggleTodoSelect}
 					className="todo-link"
