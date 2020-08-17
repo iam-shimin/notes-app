@@ -8,7 +8,7 @@
 
 .todo-link.active {
 	color: #d7d7d7;
-	background: cadetblue;
+	background: #09a1a7;
 }
 
 .todo-link:hover {
@@ -21,7 +21,7 @@
 }
 
 .todo-link:focus {
-	border: solid 2px #51afb3;
+	background: cadetblue;
   }
 
 .todo-link.selected,

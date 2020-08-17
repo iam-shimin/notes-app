@@ -23,6 +23,18 @@ function SideNavItems({ data, contextmenu, onClick }) {
 			event.target.classList.toggle('selected');
 		}
 
+		function handleClick(event) {
+
+			if (contextmenu.show) {
+				toggleTodoSelect(event)
+			}
+
+			if (onClick) {
+				onClick();
+			}
+
+		}
+
 		return matchedTodos.map(todo => {
 
 			const noteByLines = todo.notes.split('\n');
@@ -33,18 +45,6 @@ function SideNavItems({ data, contextmenu, onClick }) {
 			const hasSubTasks = numberOftasksTotal !== 0;
 			const isComplete = numberOftasksDone === numberOftasksTotal;
 			const progress = isComplete ? 'Done' : `${numberOftasksDone}/${numberOftasksTotal}`;
-
-			function handleClick(event) {
-
-				if (contextmenu.show) {
-					toggleTodoSelect(event)
-				}
-
-				if (onClick) {
-					onClick();
-				}
-
-			}
 
 			return (
 				<NavLink
