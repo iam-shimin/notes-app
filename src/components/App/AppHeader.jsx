@@ -12,8 +12,8 @@ export default function AppHeader() {
 			<AppbarSearch onSearch={!isOpenForMobile && toggle} />
 			<nav className='app-bar-nav'>
 				{isMobile && <HamburgerButton onClick={toggle} />}
-				<NavLink to='/todos/recent' className='app-bar-nav-link'>Recent</NavLink>
-				<NavLink to='/todos/most-checked' className='app-bar-nav-link'>Most Checked</NavLink>
+				<NavLink to='/notes/recent' className='app-bar-nav-link'>Recent</NavLink>
+				<NavLink to='/notes/most-checked' className='app-bar-nav-link'>Most Checked</NavLink>
 			</nav>
 		</header>
 	)

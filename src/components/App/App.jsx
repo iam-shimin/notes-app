@@ -30,8 +30,8 @@ function AppLayout() {
         <AppHeader />
         <article>
           <Switch>
-            <Route path='/todos' component={TodoList} />
-            <Redirect to='/todos' />
+            <Route path='/notes' component={TodoList} />
+            <Redirect to='/notes' />
           </Switch>
         </article>
       </SidebarProvider>

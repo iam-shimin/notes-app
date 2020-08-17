@@ -32,7 +32,7 @@ function Todo({
 
 		deleteTodo(noteId);
 		pushToast(`Note ${noteId} deleted`)
-		history.push(`/todos${prevTodoId}`);
+		history.push(`/notes${prevTodoId}`);
 	}
 
 	useEffect(() => {

@@ -13,11 +13,11 @@ export default function TodoList(props) {
 			<SideNav />
 			<article className="main-notes">
 				<Switch>
-					<Route path="/todos/recent" component={RecentTodo} />
-					<Route path="/todos/most-checked" component={NotImplimented} />
-					<Route path="/todos/new" component={NewTodo} />
-					<Route path="/todos/:id" component={Todo} />
-					<Redirect to="/todos/recent" />
+					<Route path="/notes/recent" component={RecentTodo} />
+					<Route path="/notes/most-checked" component={NotImplimented} />
+					<Route path="/notes/new" component={NewTodo} />
+					<Route path="/notes/:id" component={Todo} />
+					<Redirect to="/notes/recent" />
 				</Switch>
 			</article>
 		</React.Fragment>

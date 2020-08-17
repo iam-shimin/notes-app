@@ -20,6 +20,10 @@
 	background: #51afb3;
 }
 
+.todo-link:focus {
+	border: solid 2px #51afb3;
+  }
+
 .todo-link.selected,
 .todo-link.selected.active {
 	background: #db0f32e6;

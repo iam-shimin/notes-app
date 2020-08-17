@@ -16,7 +16,7 @@ function NewTodo({lastTodoItemId, addTodo}) {
 	}, [addTodo]);
 
 	return (isMounted.current && lastTodoItemId)? // NewTodo is remounted every time the float button is clicked
-		<Redirect to={`/todos/${lastTodoItemId}`} />: null; // redirect unmounts NewTodo component
+		<Redirect to={`/notes/${lastTodoItemId}`} />: null; // redirect unmounts NewTodo component
 }
 
 const mapStateToProps = state => {

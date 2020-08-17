@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 
 function SideNavItems({ data, contextmenu, query, onClick }) {
 
-	const matchedTodos = data.filter(todo => query === null || todo.title.toLowerCase().includes(query.toLowerCase()));
+	const matchedTodos = data.filter(todo => (
+		query === null ||
+		todo.title.toLowerCase().includes(query.toLowerCase())
+	));
 
 	if (matchedTodos.length) {
 
@@ -17,8 +20,9 @@ function SideNavItems({ data, contextmenu, query, onClick }) {
 
 		return matchedTodos.map(todo => {
 
-			const numberOftasksTotal = todo.notes.split('\n').filter(total).length;
-			const numberOftasksDone = todo.notes.split('\n').filter(done).length;
+			const noteByLines = todo.notes.split('\n');
+			const numberOftasksTotal = noteByLines.filter(total).length;
+			const numberOftasksDone = noteByLines.filter(done).length;
 
 			
 			const hasSubTasks = numberOftasksTotal !== 0;
@@ -39,7 +43,7 @@ function SideNavItems({ data, contextmenu, query, onClick }) {
 
 			return (
 				<NavLink
-					to={`/todos/${todo.id}`}
+					to={`/notes/${todo.id}`}
 					onClick={handleClick}
 					onContextMenu={toggleTodoSelect}
 					className="todo-link"
@@ -53,8 +57,8 @@ function SideNavItems({ data, contextmenu, query, onClick }) {
 		<div className="msg-sidenav-empty">
 			{query ?
 				<h2>Nothing matched your search <em style={{ color: '#eee' }}>{query}</em></h2> :
-				<h2>You have nothing on your todolist</h2>}
-			<i>Start editing to add a new todo to the list.</i>
+				<h2>You have nothing on your notes</h2>}
+			<i>Start editing to add a new note to the list.</i>
 		</div>
 	);
 }
