@@ -7,8 +7,9 @@ import rootReducers from 'reducers';
 // 	todos: [],
 // 	prefs: {}
 // }
-
-const initialAppState = {};
+const persistedStoreKey = 'todos';
+const persistedTodos = JSON.parse(localStorage.getItem(persistedStoreKey)) || [];
+const initialAppState = {todos: persistedTodos};
 let combinedEnhancers;
 
 if (window.__REDUX_DEVTOOLS_EXTENSION__) {
@@ -19,5 +20,10 @@ if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 }
 
 const store = createStore(rootReducers, initialAppState, combinedEnhancers);
+
+store.subscribe(() => {
+	const currentStateTodos = store.getState().todos;
+	localStorage.setItem(persistedStoreKey, JSON.stringify(currentStateTodos));
+})
 
 export default store;
