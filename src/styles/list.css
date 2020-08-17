@@ -58,15 +58,30 @@
 }
 
 .sidenav-context-menu {
-	position: fixed;
-	top: 10vh;
-	left: 2vw;
+	position: absolute;
+	top: 1vh;
+	left: calc(var(--sidebar-width) + 5%);
+	z-index: 1000;
 	transform: scale(0);
 	transition: transform 0.3s ease-in;
+	background: rgba(169, 169, 169, 0.39);
+	box-shadow: 1px 5px 10px #ff0000d4;
 }
 
 .sidenav-context-menu.active {
 	transform: scale(1);
+}
+
+.contextmenu-delete-button {
+	color: red;
+	border: solid 2px;
+	font-size: 1.3rem;
+	border-radius: 4px;
+	transition: all 0.2s;
+}
+.contextmenu-delete-button:hover {
+	color: #fff;
+	background: red;;
 }
 
 @media (max-width: 500px) {

@@ -1,3 +1,13 @@
+:root {
+  --sidebar-width: 30%;
+}
+
+@media (max-width: 500px) {
+  :root {
+    --sidebar-width: 65%;
+  }
+}
+
 body {
   cursor: default;
 }
@@ -71,7 +81,7 @@ body {
   position: fixed;
   background: #718078;
   color: cadetblue;
-  width: 30%;
+  width: var(--sidebar-width);
   overflow: auto;
   scrollbar-width: thin;
   /* background: #806565; */
@@ -114,7 +124,6 @@ button.hamburger-button {
 
 @media (max-width: 500px) {
   .sidenav-left {
-    width: 65%;
     height: 100%;
     padding-top: 20px;
     min-height: 50px;

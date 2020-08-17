@@ -11,7 +11,8 @@ export default function SideNav() {
 
 	const {isOpenForMobile, isMobile, toggle} = useContext(SidebarContext);
 	const [selectedOnContextMenu, setSelected] = useState(new Set([]));
-	const sidebarClass = `sidenav-left${isOpenForMobile? ' open': ''}`
+	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
+	const sidebarClass = `sidenav-left${shouldOpenSidebar? ' open': ''}`
 
 	function handleContextMenu(noteId) {
 		const newSet = new Set(selectedOnContextMenu);
@@ -30,15 +31,19 @@ export default function SideNav() {
 		return selectedOnContextMenu.has(noteId);
 	}
 
+	function handelDeleteSelected() {
+		setSelected(new Set([]));
+	}
+
 	useEffect(() => {
 		const [sidebar] = document.getElementsByClassName('sidenav-left');
 
 		function handleClickOutside(event) {
 			const {target} = event;
 			const isClickOutside = !sidebar.contains(target);
-			const isHamburgerButtonClick = target.matches('.hamburger-button, .hamburger-button span');
+			const isAllowedClickOutside = target.matches('.hamburger-button, .hamburger-button span, .contextmenu-delete-button');
 
-			if (isOpenForMobile && !isHamburgerButtonClick && isClickOutside) {
+			if (isOpenForMobile && !isAllowedClickOutside && isClickOutside) {
 				toggle(false);
 			}
 		}
@@ -56,7 +61,7 @@ export default function SideNav() {
 					onClick={isMobile && toggle} />
 			</aside>
 			<FloatButton label="+" />
-			<ContextMenu selectedItems={selectedOnContextMenu} />
+			<ContextMenu selectedItems={selectedOnContextMenu} onDeleted={handelDeleteSelected} />
 		</React.Fragment>
 	);
 }

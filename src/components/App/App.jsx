@@ -28,7 +28,7 @@ function AppLayout() {
     <main>
       <SidebarProvider>
         <AppHeader />
-        <article>
+        <article style={{position: 'relative'}}>
           <Switch>
             <Route path='/notes' component={TodoList} />
             <Redirect to='/notes' />
