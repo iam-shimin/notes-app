@@ -114,16 +114,16 @@ button.hamburger-button {
 
 @media (max-width: 500px) {
   .sidenav-left {
-    width: 100%;
-    height: unset;
+    width: 65%;
+    height: 100%;
     padding-top: 20px;
     min-height: 50px;
-    transform: translateY(100%);
+    transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
 
   .sidenav-left.open {
-    transform: translateY(0%);
+    transform: translateX(0%);
   }
   
   .main-notes {
@@ -132,7 +132,7 @@ button.hamburger-button {
   
   .sidenav-left {
     /* width: 0%; */
-    bottom: 0px;
+    /* bottom: 0px; */
     left: 0px;
     z-index: 1000;
   }
