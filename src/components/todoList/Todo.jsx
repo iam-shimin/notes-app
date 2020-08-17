@@ -30,7 +30,7 @@ function Todo({
 		const prevTodoIndex = thisTodoIndex !== 0 && thisTodoIndex - 1;
 		const prevTodoId = todos[prevTodoIndex]? `/${todos[prevTodoIndex].id}`: '';
 
-		deleteTodo(noteId);
+		deleteTodo([noteId]);
 		pushToast(`Note ${noteId} deleted`)
 		history.push(`/notes${prevTodoId}`);
 	}

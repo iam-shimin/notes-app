@@ -9,7 +9,7 @@ export default function todoReducer(state = initialTodos, action) {
 			return [...state, action.payload];
 
 		case DELETE_TODO:
-			return state.filter(todo => todo.id !== action.payload);
+			return state.filter(todo => !action.payload.includes(todo.id));
 
 		case SET_TODO_FIELD:
 			const {id, field, value} = action.payload;

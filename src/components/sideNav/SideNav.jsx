@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
@@ -10,8 +10,25 @@ import 'styles/list.css';
 export default function SideNav() {
 
 	const {isOpenForMobile, isMobile, toggle} = useContext(SidebarContext);
-	const [contextmenu, setContextmenu] = useState(false);
+	const [selectedOnContextMenu, setSelected] = useState(new Set([]));
 	const sidebarClass = `sidenav-left${isOpenForMobile? ' open': ''}`
+
+	function handleContextMenu(noteId) {
+		const newSet = new Set(selectedOnContextMenu);
+
+		if (selectedOnContextMenu.has(noteId)) {
+			newSet.delete(noteId);
+			setSelected(newSet);
+		} else {
+			newSet.add(noteId);
+		}
+
+		setSelected(newSet);
+	}
+
+	function checkIfContextMenuShowing(noteId) {
+		return selectedOnContextMenu.has(noteId);
+	}
 
 	useEffect(() => {
 		const [sidebar] = document.getElementsByClassName('sidenav-left');
@@ -34,11 +51,12 @@ export default function SideNav() {
 		<React.Fragment>
 			<aside className={sidebarClass}>
 				<SideNavItems
-					contextmenu={{ show: contextmenu, setContextmenu }}
+					checkIfContextMenuShowing={checkIfContextMenuShowing}
+					onContextMenu={handleContextMenu}
 					onClick={isMobile && toggle} />
 			</aside>
 			<FloatButton label="+" />
-			<ContextMenu show={contextmenu} />
+			<ContextMenu selectedItems={selectedOnContextMenu} />
 		</React.Fragment>
 	);
 }

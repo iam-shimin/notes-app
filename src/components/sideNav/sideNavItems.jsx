@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {queryString} from 'utils/url';
 
 
-function SideNavItems({ data, contextmenu, onClick }) {
+function SideNavItems({ data, checkIfContextMenuShowing, onContextMenu, onClick }) {
 
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
@@ -17,24 +17,6 @@ function SideNavItems({ data, contextmenu, onClick }) {
 
 	if (matchedTodos.length) {
 
-		function toggleTodoSelect(event) {
-			event.preventDefault();
-			contextmenu.setContextmenu(!contextmenu.show);
-			event.target.classList.toggle('selected');
-		}
-
-		function handleClick(event) {
-
-			if (contextmenu.show) {
-				toggleTodoSelect(event)
-			}
-
-			if (onClick) {
-				onClick();
-			}
-
-		}
-
 		return matchedTodos.map(todo => {
 
 			const noteByLines = todo.notes.split('\n');
@@ -45,6 +27,24 @@ function SideNavItems({ data, contextmenu, onClick }) {
 			const hasSubTasks = numberOftasksTotal !== 0;
 			const isComplete = numberOftasksDone === numberOftasksTotal;
 			const progress = isComplete ? 'Done' : `${numberOftasksDone}/${numberOftasksTotal}`;
+
+			function toggleTodoSelect(event) {
+				event.preventDefault();
+				onContextMenu(todo.id);
+				event.target.classList.toggle('selected');
+			}
+
+			function handleClick(event) {
+
+				if (checkIfContextMenuShowing(todo.id)) {
+					toggleTodoSelect(event)
+				}
+	
+				if (onClick) {
+					onClick();
+				}
+	
+			}
 
 			return (
 				<NavLink
