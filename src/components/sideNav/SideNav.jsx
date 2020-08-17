@@ -17,8 +17,11 @@ export default function SideNav() {
 		const [sidebar] = document.getElementsByClassName('sidenav-left');
 
 		function handleClickOutside(event) {
-			const isClickOutside = !sidebar.contains(event.target);
-			if (isOpenForMobile && isClickOutside) {
+			const {target} = event;
+			const isClickOutside = !sidebar.contains(target);
+			const isHamburgerButtonClick = target.matches('.hamburger-button, .hamburger-button span');
+
+			if (isOpenForMobile && !isHamburgerButtonClick && isClickOutside) {
 				toggle(false);
 			}
 		}

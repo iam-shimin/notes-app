@@ -20,8 +20,9 @@ export default function AppHeader() {
 }
 
 function HamburgerButton({onClick}) {
+	const toggleSidebar = () => onClick();
 	return (
-		<button className="hamburger-button" onClick={onClick}>
+		<button className="hamburger-button" onClick={toggleSidebar}>
 			<span>|||</span>
 		</button>
 	)
