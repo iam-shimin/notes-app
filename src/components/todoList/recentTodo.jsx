@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Todo from './Todo';
+import {getLastVisited} from 'store/storage';
 
 export default function RecentTodo(props) {
-	const todoid = localStorage.getItem('last-viewed');
-	return <Todo todoid={todoid} {...props} />
+	return <Todo todoid={getLastVisited()} {...props} />
 }

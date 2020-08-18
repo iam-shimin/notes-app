@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import { pushToast } from 'actions/notificationActions';
 import { deleteTodo, setTodoField } from 'actions/todoActions';
+import {increaseCount, setLastVisited} from 'store/storage';
 
 function Todo({
 	todoid,
@@ -37,7 +38,10 @@ function Todo({
 
 	useEffect(() => {
 		setNoteId(parseInt(paramid));
-		localStorage.setItem('last-viewed', paramid);
+		if (paramid) {
+			setLastVisited(paramid);
+			increaseCount(paramid);
+		}
 		setDisableEdit(true);
 	}, [paramid])
 
