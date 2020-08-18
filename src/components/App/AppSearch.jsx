@@ -23,7 +23,7 @@ export default function AppSearch({onSearch}) {
 		type="search"
 		onChange={search}
 		defaultValue={queryString(query, 'q')}
-		placeholder="Search TodoIt ..."
+		placeholder="Search Notes ..."
 		className="app-bar-search-box"
 		autoFocus />
 

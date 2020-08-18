@@ -10,10 +10,10 @@ export function addTodo(todo) {
 	}
 }
 
-export function deleteTodo(id) {
+export function deleteTodo(ids) {
 	return {
 		type: DELETE_TODO,
-		payload: id
+		payload: ids
 	}
 }
 

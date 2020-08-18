@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import { pushToast } from 'actions/notificationActions';
 import { deleteTodo, setTodoField } from 'actions/todoActions';
+import {increaseCount, setLastVisited} from 'utils/storage';
 
 function Todo({
 	todoid,
@@ -30,14 +31,17 @@ function Todo({
 		const prevTodoIndex = thisTodoIndex !== 0 && thisTodoIndex - 1;
 		const prevTodoId = todos[prevTodoIndex]? `/${todos[prevTodoIndex].id}`: '';
 
-		deleteTodo(noteId);
+		deleteTodo([noteId]);
 		pushToast(`Note ${noteId} deleted`)
-		history.push(`/todos${prevTodoId}`);
+		history.push(`/notes${prevTodoId}`);
 	}
 
 	useEffect(() => {
 		setNoteId(parseInt(paramid));
-		localStorage.setItem('last-viewed', paramid);
+		if (paramid) {
+			setLastVisited(paramid);
+			increaseCount(paramid);
+		}
 		setDisableEdit(true);
 	}, [paramid])
 

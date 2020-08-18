@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
@@ -9,10 +9,14 @@ import TodoList from 'components/todoList';
 import Notifications from 'components/notifications';
 import AppHeader from './AppHeader';
 import {SidebarProvider} from 'context/sidebar';
+import {initVisitCounters} from 'utils/storage';
 
 import store from 'store';
 
 function App() {
+
+  useEffect(initVisitCounters, []);
+
   return (
     <BrowserRouter>
         <Provider store={store}>
@@ -28,10 +32,10 @@ function AppLayout() {
     <main>
       <SidebarProvider>
         <AppHeader />
-        <article>
+        <article style={{position: 'relative'}}>
           <Switch>
-            <Route path='/todos' component={TodoList} />
-            <Redirect to='/todos' />
+            <Route path='/notes' component={TodoList} />
+            <Redirect to='/notes' />
           </Switch>
         </article>
       </SidebarProvider>
