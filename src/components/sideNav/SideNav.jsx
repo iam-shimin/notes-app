@@ -27,10 +27,6 @@ export default function SideNav() {
 		setSelected(newSet);
 	}
 
-	function checkIfContextMenuShowing(noteId) {
-		return selectedOnContextMenu.has(noteId);
-	}
-
 	function handelDeleteSelected() {
 		setSelected(new Set([]));
 	}
@@ -56,7 +52,7 @@ export default function SideNav() {
 		<React.Fragment>
 			<aside className={sidebarClass}>
 				<SideNavItems
-					checkIfContextMenuShowing={checkIfContextMenuShowing}
+					isSelectionModeOn={selectedOnContextMenu.size > 0}
 					onContextMenu={handleContextMenu}
 					onClick={isMobile && toggle} />
 			</aside>

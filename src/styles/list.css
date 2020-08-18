@@ -21,7 +21,7 @@
 }
 
 .todo-link:focus {
-	background: cadetblue;
+	background: #c6c3c3;
   }
 
 .todo-link.selected,

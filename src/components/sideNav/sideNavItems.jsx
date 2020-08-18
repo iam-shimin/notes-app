@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {queryString} from 'utils/url';
 
 
-function SideNavItems({ data, checkIfContextMenuShowing, onContextMenu, onClick }) {
+function SideNavItems({ data, isSelectionModeOn, onContextMenu, onClick }) {
 
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
@@ -36,7 +36,7 @@ function SideNavItems({ data, checkIfContextMenuShowing, onContextMenu, onClick 
 
 			function handleClick(event) {
 
-				if (checkIfContextMenuShowing(todo.id)) {
+				if (isSelectionModeOn) {
 					toggleTodoSelect(event)
 				}
 	

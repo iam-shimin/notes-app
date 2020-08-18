@@ -45,7 +45,7 @@ body {
 }
 
 .toast {
-  background: #00f;
+  background: #282831;
   color: #b19999;
   border: solid 1px #000;
   height: 3rem;
@@ -63,8 +63,9 @@ body {
 .toast button {
   color: #fff;
   background: #f00;
-  border-radius: 0.5rem;
-  border: solid 1px #718078
+  /* border-radius: 0.5rem; */
+  border: solid 1px #718078;
+  cursor: pointer;
 }
 
 @keyframes toaster {
