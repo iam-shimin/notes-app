@@ -1,9 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import App from './App';
+import './matchMedia.mock';
+import App from '../App';
 
 test('App crash test', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/ /i);
+  const linkElement = getByText(/Recent/i);
   expect(linkElement).toBeInTheDocument();
 });
