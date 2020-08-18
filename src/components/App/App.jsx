@@ -9,7 +9,7 @@ import TodoList from 'components/todoList';
 import Notifications from 'components/notifications';
 import AppHeader from './AppHeader';
 import {SidebarProvider} from 'context/sidebar';
-import {initVisitCounters} from 'store/storage';
+import {initVisitCounters} from 'utils/storage';
 
 import store from 'store';
 

@@ -6,7 +6,7 @@
 	color: #ddd;
 }
 
-.todo-link.active {
+.todo-link.active,  .todo-link.active:focus{
 	color: #d7d7d7;
 	background: #09a1a7;
 }
@@ -63,7 +63,7 @@
 	left: calc(var(--sidebar-width) + 5%);
 	z-index: 1000;
 	transform: scale(0);
-	transition: transform 0.3s ease-in;
+	transition: transform 0.1s ease-in;
 	background: rgba(169, 169, 169, 0.39);
 	box-shadow: 1px 5px 10px #ff0000d4;
 }

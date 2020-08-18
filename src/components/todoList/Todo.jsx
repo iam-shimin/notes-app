@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import { pushToast } from 'actions/notificationActions';
 import { deleteTodo, setTodoField } from 'actions/todoActions';
-import {increaseCount, setLastVisited} from 'store/storage';
+import {increaseCount, setLastVisited} from 'utils/storage';
 
 function Todo({
 	todoid,

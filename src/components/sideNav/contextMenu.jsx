@@ -12,7 +12,7 @@ function SideNavContextMenu({selectedItems = null, deleteTodo, onDeleted}) {
 	}
 	return (
 		<div className={`sidenav-context-menu${show > 0 ? ' active' : ''}`}>
-			<button className="contextmenu-delete-button" onClick={deleteSelected}>Delete</button>
+			<button className="contextmenu-delete-button" onClick={deleteSelected}>Delete{show? ` (${selectedItems.size})`: ''}</button>
 		</div>
 	)
 }
