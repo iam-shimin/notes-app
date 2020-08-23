@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { setTodoField } from 'actions/todoActions';
 
-const textareaPlaceholder =
+export const textareaPlaceholder =
 `Write notes on:
  * How to achieve the goal
  * Deadlines
@@ -55,8 +55,8 @@ function TodoContent({
 
 			<textarea
 				name="notes"
-				placeholder={textareaPlaceholder}
-				value={data?.notes || ''}
+				placeholder={'textareaPlaceholder'}
+				value={data?.notes}
 				disabled={disableEdit}
 				className="edit-note-text"
 				onChange={onInputChange} />
