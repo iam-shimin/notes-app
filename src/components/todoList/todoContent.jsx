@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 
 import { setTodoField } from 'actions/todoActions';
 
-export const textareaPlaceholder =
+const titlePlaceholder = "What do you need to do ?";
+const textareaPlaceholder =
 `Write notes on:
  * How to achieve the goal
  * Deadlines
  * Who is going to help ?`;
 
-function TodoContent({
+export function TodoContent({
 	noteId,
 	data,
 	disableEdit,
@@ -41,25 +42,29 @@ function TodoContent({
 
 			<hgroup>
 				<h1>
-					<input
-						name="title"
-						placeholder="What do you need to do ?"
-						value={data?.title}
-						disabled={disableEdit}
-						className="edit-note-title"
-						onFocus={handleInputFocus}
-						onChange={onInputChange} />
+					<label>Title:
+						<input
+							name="title"
+							placeholder={titlePlaceholder}
+							value={data?.title}
+							disabled={disableEdit}
+							className="edit-note-title"
+							onFocus={handleInputFocus}
+							onChange={onInputChange} />
+					</label>
 				</h1>
 				<h3>static link: {noteId}</h3>
 			</hgroup>
 
-			<textarea
-				name="notes"
-				placeholder={'textareaPlaceholder'}
-				value={data?.notes}
-				disabled={disableEdit}
-				className="edit-note-text"
-				onChange={onInputChange} />
+			<label>Note Content:
+				<textarea
+					name="notes"
+					placeholder={textareaPlaceholder}
+					value={data?.notes}
+					disabled={disableEdit}
+					className="edit-note-text"
+					onChange={onInputChange} />
+			</label>
 		</React.Fragment>
 	);
 }
