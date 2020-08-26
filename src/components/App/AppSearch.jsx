@@ -5,7 +5,7 @@ import {queryString} from 'utils/url';
 
 export default function AppSearch({onSearch}) {
 	const history = useHistory();
-	const {search: query, pathname} = useLocation();
+	const {search: query, pathname = ''} = useLocation();
 
 	function search(event) {
 		const query = event.target.value;
