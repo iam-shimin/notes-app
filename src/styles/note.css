@@ -36,3 +36,8 @@
 .todo-controls:active {
 	background: #bbb;
 }
+
+label {
+	display: flex;
+	flex-direction: column;
+}
