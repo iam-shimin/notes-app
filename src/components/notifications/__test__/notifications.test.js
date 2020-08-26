@@ -3,7 +3,7 @@ import {render, waitFor} from '@testing-library/react';
 
 import {Notifications} from '../notifications';
 
-const sample = [
+export const sample = [
 	{_id: 1, message: 'Test'},
 	{_id: 2, message: 'Test2'}
 ];
