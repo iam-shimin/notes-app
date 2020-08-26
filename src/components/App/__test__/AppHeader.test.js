@@ -27,7 +27,7 @@ describe('AppHeader', () => {
 	});
 })
 
-function matchedQuery(matches) {
+export function matchedQuery(matches) {
 	return query => ({
 		matches,
 		media: query,
