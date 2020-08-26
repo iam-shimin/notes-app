@@ -17,13 +17,12 @@ describe('AppHeader', () => {
 		expect(hamburger).toBeInTheDocument();
 	});
 
-	test.skip('desktop behaviour works', () => {
+	test('desktop behaviour works', () => {
 		// TypeError: MutationObserver is not a constructor
 		window.matchMedia.mockImplementationOnce(matchedQuery(false));
 
-		const { findByText } = renderAppHeader();
-		const hamburger = findByText('|||');
-
+		const { queryByText } = renderAppHeader();
+		const hamburger = queryByText('|||');
 		expect(hamburger).not.toBeInTheDocument();
 	});
 })
