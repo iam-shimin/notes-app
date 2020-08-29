@@ -4,7 +4,7 @@ import {MemoryRouter, Router} from 'react-router';
 import {createMemoryHistory} from 'history';
 
 import {SideNavItems} from '../sideNavItems';
-import {todos} from './sideNav.test';
+import todos from 'components/todoList/__test__/todos';
 
 describe('SideNavItems', () => {
 

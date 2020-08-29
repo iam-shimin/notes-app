@@ -36,12 +36,16 @@ export function getMostVisited() {
 	let maxId = null;
 	let maxValue = 0;
 	const visitFrequency = JSON.parse(localStorage.getItem(frequncyCountKey));
-	Object.keys(visitFrequency).forEach(id => {
-		if (maxValue < visitFrequency[id]) {
-			maxValue = visitFrequency[id]
-			maxId = id;
-		}
-	});
+
+	if (visitFrequency !== null) {
+		Object.keys(visitFrequency).forEach(id => {
+			if (maxValue < visitFrequency[id]) {
+				maxValue = visitFrequency[id]
+				maxId = id;
+			}
+		});
+	}
+	
 	return maxId;
 }
 
