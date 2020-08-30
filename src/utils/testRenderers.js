@@ -17,6 +17,13 @@ export function renderWithStore(component) {
 	);
 }
 
+export function renderWithRouter(component) {
+	const wrap = render(<Router history={dummyHistory}>{component}</Router>);
+	const rerender = component => wrap.rerender(<Router history={dummyHistory}>{component}</Router>)
+	return {...wrap, history: dummyHistory, rerender}
+}
+
 export default function renderWithStoreAndRouter(component) {
-	return renderWithStore(<Router history={dummyHistory}>{component}</Router>)
+	const wrap = render(<Router history={dummyHistory}>{component}</Router>);
+	return {...wrap, history: dummyHistory}
 }

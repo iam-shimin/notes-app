@@ -4,7 +4,7 @@ import {Redirect} from 'react-router'
 
 import { addTodo } from 'actions/todoActions';
 
-function NewTodo({lastTodoItemId, addTodo}) {
+export function NewTodo({lastTodoItemId, addTodo}) {
 
 	const isMounted = useRef(false);
 
