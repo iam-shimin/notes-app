@@ -10,7 +10,6 @@ export const sample = [
 
 describe('Notifications', () => {
 	test('render notification toasts list', () => {
-		// jest.useFakeTimers();
 		const {getAllByRole} = render(<Notifications notifications={sample} />);
 		const buttons = getAllByRole('button', {name: /Dismiss/});
 
@@ -20,12 +19,12 @@ describe('Notifications', () => {
 	test('dismiss is called automatically', async () => {
 		jest.useFakeTimers();
 		const callback = jest.fn();
-		const {getAllByRole} = render(<Notifications notifications={sample} dismissToast={callback} />);
-		const buttons = getAllByRole('button', {name: /Dismiss/});
-		jest.runAllTimers();
-
+		const { queryAllByRole } = render(<Notifications notifications={sample} dismissToast={callback} />);
+		
 		await waitFor(() => {
-			expect(callback).toHaveBeenCalledTimes(buttons.length);
+			jest.runAllTimers();
+			expect(queryAllByRole('button', {name: /Dismiss/}).length).toBe(0);
 		});
+		expect(callback).toHaveBeenCalledTimes(sample.length);
 	})
 })

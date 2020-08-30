@@ -17,6 +17,6 @@ describe('Toast', () => {
 		const dismissButton = getByRole('button', {name: /Dismiss/});
 		userEvent.click(dismissButton);
 
-		expect(callback).toHaveBeenCalledWith(sample[0]._id);
+		expect(dismissButton).not.toBeInTheDocument();
 	})
 })
