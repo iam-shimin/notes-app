@@ -9,7 +9,7 @@ import { pushToast } from 'actions/notificationActions';
 import { deleteTodo, setTodoField } from 'actions/todoActions';
 import {increaseCount, setLastVisited} from 'utils/storage';
 
-function Todo({
+export function Todo({
 	todoid,
 	todos,
 	match,
