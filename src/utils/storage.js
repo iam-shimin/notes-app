@@ -1,46 +1,57 @@
-const persistedStoreKey = 'todos';
-const frequncyCountKey = 'visits';
-const lastVisitedKey = 'last-viewed';
+const storeKey = 'todos';
+const fqCountKey = 'visits';
+const lastVdKey = 'last-viewed';
 
+
+const get = key => localStorage.getItem(key);
+const set = (key, value) => localStorage.setItem(key, value);
 
 // NOTES
 export function loadTodos() {
-	return JSON.parse(localStorage.getItem(persistedStoreKey)) || [];
+	return JSON.parse(get(storeKey)) || [];
 }
 
-export function persistTodos(currentStateTodos) {
-	localStorage.setItem(persistedStoreKey, JSON.stringify(currentStateTodos));
+export function persistTodos(todos) {
+	set(storeKey, JSON.stringify(todos));
 }
 
 
 // VISIT COUNTERS
+function getFq(fallback = {}) {
+	return JSON.parse(get(fqCountKey)) || fallback;
+}
+
+function setFq(value) {
+	set(fqCountKey, JSON.stringify(value));
+}
+
 export function initVisitCounters() {
 	let newCount = {};
-	const visitFrequency = JSON.parse(localStorage.getItem(frequncyCountKey)) || {};
+	const vistFq = getFq();
 	const persistedTodos = loadTodos();
 
 	persistedTodos.forEach(todo => {
-		newCount[todo.id] = visitFrequency[todo.id] || 1;
+		newCount[todo.id] = vistFq[todo.id] || 1;
 	});
 
-	localStorage.setItem(frequncyCountKey, JSON.stringify(newCount));
+	setFq(newCount);
 }
 
 export function increaseCount(noteId) {
-	const visitFrequency = JSON.parse(localStorage.getItem(frequncyCountKey));
-	visitFrequency[noteId] += 1;
-	localStorage.setItem(frequncyCountKey, JSON.stringify(visitFrequency));
+	const vistFq = getFq();
+	vistFq[noteId] += 1;
+	setFq(vistFq);
 }
 
 export function getMostVisited() {
 	let maxId = null;
 	let maxValue = 0;
-	const visitFrequency = JSON.parse(localStorage.getItem(frequncyCountKey));
+	const vistFq = getFq();
 
-	if (visitFrequency !== null) {
-		Object.keys(visitFrequency).forEach(id => {
-			if (maxValue < visitFrequency[id]) {
-				maxValue = visitFrequency[id]
+	if (vistFq !== null) {
+		Object.keys(vistFq).forEach(id => {
+			if (maxValue < vistFq[id]) {
+				maxValue = vistFq[id]
 				maxId = id;
 			}
 		});
@@ -52,9 +63,9 @@ export function getMostVisited() {
 
 // LAST VISITED
 export function setLastVisited(id) {
-	localStorage.setItem(lastVisitedKey, id);
+	set(lastVdKey, id);
 }
 
 export function getLastVisited() {
-	return localStorage.getItem(lastVisitedKey)
+	return get(lastVdKey)
 }
