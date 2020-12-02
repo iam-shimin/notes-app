@@ -15,3 +15,5 @@ export const sampleTodos = [{
 }];
 
 export const visitFQWithFirstIncrd = { ...sampleVisitFrequency, [id_a]: 76 };
+
+export const maxViewId = id_a;

@@ -1,5 +1,10 @@
 import * as storage from '../storage';
-import { sampleTodos, sampleVisitFrequency, visitFQWithFirstIncrd } from 'utils/__mocks__/dummyData';
+import {
+	sampleTodos,
+	sampleVisitFrequency,
+	visitFQWithFirstIncrd,
+	maxViewId
+} from 'utils/__mocks__/dummyData';
 
 jest.unmock('utils/storage');
 
@@ -47,5 +52,10 @@ describe('utils/storage', () => {
 		expect(window.localStorage.setItem).toBeCalledWith(visits, JSON.stringify(visitFQWithFirstIncrd));
 	});
 
-	test.skip('getMostVisited', () => {});
+	test('getMostVisited', () => {
+		window.localStorage.getItem.mockReturnValue(visitFqStr);
+		const maxid = storage.getMostVisited();
+
+		expect(maxid).toBe(String(maxViewId));
+	});
 });
