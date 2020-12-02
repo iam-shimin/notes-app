@@ -1,14 +1,17 @@
-export const sampleVisitFrequency = { 1597731883759: 75, 1599332969029: 7 };
+const id_a = 1597731883759;
+const id_b = 1599332969029;
+
+export const sampleVisitFrequency = { [id_a]: 75, [id_b]: 7 };
 
 export const sampleTodos = [{
-	id: 1597731883759,
+	id: id_a,
 	notes: "",
 	priority: "med",
 	title: "code FE"
 }, {
-	id: 1599332969029,
+	id: id_b,
 	notes: "",
 	title: "applemnbn"
 }];
 
-export const expectedResult = { 1597731883759: 75, 1599332969029: 8 };
+export const visitFQWithFirstIncrd = { ...sampleVisitFrequency, [id_a]: 76 };
