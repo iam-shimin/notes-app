@@ -8,8 +8,12 @@ import {
 
 jest.unmock('utils/storage');
 
-let expectedForEmpty = {};
-Object.keys(sampleVisitFrequency).forEach(key => expectedForEmpty[key] = 1);
+const expectedForEmpty = Object
+	.keys(sampleVisitFrequency)
+	.reduce((acc, key) => {
+		acc[key] = 1;
+		return acc;
+	}, {});
 
 Object.defineProperty(window, 'localStorage', {
 	value: {
