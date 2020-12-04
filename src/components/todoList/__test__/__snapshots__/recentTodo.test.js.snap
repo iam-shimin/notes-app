@@ -43,12 +43,12 @@ exports[`mostvisited 1`] = `
             disabled=""
             name="title"
             placeholder="What do you need to do ?"
-            value="bbb"
+            value="application"
           />
         </label>
       </h1>
       <h3>
-        static link: 2
+        static link: 3
       </h3>
     </hgroup>
     <label>
@@ -62,7 +62,7 @@ exports[`mostvisited 1`] = `
  * Deadlines
  * Who is going to help ?"
       >
-        lorem
+        this is fine
       </textarea>
     </label>
   </article>
