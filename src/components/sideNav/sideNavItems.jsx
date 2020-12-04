@@ -3,12 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
 import {queryString} from 'utils/url';
+import lastOf from 'utils/array';
+import { getMostVisited } from 'utils/storage';
 
 
-export function SideNavItems({ data, isSelectionModeOn, onContextMenu, onClick }) {
+export function SideNavItems({ data, isSelectionModeOn, recentTodo, onContextMenu, onClick }) {
 
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
+	const mostCheckedTodo = getMostVisited();
 	
 	const matchedTodos = data.filter(todo => (
 		query === null ||
@@ -35,20 +38,28 @@ export function SideNavItems({ data, isSelectionModeOn, onContextMenu, onClick }
 			}
 
 			function handleClick(event) {
-
 				if (isSelectionModeOn) {
 					toggleTodoSelect(event)
 				}
-	
 				if (onClick) {
 					onClick();
 				}
-	
+			}
+
+			function handleActiveLink(match, location) {
+				const isRecentTodo = recentTodo.id === todo.id;
+				const isMostViewedTodo = mostCheckedTodo === String(todo.id);
+				const shouldShowMostViewed = location.pathname.includes('most-checked');
+				const shouldShowRecentTodo = location.pathname.includes('recent');
+				const isRecentMatch = shouldShowRecentTodo && isRecentTodo;
+				const isMostViewMatch = shouldShowMostViewed && isMostViewedTodo;
+				return match || isRecentMatch || isMostViewMatch;
 			}
 
 			return (
 				<NavLink
 					to={`/notes/${todo.id}${search}`}
+					isActive={handleActiveLink}
 					onClick={handleClick}
 					onContextMenu={toggleTodoSelect}
 					className="todo-link"
@@ -81,7 +92,8 @@ function done(item) {
 }
 
 const mapStateToProps = state => ({
-	data: state.todos
+	data: state.todos,
+	recentTodo: lastOf(state.todos)
 })
 
 export default connect(mapStateToProps)(SideNavItems)
