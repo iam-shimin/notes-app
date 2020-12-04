@@ -4,7 +4,7 @@ import {Redirect} from 'react-router'
 
 import { addTodo } from 'actions/todoActions';
 
-function NewTodo({lastTodoItemId, addTodo}) {
+export function NewTodo({lastTodoItemId, addTodo}) {
 
 	const isMounted = useRef(false);
 
@@ -15,6 +15,7 @@ function NewTodo({lastTodoItemId, addTodo}) {
 		}
 	}, [addTodo]);
 
+	// expects the new todo to be the last one on store
 	return (isMounted.current && lastTodoItemId)? // NewTodo is remounted every time the float button is clicked
 		<Redirect to={`/notes/${lastTodoItemId}`} />: null; // redirect unmounts NewTodo component
 }

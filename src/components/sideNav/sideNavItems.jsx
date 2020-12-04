@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {queryString} from 'utils/url';
 
 
-function SideNavItems({ data, isSelectionModeOn, onContextMenu, onClick }) {
+export function SideNavItems({ data, isSelectionModeOn, onContextMenu, onClick }) {
 
 	const search = useLocation().search;
 	const query = queryString(search, 'q');

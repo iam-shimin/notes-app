@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { dismissToast } from 'actions/notificationActions';
 
-function Notifications({notifications, dismissToast}) {
+export function Notifications({notifications, dismissToast}) {
 
 	const activeCssClass = notifications.length > 0? ' active': '';
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {deleteTodo} from 'actions/todoActions';
 
-function SideNavContextMenu({selectedItems = null, deleteTodo, onDeleted}) {
+export function SideNavContextMenu({selectedItems = null, deleteTodo, onDeleted}) {
 	const show = selectedItems.size > 0;
 
 	function deleteSelected() {
