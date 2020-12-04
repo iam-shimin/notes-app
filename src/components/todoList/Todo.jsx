@@ -47,7 +47,7 @@ export function Todo({
 	return (
 		<>
 			<div>
-				<button className="todo-controls" onClick={toggleEdit}>Edit</button>
+				<button className="todo-controls" onClick={toggleEdit}>{disableEdit? 'Edit': 'Save'}</button>
 				<select
 					className="todo-controls"
 					value={data?.priority || 'low'}
