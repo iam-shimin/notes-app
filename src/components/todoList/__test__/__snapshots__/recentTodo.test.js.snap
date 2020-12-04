@@ -34,23 +34,16 @@ exports[`mostvisited 1`] = `
         Delete
       </button>
     </div>
-    <hgroup>
-      <h1>
-        <label>
-          Title:
-          <input
-            class="edit-note-title"
-            disabled=""
-            name="title"
-            placeholder="What do you need to do ?"
-            value="application"
-          />
-        </label>
-      </h1>
-      <h3>
-        static link: 3
-      </h3>
-    </hgroup>
+    <label>
+      Title:
+      <input
+        class="edit-note-title"
+        disabled=""
+        name="title"
+        placeholder="What do you need to do ?"
+        value="application"
+      />
+    </label>
     <label>
       Note Content:
       <textarea
