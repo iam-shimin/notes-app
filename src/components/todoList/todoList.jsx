@@ -1,4 +1,4 @@
-import React, { /* createContext */ } from 'react';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -13,10 +13,11 @@ function TodoListRedirect({hasTodos}) {
 	return <Redirect to={redirectionURL} />;
 }
 
-const mapStateToProps = state => {hasTodos: state.todos.length !== 0}
+const mapStateToProps = state => ({hasTodos: state.todos.length !== 0});
+
 const LandingTodoRedirect = connect(mapStateToProps)(TodoListRedirect);
 
-export default function TodoList(props) {
+export default function TodoList() {
 	return (
 		<React.Fragment>
 			<SideNav />
