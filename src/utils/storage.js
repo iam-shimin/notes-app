@@ -1,7 +1,5 @@
 const storeKey = 'todos';
 const fqCountKey = 'visits';
-const lastVdKey = 'last-viewed';
-
 
 const get = key => localStorage.getItem(key);
 const set = (key, value) => localStorage.setItem(key, value);
@@ -58,14 +56,4 @@ export function getMostVisited() {
 	}
 	
 	return maxId;
-}
-
-
-// LAST VISITED
-export function setLastVisited(id) {
-	set(lastVdKey, id);
-}
-
-export function getLastVisited() {
-	return get(lastVdKey)
 }
