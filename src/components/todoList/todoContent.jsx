@@ -40,21 +40,16 @@ export function TodoContent({
 				</div>
 			)}
 
-			<hgroup>
-				<h1>
-					<label>Title:
-						<input
-							name="title"
-							placeholder={titlePlaceholder}
-							value={data?.title}
-							disabled={disableEdit}
-							className="edit-note-title"
-							onFocus={handleInputFocus}
-							onChange={onInputChange} />
-					</label>
-				</h1>
-				<h3>static link: {noteId}</h3>
-			</hgroup>
+			<label>Title:
+				<input
+					name="title"
+					placeholder={titlePlaceholder}
+					value={data?.title}
+					disabled={disableEdit}
+					className="edit-note-title"
+					onFocus={handleInputFocus}
+					onChange={onInputChange} />
+			</label>
 
 			<label>Note Content:
 				<textarea
