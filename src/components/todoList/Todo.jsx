@@ -45,7 +45,7 @@ export function Todo({
 	}, [paramid])
 
 	return (
-		<article>
+		<>
 			<div>
 				<button className="todo-controls" onClick={toggleEdit}>Edit</button>
 				<select
@@ -62,7 +62,7 @@ export function Todo({
 				noteId={noteId}
 				data={data}
 				disableEdit={disableEdit} />
-		</article>
+		</>
 	);
 }
 
