@@ -5,9 +5,17 @@ import { useLocation } from 'react-router';
 import {queryString} from 'utils/url';
 import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
+import { total, done } from 'utils/todos';
 
+// TODO: scroll to the selected item in the sidebar
 
-export default function SideNavItems({ data, isSelectionModeOn, selectedItemsSet, onContextMenu, onClick }) {
+export default function SideNavItems({
+	data,
+	isSelectionModeOn,
+	selectedItemsSet,
+	onContextMenu,
+	onClick
+}) {
 
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
@@ -36,7 +44,6 @@ export default function SideNavItems({ data, isSelectionModeOn, selectedItemsSet
 			function toggleTodoSelect(event) {
 				event.preventDefault();
 				onContextMenu(todo.id);
-				// event.target.classList.toggle('selected');
 			}
 
 			function handleClick(event) {
@@ -79,16 +86,4 @@ export default function SideNavItems({ data, isSelectionModeOn, selectedItemsSet
 			<i>Start editing to add a new note to the list.</i>
 		</div>
 	);
-}
-
-function total(item) {
-	return (
-		item.startsWith('o ') ||
-		item.startsWith('* ') ||
-		item.startsWith('x ')
-	)
-}
-
-function done(item) {
-	return item.startsWith('* ') || item.startsWith('x ');
 }
