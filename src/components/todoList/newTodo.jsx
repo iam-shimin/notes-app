@@ -4,12 +4,12 @@ import {Redirect} from 'react-router'
 
 import { addTodo } from 'actions/todoActions';
 
-export function NewTodo({lastTodoItemId, addTodo}) {
+export function NewTodo({lastTodoItemId, totalCount, addTodo}) {
 
 	const isMounted = useRef(false);
 
 	useEffect(() => {
-		addTodo({title: 'Untitled', notes: ''});
+		addTodo({title: `Untitled ${totalCount + 1}`, notes: ''});
 		if (isMounted.current === false) {
 			isMounted.current = true;
 		}
@@ -22,7 +22,11 @@ export function NewTodo({lastTodoItemId, addTodo}) {
 
 const mapStateToProps = state => {
 	const todos = state.todos;
-	return {lastTodoItemId: todos[todos.length - 1]?.id}
+	const totalCount = state.todos.length;
+	return {
+		totalCount,
+		lastTodoItemId: todos[todos.length - 1]?.id
+	};
 }
 
 const mapDispatchToProps = {
