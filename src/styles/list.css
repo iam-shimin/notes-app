@@ -66,6 +66,7 @@
 	transition: transform 0.1s ease-in;
 	background: rgba(169, 169, 169, 0.39);
 	box-shadow: 1px 5px 10px #ff0000d4;
+	margin-right: 0.5em;
 }
 
 .sidenav-context-menu.active {
@@ -98,5 +99,11 @@
 	
 	.btn-float:active {
 		font-size: 2.5rem;
+	}
+}
+
+@media (max-width: 540px) {
+	.cxmenu-btn {
+		width: 100%;
 	}
 }
