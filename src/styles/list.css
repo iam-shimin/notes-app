@@ -10,7 +10,8 @@
 	margin-bottom: 2em;
 }
 
-.todo-link.active,  .todo-link.active:focus{
+.todo-link.active,
+.todo-link.active:focus {
 	color: #d7d7d7;
 	background: #09a1a7;
 }
@@ -27,7 +28,7 @@
 .todo-link:focus {
 	background: #c6c3c3;
 	outline: solid 2px #000;
-  }
+}
 
 .todo-link.selected,
 .todo-link.selected.active {
@@ -55,7 +56,7 @@
 }
 
 .msg-sidenav-empty {
-    padding: 1rem 2.5rem;
+	padding: 1rem 2.5rem;
 }
 
 .msg-sidenav-empty i {
@@ -78,8 +79,18 @@
 	transform: scale(1);
 }
 
+.btn {
+	text-decoration: none;
+	background: rgb(240, 240, 240);
+	color: #000;
+	display: inline-block;
+	box-sizing: border-box;
+	text-align: center;
+}
+
 .cxmenu-btn {
 	border: solid 2px;
+	margin: 0.1em;
 	font-size: 1.3rem;
 	border-radius: 4px;
 	transition: all 0.2s;
@@ -91,7 +102,7 @@
 
 .cxmenu-btn-del:hover {
 	color: #fff;
-	background: red;;
+	background: red;
 }
 
 @media (max-width: 500px) {
@@ -101,14 +112,17 @@
 		height: 2rem;
 		width: 2rem;
 	}
-	
+
 	.btn-float:active {
 		font-size: 2.5rem;
 	}
 }
 
-@media (max-width: 540px) {
+@media (max-width: 770px) {
 	.cxmenu-btn {
 		width: 100%;
+	}
+	.sidenav-context-menu {
+		max-width: 300px;
 	}
 }
