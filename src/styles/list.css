@@ -6,6 +6,10 @@
 	color: #ddd;
 }
 
+.todo-link:last-child {
+	margin-bottom: 2em;
+}
+
 .todo-link.active,  .todo-link.active:focus{
 	color: #d7d7d7;
 	background: #09a1a7;
@@ -22,6 +26,7 @@
 
 .todo-link:focus {
 	background: #c6c3c3;
+	outline: solid 2px #000;
   }
 
 .todo-link.selected,
