@@ -145,11 +145,12 @@ button.hamburger-button {
     /* bottom: 0px; */
     left: 0px;
     z-index: 1000;
+    height: 84vh;
   }
   
   .app-bar {
     flex-direction: column;
-    height: unset;
+    height: 14vh;
   }
   
   .app-bar-nav-link {
