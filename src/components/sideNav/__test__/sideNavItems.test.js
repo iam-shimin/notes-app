@@ -5,6 +5,7 @@ import {createMemoryHistory} from 'history';
 
 import {SideNavItems} from '../sideNavItems';
 import todos from 'components/todoList/__test__/todos';
+import lastOf from 'utils/array';
 
 describe('SideNavItems', () => {
 
@@ -20,7 +21,7 @@ describe('SideNavItems', () => {
 		history.push('?q=app');
 		const {getAllByRole} = render(
 			<Router history={history}>
-				<SideNavItems data={todos} />
+				<SideNavItems data={todos} recentTodo={lastOf(todos)} />
 			</Router>
 		);
 		const items = getAllByRole('link');
@@ -76,6 +77,7 @@ function renderItem(data, {isSelectionModeOn, onContextMenu, onClick} = {}) {
 			<SideNavItems
 				data={data}
 				isSelectionModeOn={isSelectionModeOn}
+				recentTodo={lastOf(data)}
 				onContextMenu={onContextMenu}
 				onClick={onClick} />
 		</MemoryRouter>
