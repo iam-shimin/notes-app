@@ -19,7 +19,7 @@ export function TodoContent({
 }) {
 
 	function handleInputFocus(event) {
-		if (event.currentTarget.value === 'Untitled') {
+		if (event.currentTarget.value.includes('Untitled')) {
 			event.currentTarget.select();
 		}
 	}
