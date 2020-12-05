@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import {MemoryRouter, Router} from 'react-router';
 import {createMemoryHistory} from 'history';
 
-import {SideNavItems} from '../sideNavItems';
+import SideNavItems from '../sideNavItems';
 import todos from 'components/todoList/__test__/todos';
 import lastOf from 'utils/array';
 
@@ -21,7 +21,7 @@ describe('SideNavItems', () => {
 		history.push('?q=app');
 		const {getAllByRole} = render(
 			<Router history={history}>
-				<SideNavItems data={todos} recentTodo={lastOf(todos)} />
+				<SideNavItems data={todos} recentTodo={lastOf(todos)} selectedItemsSet={new Set([])} />
 			</Router>
 		);
 		const items = getAllByRole('link');
@@ -30,10 +30,12 @@ describe('SideNavItems', () => {
 	})
 
 	test('right clicking on item will select it', () => {
-		const onContextMenu = jest.fn();
-		const {getAllByRole} = renderItem(todos, {onContextMenu});
+		const selectedItemsSet = new Set();
+		const onContextMenu = jest.fn((id) => selectedItemsSet.add(id));
+		const {getAllByRole, rerender} = renderItem(todos, { onContextMenu, selectedItemsSet });
 		const [firstLink] = getAllByRole('link');
 		fireEvent.contextMenu(firstLink);
+		rerender();
 
 		expect(firstLink).toHaveClass('selected');
 		expect(onContextMenu).toHaveBeenCalledWith(todos[0].id);
@@ -71,15 +73,26 @@ describe('SideNavItems', () => {
 	})
 });
 
-function renderItem(data, {isSelectionModeOn, onContextMenu, onClick} = {}) {
-	return render(
-		<MemoryRouter>
-			<SideNavItems
-				data={data}
-				isSelectionModeOn={isSelectionModeOn}
-				recentTodo={lastOf(data)}
-				onContextMenu={onContextMenu}
-				onClick={onClick} />
-		</MemoryRouter>
-	)
+function renderItem(data, {isSelectionModeOn, onContextMenu, selectedItemsSet = new Set([]), onClick} = {}) {
+	function WrapComponent() {
+		return (
+			<MemoryRouter>
+				<SideNavItems
+					data={data}
+					isSelectionModeOn={isSelectionModeOn}
+					selectedItemsSet={selectedItemsSet}
+					recentTodo={lastOf(data)}
+					onContextMenu={onContextMenu}
+					onClick={onClick} />
+			</MemoryRouter>
+		);
+	}
+
+	const api = render(<WrapComponent />);
+
+	function rerender() {
+		api.rerender(<WrapComponent />);
+	}
+
+	return { ...api, rerender }
 }

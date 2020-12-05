@@ -72,14 +72,18 @@
 	transform: scale(1);
 }
 
-.contextmenu-delete-button {
-	color: red;
+.cxmenu-btn {
 	border: solid 2px;
 	font-size: 1.3rem;
 	border-radius: 4px;
 	transition: all 0.2s;
 }
-.contextmenu-delete-button:hover {
+
+.cxmenu-btn-del {
+	color: red;
+}
+
+.cxmenu-btn-del:hover {
 	color: #fff;
 	background: red;;
 }

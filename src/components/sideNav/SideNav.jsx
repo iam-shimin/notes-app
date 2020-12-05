@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
 import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
@@ -7,7 +8,7 @@ import SidebarContext from 'context/sidebar';
 
 import 'styles/list.css';
 
-export default function SideNav() {
+export function SideNav({ todoItems }) {
 
 	const {isOpenForMobile, isMobile, toggle} = useContext(SidebarContext);
 	const [selectedOnContextMenu, setSelected] = useState(new Set([]));
@@ -28,6 +29,14 @@ export default function SideNav() {
 	}
 
 	function handelDeleteSelected() {
+		setSelected(new Set([]));
+	}
+
+	function handleCxSelectAll() {
+		setSelected(new Set(todoItems.map(t => t.id)));
+	}
+
+	function handleCxDeselectAll() {
 		setSelected(new Set([]));
 	}
 
@@ -52,12 +61,22 @@ export default function SideNav() {
 		<React.Fragment>
 			<aside className={sidebarClass}>
 				<SideNavItems
+					data={todoItems}
 					isSelectionModeOn={selectedOnContextMenu.size > 0}
+					selectedItemsSet={selectedOnContextMenu}
 					onContextMenu={handleContextMenu}
 					onClick={isMobile && toggle} />
 			</aside>
 			<FloatButton label="+" />
-			<ContextMenu selectedItems={selectedOnContextMenu} onDeleted={handelDeleteSelected} />
+			<ContextMenu
+				selectedItems={selectedOnContextMenu}
+				onDeleted={handelDeleteSelected}
+				onSelectAll={handleCxSelectAll}
+				onDeselectAll={handleCxDeselectAll} />
 		</React.Fragment>
 	);
 }
+
+const mapStateToProps = state => ({ todoItems: state.todos })
+
+export default connect(mapStateToProps)(SideNav)

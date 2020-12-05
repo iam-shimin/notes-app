@@ -1,17 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import {queryString} from 'utils/url';
 import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
 
 
-export function SideNavItems({ data, isSelectionModeOn, recentTodo, onContextMenu, onClick }) {
+export default function SideNavItems({ data, isSelectionModeOn, selectedItemsSet, onContextMenu, onClick }) {
 
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
 	const mostCheckedTodo = getMostVisited();
+	const recentTodo = lastOf(data);
 	
 	const matchedTodos = data.filter(todo => (
 		query === null ||
@@ -30,11 +31,12 @@ export function SideNavItems({ data, isSelectionModeOn, recentTodo, onContextMen
 			const hasSubTasks = numberOftasksTotal !== 0;
 			const isComplete = numberOftasksDone === numberOftasksTotal;
 			const progress = isComplete ? 'Done' : `${numberOftasksDone}/${numberOftasksTotal}`;
+			const itemSelectionCssState = selectedItemsSet.has(todo.id)? ' selected': '';
 
 			function toggleTodoSelect(event) {
 				event.preventDefault();
 				onContextMenu(todo.id);
-				event.target.classList.toggle('selected');
+				// event.target.classList.toggle('selected');
 			}
 
 			function handleClick(event) {
@@ -62,7 +64,7 @@ export function SideNavItems({ data, isSelectionModeOn, recentTodo, onContextMen
 					isActive={handleActiveLink}
 					onClick={handleClick}
 					onContextMenu={toggleTodoSelect}
-					className="todo-link"
+					className={`todo-link${itemSelectionCssState}`}
 					key={todo.id}>
 					{todo.title} {hasSubTasks ? `[${progress}]` : null}
 				</NavLink>
@@ -90,10 +92,3 @@ function total(item) {
 function done(item) {
 	return item.startsWith('* ') || item.startsWith('x ');
 }
-
-const mapStateToProps = state => ({
-	data: state.todos,
-	recentTodo: lastOf(state.todos)
-})
-
-export default connect(mapStateToProps)(SideNavItems)
