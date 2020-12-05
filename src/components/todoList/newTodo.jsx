@@ -1,36 +1,23 @@
-import React, {useEffect, useRef} from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {Redirect} from 'react-router'
+import { useHistory } from 'react-router'
 
 import { addTodo } from 'actions/todoActions';
 
-export function NewTodo({lastTodoItemId, totalCount, addTodo}) {
-
-	const isMounted = useRef(false);
+export function NewTodo({ totalCount, addTodo }) {
+	
+	const history = useHistory();
 
 	useEffect(() => {
-		addTodo({title: `Untitled ${totalCount + 1}`, notes: ''});
-		if (isMounted.current === false) {
-			isMounted.current = true;
-		}
-	}, [addTodo]);
+		const payload = {title: `Untitled ${totalCount + 1}`, notes: ''};
+		addTodo(payload, todo => history.replace(`/notes/${todo.id}`));
+	}, [addTodo, totalCount, history]);
 
-	// expects the new todo to be the last one on store
-	return (isMounted.current && lastTodoItemId)? // NewTodo is remounted every time the float button is clicked
-		<Redirect to={`/notes/${lastTodoItemId}`} />: null; // redirect unmounts NewTodo component
+	return null;
 }
 
-const mapStateToProps = state => {
-	const todos = state.todos;
-	const totalCount = state.todos.length;
-	return {
-		totalCount,
-		lastTodoItemId: todos[todos.length - 1]?.id
-	};
-}
+const mapStateToProps = state => ({ totalCount: state.todos.length });
 
-const mapDispatchToProps = {
-	addTodo
-}
+const mapDispatchToProps = { addTodo }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewTodo);
