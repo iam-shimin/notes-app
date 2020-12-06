@@ -41,18 +41,20 @@
 }
 
 .btn-float {
+	--size: 4rem;
 	position: fixed;
 	bottom: 10%;
 	left: 1rem;
-	font-size: 3rem;
-	height: 4rem;
-	width: 4rem;
-	border-radius: 2rem;
+	font-size: var(--size);
+	height: var(--size);
+	width: var(--size);
+	border-radius: 50%;
 	border: none;
 	background: #db0f32e6;
 	color: #eee;
 	text-decoration: none;
 	text-align: center;
+	line-height: 0.7;
 }
 
 .msg-sidenav-empty {
@@ -108,13 +110,11 @@
 @media (max-width: 500px) {
 	.btn-float {
 		z-index: 1000;
-		font-size: 2rem;
-		height: 2rem;
-		width: 2rem;
+		--size: 4.2rem;
 	}
 
 	.btn-float:active {
-		font-size: 2.5rem;
+		font-size: 4rem;
 	}
 }
 

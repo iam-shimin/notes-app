@@ -46,7 +46,7 @@ export default function AppHeader() {
 					</NavLink>
 
 					{isMobile && (
-						<button className="main-btn" onClick={showSearch} style={fontSize}>
+						<button className="search-btn" onClick={showSearch} style={fontSize}>
 							<span role="img" aria-label="search">
 								🔍
 							</span>

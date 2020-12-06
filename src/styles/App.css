@@ -176,14 +176,19 @@ button.hamburger-button {
 	}
 }
 
-.main-btn {
+.search-btn,
+.btn-b {
 	border: solid;
-	background-color: #000;
 }
 
-.btn-b {
+.search-btn {
+	background-color: #0bcc9f;
+}
+
+.main-btn {
 	font-size: 1.2rem;
 	margin-right: 0.5em;
 	align-self: center;
 	color: #fff;
+	background-color: #000;
 }
