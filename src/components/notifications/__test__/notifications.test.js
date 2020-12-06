@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 
-import { Notifications } from '../notifications';
+import Notifications from '../notifications';
 
 export const sample = [
 	{ _id: 1, message: 'Test' },

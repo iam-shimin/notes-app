@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import 'styles/App.css';
 
 import TodoList from 'components/todoList';
-import Notifications from 'components/notifications';
+import NotificationPannel from 'components/notifications/notificationPannel';
 import AppHeader from './AppHeader';
 import { SidebarProvider } from 'context/sidebar';
 import { initVisitCounters } from 'utils/storage';
@@ -20,7 +20,7 @@ function App() {
 		<BrowserRouter>
 			<Provider store={store}>
 				<AppLayout />
-				<Notifications />
+				<NotificationPannel />
 			</Provider>
 		</BrowserRouter>
 	);
