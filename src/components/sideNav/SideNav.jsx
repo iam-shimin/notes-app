@@ -5,10 +5,11 @@ import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
 import SideNavItems from './sideNavItems';
 import SidebarContext from 'context/sidebar';
+import { pushToast } from 'actions/notificationActions';
 
 import 'styles/list.css';
 
-export function SideNav({ todoItems }) {
+export function SideNav({ todoItems, pushToast }) {
 	const { isOpenForMobile, isMobile, toggle } = useContext(SidebarContext);
 	const [selectedOnContextMenu, setSelected] = useState(new Set([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
@@ -28,7 +29,10 @@ export function SideNav({ todoItems }) {
 	}
 
 	function handelDeleteSelected() {
-		setSelected(new Set([]));
+		setSelected(prev => {
+			pushToast(`Deleted ${prev.size} notes`)
+			return new Set([]);
+		});
 	}
 
 	function handleCxSelectAll() {
@@ -81,5 +85,6 @@ export function SideNav({ todoItems }) {
 }
 
 const mapStateToProps = state => ({ todoItems: state.todos });
+const mapDispatchToProps = { pushToast }
 
-export default connect(mapStateToProps)(SideNav);
+export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
