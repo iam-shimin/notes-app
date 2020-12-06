@@ -13,7 +13,6 @@ export function persistTodos(todos) {
 	set(storeKey, JSON.stringify(todos));
 }
 
-
 // VISIT COUNTERS
 function getFq(fallback = {}) {
 	return JSON.parse(get(fqCountKey)) || fallback;
@@ -49,11 +48,11 @@ export function getMostVisited() {
 	if (vistFq !== null) {
 		Object.keys(vistFq).forEach(id => {
 			if (maxValue < vistFq[id]) {
-				maxValue = vistFq[id]
+				maxValue = vistFq[id];
 				maxId = id;
 			}
 		});
 	}
-	
+
 	return maxId;
 }

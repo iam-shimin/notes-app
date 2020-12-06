@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 
 import notifications from './notificationReducer';
 import todos from './todoReducer';
@@ -6,7 +6,7 @@ import todos from './todoReducer';
 export default combineReducers({
 	todos,
 	notifications
-})
+});
 // import actions from './actions';
 
 // export default function rootReducer(state = [], action) {

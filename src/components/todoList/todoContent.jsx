@@ -4,20 +4,13 @@ import { connect } from 'react-redux';
 
 import { setTodoField } from 'actions/todoActions';
 
-const titlePlaceholder = "What do you need to do ?";
-const textareaPlaceholder =
-`Write notes on:
+const titlePlaceholder = 'What do you need to do ?';
+const textareaPlaceholder = `Write notes on:
  * How to achieve the goal
  * Deadlines
  * Who is going to help ?`;
 
-export function TodoContent({
-	noteId,
-	data,
-	disableEdit,
-	setTodoField
-}) {
-
+export function TodoContent({ noteId, data, disableEdit, setTodoField }) {
 	function handleInputFocus(event) {
 		if (event.currentTarget.value.includes('Untitled')) {
 			event.currentTarget.select();
@@ -29,7 +22,7 @@ export function TodoContent({
 		setTodoField(noteId, name, value);
 	}
 
-	const urlIsInvalid = !data
+	const urlIsInvalid = !data;
 
 	return (
 		<React.Fragment>
@@ -40,7 +33,8 @@ export function TodoContent({
 				</div>
 			)}
 
-			<label>Title:
+			<label>
+				Title:
 				<input
 					name="title"
 					placeholder={titlePlaceholder}
@@ -48,17 +42,20 @@ export function TodoContent({
 					disabled={disableEdit}
 					className="edit-note-title"
 					onFocus={handleInputFocus}
-					onChange={onInputChange} />
+					onChange={onInputChange}
+				/>
 			</label>
 
-			<label>Note Content:
+			<label>
+				Note Content:
 				<textarea
 					name="notes"
 					placeholder={textareaPlaceholder}
 					value={data?.notes}
 					disabled={disableEdit}
 					className="edit-note-text"
-					onChange={onInputChange} />
+					onChange={onInputChange}
+				/>
 			</label>
 		</React.Fragment>
 	);
@@ -66,6 +63,6 @@ export function TodoContent({
 
 const mapDispatchToProps = {
 	setTodoField: setTodoField
-}
+};
 
 export default connect(null, mapDispatchToProps)(TodoContent);

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router';
 // import { connect } from 'react-redux';
-import {queryString} from 'utils/url';
+import { queryString } from 'utils/url';
 import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
 import { total, done } from 'utils/todos';
@@ -16,30 +16,30 @@ export default function SideNavItems({
 	onContextMenu,
 	onClick
 }) {
-
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
 	const mostCheckedTodo = getMostVisited();
 	const recentTodo = lastOf(data);
-	
-	const matchedTodos = data.filter(todo => (
-		query === null ||
-		todo.title.toLowerCase().includes(query.toLowerCase())
-	));
+
+	const matchedTodos = data.filter(
+		todo =>
+			query === null || todo.title.toLowerCase().includes(query.toLowerCase())
+	);
 
 	if (matchedTodos.length) {
-
 		return matchedTodos.map(todo => {
-
 			const noteByLines = todo.notes.split('\n');
 			const numberOftasksTotal = noteByLines.filter(total).length;
 			const numberOftasksDone = noteByLines.filter(done).length;
 
-			
 			const hasSubTasks = numberOftasksTotal !== 0;
 			const isComplete = numberOftasksDone === numberOftasksTotal;
-			const progress = isComplete ? 'Done' : `${numberOftasksDone}/${numberOftasksTotal}`;
-			const itemSelectionCssState = selectedItemsSet.has(todo.id)? ' selected': '';
+			const progress = isComplete
+				? 'Done'
+				: `${numberOftasksDone}/${numberOftasksTotal}`;
+			const itemSelectionCssState = selectedItemsSet.has(todo.id)
+				? ' selected'
+				: '';
 
 			function toggleTodoSelect(event) {
 				event.preventDefault();
@@ -48,7 +48,7 @@ export default function SideNavItems({
 
 			function handleClick(event) {
 				if (isSelectionModeOn) {
-					toggleTodoSelect(event)
+					toggleTodoSelect(event);
 				}
 				if (onClick) {
 					onClick();
@@ -75,14 +75,18 @@ export default function SideNavItems({
 					key={todo.id}>
 					{todo.title} {hasSubTasks ? `[${progress}]` : null}
 				</NavLink>
-			)
-		})
+			);
+		});
 	}
 	return (
 		<div className="msg-sidenav-empty">
-			{query ?
-				<h2>Nothing matched your search <em style={{ color: '#eee' }}>{query}</em></h2> :
-				<h2>You have nothing on your notes</h2>}
+			{query ? (
+				<h2>
+					Nothing matched your search <em style={{ color: '#eee' }}>{query}</em>
+				</h2>
+			) : (
+				<h2>You have nothing on your notes</h2>
+			)}
 			<i>Start editing to add a new note to the list.</i>
 		</div>
 	);

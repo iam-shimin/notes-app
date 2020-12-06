@@ -1,10 +1,9 @@
-import {CREATE_TODO, DELETE_TODO, SET_TODO_FIELD} from 'actions/todoTypes';
+import { CREATE_TODO, DELETE_TODO, SET_TODO_FIELD } from 'actions/todoTypes';
 
 const initialTodos = [];
 
 export default function todoReducer(state = initialTodos, action) {
 	switch (action.type) {
-
 		case CREATE_TODO:
 			return [...state, action.payload];
 
@@ -12,16 +11,15 @@ export default function todoReducer(state = initialTodos, action) {
 			return state.filter(todo => !action.payload.includes(todo.id));
 
 		case SET_TODO_FIELD:
-			const {id, field, value} = action.payload;
+			const { id, field, value } = action.payload;
 			return state.map(todo => {
 				if (todo.id === id) {
-					return {...todo, [field]: value}
+					return { ...todo, [field]: value };
 				}
 				return todo;
 			});
 
 		default:
 			return state;
-
 	}
 }

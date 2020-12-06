@@ -8,12 +8,13 @@ import {
 
 jest.unmock('utils/storage');
 
-const expectedForEmpty = Object
-	.keys(sampleVisitFrequency)
-	.reduce((acc, key) => {
+const expectedForEmpty = Object.keys(sampleVisitFrequency).reduce(
+	(acc, key) => {
 		acc[key] = 1;
 		return acc;
-	}, {});
+	},
+	{}
+);
 
 Object.defineProperty(window, 'localStorage', {
 	value: {
@@ -28,7 +29,9 @@ const visitFqStr = JSON.stringify(sampleVisitFrequency);
 describe('utils/storage', () => {
 	test('loadTodos', () => {
 		const sample = [12, 13, 45];
-		window.localStorage.getItem.mockImplementationOnce(() => JSON.stringify(sample));
+		window.localStorage.getItem.mockImplementationOnce(() =>
+			JSON.stringify(sample)
+		);
 
 		expect(storage.loadTodos()).toStrictEqual(sample);
 	});
@@ -37,9 +40,12 @@ describe('utils/storage', () => {
 		[visitFqStr, visitFqStr],
 		[null, JSON.stringify(expectedForEmpty)]
 	])('initVisitCounters', (dummyFqCount, dummyFinal) => {
-		window.localStorage.getItem.mockImplementation((key) => (
-			key === visits? dummyFqCount: 
-				key === 'todos'? JSON.stringify(sampleTodos): '')
+		window.localStorage.getItem.mockImplementation(key =>
+			key === visits
+				? dummyFqCount
+				: key === 'todos'
+				? JSON.stringify(sampleTodos)
+				: ''
 		);
 		window.localStorage.setItem.mockImplementation((_key, _data) => undefined);
 		storage.initVisitCounters();
@@ -53,7 +59,10 @@ describe('utils/storage', () => {
 		window.localStorage.setItem.mockImplementation((_key, _data) => undefined);
 		storage.increaseCount(firstDummyTodo);
 
-		expect(window.localStorage.setItem).toBeCalledWith(visits, JSON.stringify(visitFQWithFirstIncrd));
+		expect(window.localStorage.setItem).toBeCalledWith(
+			visits,
+			JSON.stringify(visitFQWithFirstIncrd)
+		);
 	});
 
 	test('getMostVisited', () => {

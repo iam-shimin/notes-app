@@ -8,12 +8,12 @@ import RecentTodo from './recentTodo';
 import NewTodo from './newTodo';
 import MostVisited from './mostVisited';
 
-function TodoListRedirect({hasTodos}) {
-	const redirectionURL = hasTodos ? '/notes/recent': '/notes/new';
+function TodoListRedirect({ hasTodos }) {
+	const redirectionURL = hasTodos ? '/notes/recent' : '/notes/new';
 	return <Redirect to={redirectionURL} />;
 }
 
-const mapStateToProps = state => ({hasTodos: state.todos.length !== 0});
+const mapStateToProps = state => ({ hasTodos: state.todos.length !== 0 });
 
 const LandingTodoRedirect = connect(mapStateToProps)(TodoListRedirect);
 
@@ -31,5 +31,5 @@ export default function TodoList() {
 				</Switch>
 			</article>
 		</React.Fragment>
-	)
+	);
 }

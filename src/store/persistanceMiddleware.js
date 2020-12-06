@@ -5,5 +5,5 @@ export default function persistanceMiddleware(store) {
 		const res = next(action);
 		persistTodos(store.getState().todos);
 		return res;
-	}
+	};
 }

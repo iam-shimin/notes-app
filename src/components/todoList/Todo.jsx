@@ -18,7 +18,6 @@ export function Todo({
 	deleteTodo,
 	history
 }) {
-
 	const paramid = todoid || match.params.id;
 	const [noteId, setNoteId] = useState(parseInt(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
@@ -29,10 +28,12 @@ export function Todo({
 	function deleteThisTodo() {
 		const thisTodoIndex = todos.findIndex(todo => todo.id === noteId);
 		const prevTodoIndex = thisTodoIndex !== 0 && thisTodoIndex - 1;
-		const prevTodoId = todos[prevTodoIndex]? `/${todos[prevTodoIndex].id}`: '';
+		const prevTodoId = todos[prevTodoIndex]
+			? `/${todos[prevTodoIndex].id}`
+			: '';
 
 		deleteTodo([noteId]);
-		pushToast(`Note ${noteId} deleted`)
+		pushToast(`Note ${noteId} deleted`);
 		history.push(`/notes${prevTodoId}`);
 	}
 
@@ -42,26 +43,29 @@ export function Todo({
 			increaseCount(paramid);
 		}
 		setDisableEdit(true);
-	}, [paramid])
+	}, [paramid]);
 
 	return (
 		<>
 			<div>
-				<button className="todo-controls" onClick={toggleEdit}>{disableEdit? 'Edit': 'Save'}</button>
+				<button className="todo-controls" onClick={toggleEdit}>
+					{disableEdit ? 'Edit' : 'Save'}
+				</button>
 				<select
 					className="todo-controls"
 					value={data?.priority || 'low'}
-					onChange={({ target }) => setTodoField(noteId, 'priority', target.value)}>
+					onChange={({ target }) =>
+						setTodoField(noteId, 'priority', target.value)
+					}>
 					<option value="high">High</option>
 					<option value="med">Medium</option>
 					<option value="low">Low</option>
 				</select>
-				<button className="todo-controls" onClick={deleteThisTodo}>Delete</button>
+				<button className="todo-controls" onClick={deleteThisTodo}>
+					Delete
+				</button>
 			</div>
-			<TodoContent
-				noteId={noteId}
-				data={data}
-				disableEdit={disableEdit} />
+			<TodoContent noteId={noteId} data={data} disableEdit={disableEdit} />
 		</>
 	);
 }
@@ -69,12 +73,12 @@ export function Todo({
 const mapStateToProps = state => ({
 	todos: state.todos,
 	notifications: state.notifications
-})
+});
 
 const mapDispatchToProps = {
 	setTodoField,
 	deleteTodo,
 	pushToast
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todo)
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);

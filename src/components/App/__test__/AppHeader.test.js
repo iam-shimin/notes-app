@@ -1,11 +1,11 @@
 import React from 'react';
-import {MemoryRouter} from 'react-router-dom';
-import {render} from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
 
 import './matchMedia.mock';
 
 import AppHeader from '../AppHeader';
-import {SidebarProvider} from 'context/sidebar';
+import { SidebarProvider } from 'context/sidebar';
 
 describe('AppHeader', () => {
 	test('mobile behaviour works', () => {
@@ -25,7 +25,7 @@ describe('AppHeader', () => {
 		const hamburger = queryByText('|||');
 		expect(hamburger).not.toBeInTheDocument();
 	});
-})
+});
 
 export function matchedQuery(matches) {
 	return query => ({
@@ -36,7 +36,7 @@ export function matchedQuery(matches) {
 		removeListener: jest.fn(), // deprecated
 		addEventListener: jest.fn(),
 		removeEventListener: jest.fn(),
-		dispatchEvent: jest.fn(),
+		dispatchEvent: jest.fn()
 	});
 }
 
@@ -47,5 +47,5 @@ function renderAppHeader() {
 				<AppHeader />
 			</SidebarProvider>
 		</MemoryRouter>
-	)
+	);
 }
