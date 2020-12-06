@@ -23,6 +23,7 @@ body {
 	border: none;
 	color: yellow;
 	padding-left: 3rem;
+	max-width: 70%;
 }
 .app-bar-nav {
 	flex: 1;
@@ -139,17 +140,21 @@ button.hamburger-button {
 		width: 100%;
 	}
 
+	.main-notes,
+	.sidenav-left {
+		height: 90vh;
+	}
+
 	.sidenav-left {
 		/* width: 0%; */
 		/* bottom: 0px; */
 		left: 0px;
 		z-index: 1000;
-		height: 84vh;
 	}
 
 	.app-bar {
-		flex-direction: column;
-		height: 14vh;
+		/* flex-direction: column; */
+		height: 10vh;
 	}
 
 	.app-bar-nav-link {
@@ -169,4 +174,16 @@ button.hamburger-button {
 		font-size: 1.5rem;
 		padding: 0.5em;
 	}
+}
+
+.main-btn {
+	border: solid;
+	background-color: #000;
+}
+
+.btn-b {
+	font-size: 1.2rem;
+	margin-right: 0.5em;
+	align-self: center;
+	color: #fff;
 }
