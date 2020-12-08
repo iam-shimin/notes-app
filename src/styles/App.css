@@ -176,19 +176,30 @@ button.hamburger-button {
 	}
 }
 
-.search-btn,
-.btn-b {
-	border: solid;
-}
-
 .search-btn {
+	border: solid;
 	background-color: #0bcc9f;
 }
 
-.main-btn {
-	font-size: 1.2rem;
-	margin-right: 0.5em;
+.btn-b {
+	font-size: 1rem;
+	border: none;
+	color: #022a21;
+	background-color: transparent;
+}
+
+.btn-b:hover,
+.btn-b:active {
+	border-radius: 50%;
+	height: 2em;
+	width: 2em;
 	align-self: center;
-	color: #fff;
-	background-color: #000;
+}
+
+.btn-b:hover {
+	border: solid #888;
+}
+
+.btn-b:active {
+	border: solid #000;
 }

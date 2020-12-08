@@ -38,9 +38,9 @@ export default function AppSearch({ onCancel, onSearch }) {
 
 			{showMobileButtons && (
 				<>
-					<button className="main-btn btn-b" onClick={clearSearch}>X</button>
+					<button className="btn-b" onClick={clearSearch}>X</button>
 					<button
-						className="main-btn btn-b"
+						className="btn-b"
 						onClick={onCancel}>
 						Cancel
 					</button>
