@@ -177,23 +177,16 @@ button.hamburger-button {
 }
 
 .search-btn,
-.btn-b:hover,
-.btn-b:active {
-	--size: 2em;
-	border-radius: 50%;
-	height: var(--size);
-	width: var(--size);
-	align-self: center;
-}
-
-.search-btn,
 .btn-b {
 	background-color: transparent;
 }
 
 .search-btn {
 	border: solid #888;
-	--size: 3em;
+	border-radius: 50%;
+	height: 3em;
+	width: 3em;
+	align-self: center;
 }
 
 .search-btn:active {
@@ -202,7 +195,7 @@ button.hamburger-button {
 
 .btn-b {
 	font-size: 1rem;
-	border: none;
+	border: transparent;
 	color: #022a21;
 }
 
