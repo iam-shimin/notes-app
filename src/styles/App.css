@@ -1,10 +1,12 @@
 :root {
 	--sidebar-width: 30%;
+	--app-bar-h: 5rem;
 }
 
 @media (max-width: 500px) {
 	:root {
 		--sidebar-width: 65%;
+		--app-bar-h: 4rem;
 	}
 }
 
@@ -15,7 +17,7 @@ body {
 .app-bar {
 	background: #0bcc9f;
 	display: flex;
-	height: 12vh;
+	height: var(--app-bar-h);
 }
 .app-bar-search-box {
 	font-size: 1.8rem;
@@ -78,8 +80,12 @@ body {
 	}
 }
 
+.main-notes,
 .sidenav-left {
-	height: 88vh;
+	height: calc(100vh - var(--app-bar-h));
+}
+
+.sidenav-left {
 	position: fixed;
 	background: #718078;
 	color: cadetblue;
@@ -93,7 +99,6 @@ body {
 	position: fixed;
 	right: 0px;
 	width: 70%;
-	height: 88vh;
 	overflow: auto;
 	background: #d7d7d7;
 	padding: 1rem 2rem;
@@ -140,21 +145,11 @@ button.hamburger-button {
 		width: 100%;
 	}
 
-	.main-notes,
-	.sidenav-left {
-		height: 90vh;
-	}
-
 	.sidenav-left {
 		/* width: 0%; */
 		/* bottom: 0px; */
 		left: 0px;
 		z-index: 1000;
-	}
-
-	.app-bar {
-		/* flex-direction: column; */
-		height: 10vh;
 	}
 
 	.app-bar-nav-link {
