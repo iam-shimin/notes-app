@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 import { queryString } from 'utils/url';
@@ -6,6 +6,7 @@ import { queryString } from 'utils/url';
 export default function AppSearch({ onCancel, onSearch }) {
 	const history = useHistory();
 	const { search: query, pathname = '' } = useLocation();
+	const searchBoxEleRef = useRef(null);
 
 	const showMobileButtons = !!onCancel;
 
@@ -23,11 +24,13 @@ export default function AppSearch({ onCancel, onSearch }) {
 
 	function clearSearch() {
 		history.replace(pathname);
+		searchBoxEleRef.current.focus();
 	}
 
 	return (
 		<>
 			<input
+				ref={searchBoxEleRef}
 				type="search"
 				onChange={search}
 				value={queryString(query, 'q') || ''}
