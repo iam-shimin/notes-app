@@ -176,24 +176,34 @@ button.hamburger-button {
 	}
 }
 
+.search-btn,
+.btn-b:hover,
+.btn-b:active {
+	--size: 2em;
+	border-radius: 50%;
+	height: var(--size);
+	width: var(--size);
+	align-self: center;
+}
+
+.search-btn,
+.btn-b {
+	background-color: transparent;
+}
+
 .search-btn {
-	border: solid;
-	background-color: #0bcc9f;
+	border: solid #888;
+	--size: 3em;
+}
+
+.search-btn:active {
+	border-color: #000;
 }
 
 .btn-b {
 	font-size: 1rem;
 	border: none;
 	color: #022a21;
-	background-color: transparent;
-}
-
-.btn-b:hover,
-.btn-b:active {
-	border-radius: 50%;
-	height: 2em;
-	width: 2em;
-	align-self: center;
 }
 
 .btn-b:hover {
