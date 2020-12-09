@@ -10,6 +10,7 @@ import NotificationPannel from 'components/notifications/notificationPannel';
 import AppHeader from './AppHeader';
 import { SidebarProvider } from 'context/sidebar';
 import { initVisitCounters } from 'utils/storage';
+import ReadLogs from 'utils/log/readLogs';
 
 import store from 'store';
 
@@ -35,6 +36,7 @@ function AppLayout() {
 				<AppHeader />
 				<article style={relativePosition}>
 					<Switch>
+						<Route path="/logs" component={ReadLogs} />
 						<Route path="/notes" component={TodoList} />
 						<Redirect to="/notes" />
 					</Switch>
