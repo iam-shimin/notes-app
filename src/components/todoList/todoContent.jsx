@@ -24,15 +24,17 @@ export function TodoContent({ noteId, data, disableEdit, setTodoField }) {
 
 	const urlIsInvalid = !data;
 
+	if (urlIsInvalid) {
+		return (
+			<div className="warning-msg">
+				<h2>Invalid URL</h2>
+				<p>The note was either deleted or the url is mispelled.</p>
+			</div>
+		);
+	}
+
 	return (
 		<React.Fragment>
-			{urlIsInvalid && (
-				<div className="warning-msg">
-					<h2>Invalid URL</h2>
-					<p>The note was either deleted or the url is mispelled.</p>
-				</div>
-			)}
-
 			<label>
 				Title:
 				<input
