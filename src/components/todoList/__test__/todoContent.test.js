@@ -2,8 +2,9 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
-import store from 'store';
+import createDummyStore from 'store/dummyStore';
 import ConnectedTodoContent, { TodoContent } from '../todoContent';
+import todos from './todos';
 
 // describe
 // test / it
@@ -13,40 +14,52 @@ const assertedValue = 'Apple';
 
 const titleInput = /Title/;
 const noteInput = /Note/;
+const [note] = todos;
 
 describe('TodoContent', () => {
 	test('callback is called on every change', () => {
 		const callbackMock = jest.fn();
 		const { getByLabelText } = render(
-			<TodoContent setTodoField={callbackMock} />
+			<TodoContent noteId={note.id} data={note} setTodoField={callbackMock} />
 		);
+
 		const title = getByLabelText(titleInput);
 		for (let i = 0; i <= assertedValue.length; i++)
 			fireEvent.change(title, { target: { value: assertedValue.slice(0, i) } });
-		expect(callbackMock).toHaveBeenCalledTimes(assertedValue.length);
+
+		expect(callbackMock).toHaveBeenCalledTimes(assertedValue.length + 1);
 	});
 
 	test('allows to input title text', () => {
+		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedTodoContent />
+				<ConnectedTodoContent noteId={note.id} data={note} />
 			</Provider>
 		);
-		const title = getByLabelText(noteInput);
-		changeElementValue(title);
+		const title = getByLabelText(titleInput);
+		fireEvent.change(title, { target: { value: assertedValue } });
+		const [ updatedNote ] = store.getState().todos;
+
+		expect(updatedNote.title).toBe(assertedValue);
 	});
 
 	test('allows to input note text', () => {
+		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedTodoContent />
+				<ConnectedTodoContent noteId={note.id} data={note} />
 			</Provider>
 		);
 		const notes = getByLabelText(noteInput);
-		changeElementValue(notes);
+		fireEvent.change(notes, { target: { value: assertedValue } });
+		const [ updatedNote ] = store.getState().todos;
+		
+		expect(updatedNote.notes).toBe(assertedValue);
 	});
 
 	test('disable title text: text not changing', () => {
+		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
 				<ConnectedTodoContent
@@ -62,6 +75,7 @@ describe('TodoContent', () => {
 	});
 
 	test('disable note text: note not changing', () => {
+		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
 				<ConnectedTodoContent
