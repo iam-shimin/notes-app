@@ -7,6 +7,7 @@ import Todo from './Todo';
 import RecentTodo from './recentTodo';
 import NewTodo from './newTodo';
 import MostVisited from './mostVisited';
+import ReadLogs from 'utils/log/readLogs';
 
 function TodoListRedirect({ hasTodos }) {
 	const redirectionURL = hasTodos ? '/notes/recent' : '/notes/new';
@@ -29,6 +30,7 @@ export default function TodoList() {
 					<Route path="/notes/:id" component={Todo} />
 					<LandingTodoRedirect />
 				</Switch>
+				<ReadLogs />
 			</article>
 		</React.Fragment>
 	);
