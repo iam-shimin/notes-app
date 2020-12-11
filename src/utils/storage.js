@@ -14,6 +14,7 @@ export function loadTodos() {
 export function persistTodos(todos) {
 	set(storeKey, JSON.stringify(todos));
 	writeLine(`PersistTodo (storage method): ${JSON.stringify(todos, null, 3)}`);
+	alert('persist run');
 }
 
 // VISIT COUNTERS
