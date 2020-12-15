@@ -6,18 +6,18 @@ import { dismissToast } from 'actions/notificationActions';
 
 const Notification = React.lazy(() => import('./notifications'));
 
-// FIXME: notifications.length is rendering 0, fix this
 
 function NotificationPannel({ notifications, dismissToast }) {
+	if (!notifications.length)
+		return null;
+
 	return (
-		notifications.length && (
-			<React.Suspense fallback="loading ...">
-				<Notification
-					notifications={notifications}
-					dismissToast={dismissToast}
-				/>
-			</React.Suspense>
-		)
+		<React.Suspense fallback="loading ...">
+			<Notification
+				notifications={notifications}
+				dismissToast={dismissToast}
+			/>
+		</React.Suspense>
 	);
 }
 
