@@ -2,39 +2,39 @@ import React, { useState, useEffect } from 'react';
 
 import 'styles/note.css';
 
-import TodoContent from './todoContent';
+import NoteContent from './noteContent';
 import { connect } from 'react-redux';
 
 import { pushToast } from 'actions/notificationActions';
-import { deleteTodo, setTodoField } from 'actions/todoActions';
+import { deleteNotes, setNoteField } from 'actions/noteActions';
 import { increaseCount } from 'utils/storage';
 
-export function Todo({
-	todoid,
-	todos,
+export function Note({
+	reqNoteId,
+	notes,
 	match,
 	pushToast,
-	setTodoField,
-	deleteTodo,
+	setNoteField,
+	deleteNotes,
 	history
 }) {
-	const paramid = todoid || match.params.id;
+	const paramid = reqNoteId || match.params.id;
 	const [noteId, setNoteId] = useState(parseInt(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
 	const toggleEdit = () => setDisableEdit(!disableEdit);
 
-	const data = todos.find(todo => todo.id === noteId);
+	const data = notes.find(note => note.id === noteId);
 
-	function deleteThisTodo() {
-		const thisTodoIndex = todos.findIndex(todo => todo.id === noteId);
-		const prevTodoIndex = thisTodoIndex !== 0 && thisTodoIndex - 1;
-		const prevTodoId = todos[prevTodoIndex]
-			? `/${todos[prevTodoIndex].id}`
+	function deleteThisNote() {
+		const thisNoteIndex = notes.findIndex(note => note.id === noteId);
+		const prevNoteIndex = thisNoteIndex !== 0 && thisNoteIndex - 1;
+		const prevNoteId = notes[prevNoteIndex]
+			? `/${notes[prevNoteIndex].id}`
 			: '';
 
-		deleteTodo([noteId]);
+		deleteNotes([noteId]);
 		pushToast(`Note ${noteId} deleted`);
-		history.push(`/notes${prevTodoId}`);
+		history.push(`/notes${prevNoteId}`);
 	}
 
 	useEffect(() => {
@@ -55,30 +55,30 @@ export function Todo({
 					className="todo-controls"
 					value={data?.priority || 'low'}
 					onChange={({ target }) =>
-						setTodoField(noteId, 'priority', target.value)
+						setNoteField(noteId, 'priority', target.value)
 					}>
 					<option value="high">High</option>
 					<option value="med">Medium</option>
 					<option value="low">Low</option>
 				</select>
-				<button className="todo-controls" onClick={deleteThisTodo}>
+				<button className="todo-controls" onClick={deleteThisNote}>
 					Delete
 				</button>
 			</div>
-			<TodoContent noteId={noteId} data={data} disableEdit={disableEdit} />
+			<NoteContent noteId={noteId} data={data} disableEdit={disableEdit} />
 		</>
 	);
 }
 
 const mapStateToProps = state => ({
-	todos: state.todos,
+	notes: state.notes,
 	notifications: state.notifications
 });
 
 const mapDispatchToProps = {
-	setTodoField,
-	deleteTodo,
+	setNoteField,
+	deleteNotes,
 	pushToast
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todo);
+export default connect(mapStateToProps, mapDispatchToProps)(Note);

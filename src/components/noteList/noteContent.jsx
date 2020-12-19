@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { setTodoField } from 'actions/todoActions';
+import { setNoteField } from 'actions/noteActions';
 
 const titlePlaceholder = 'What do you need to do ?';
 const textareaPlaceholder = `Write notes on:
@@ -10,7 +10,7 @@ const textareaPlaceholder = `Write notes on:
  * Deadlines
  * Who is going to help ?`;
 
-export function TodoContent({ noteId, data, disableEdit, setTodoField }) {
+export function NoteContent({ noteId, data, disableEdit, setNoteField }) {
 	function handleInputFocus(event) {
 		if (event.currentTarget.value.includes('Untitled')) {
 			event.currentTarget.select();
@@ -19,7 +19,7 @@ export function TodoContent({ noteId, data, disableEdit, setTodoField }) {
 
 	function onInputChange(event) {
 		const { name, value } = event.target;
-		setTodoField(noteId, name, value);
+		setNoteField(noteId, name, value);
 	}
 
 	const urlIsInvalid = !data;
@@ -64,7 +64,7 @@ export function TodoContent({ noteId, data, disableEdit, setTodoField }) {
 }
 
 const mapDispatchToProps = {
-	setTodoField: setTodoField
+	setNoteField
 };
 
-export default connect(null, mapDispatchToProps)(TodoContent);
+export default connect(null, mapDispatchToProps)(NoteContent);
