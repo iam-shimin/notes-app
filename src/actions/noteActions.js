@@ -26,3 +26,5 @@ export function setNoteField(id, field, value) {
 		payload: { id, field, value }
 	};
 }
+
+// TODO: create action to change priority of notes
