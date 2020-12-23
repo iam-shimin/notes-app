@@ -1,16 +1,16 @@
-export const storeKey = 'notes';
-export const fqCountKey = 'visits';
+const storeKey = 'todos';
+const fqCountKey = 'visits';
 
 const get = key => localStorage.getItem(key);
 const set = (key, value) => localStorage.setItem(key, value);
 
 // NOTES
-export function loadNotes() {
+export function loadTodos() {
 	return JSON.parse(get(storeKey)) || [];
 }
 
-export function persistNotes(notes) {
-	set(storeKey, JSON.stringify(notes));
+export function persistTodos(todos) {
+	set(storeKey, JSON.stringify(todos));
 }
 
 // VISIT COUNTERS
@@ -25,9 +25,9 @@ function setFq(value) {
 export function initVisitCounters() {
 	let newCount = {};
 	const vistFq = getFq();
-	const persistedNotes = loadNotes();
+	const persistedTodos = loadTodos();
 
-	persistedNotes.forEach(todo => {
+	persistedTodos.forEach(todo => {
 		newCount[todo.id] = vistFq[todo.id] || 1;
 	});
 

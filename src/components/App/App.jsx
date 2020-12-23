@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import 'styles/App.css';
 
-import NotesPage from 'components/noteList';
+import TodoList from 'components/todoList';
 import NotificationPannel from 'components/notifications/notificationPannel';
 import AppHeader from './AppHeader';
 import { SidebarProvider } from 'context/sidebar';
@@ -35,7 +35,7 @@ function AppLayout() {
 				<AppHeader />
 				<article style={relativePosition}>
 					<Switch>
-						<Route path="/notes" component={NotesPage} />
+						<Route path="/notes" component={TodoList} />
 						<Redirect to="/notes" />
 					</Switch>
 				</article>

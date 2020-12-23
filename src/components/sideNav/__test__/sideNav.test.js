@@ -9,11 +9,11 @@ import SideNav from '../SideNav';
 import { SidebarProvider } from 'context/sidebar';
 import rootReducer from 'reducers';
 import { matchedQuery } from 'components/App/__test__/AppHeader.test';
-import notes from 'components/noteList/__test__/dummyNotesData';
+import todos from 'components/todoList/__test__/todos';
 
 describe('SideNav', () => {
 	test('initialy shows empty message', () => {
-		const store = createStore(rootReducer, { notes: [] });
+		const store = createStore(rootReducer, { todos: [] });
 		const history = createMemoryHistory();
 		const { getByText } = renderSideNav(history, store);
 		const message = getByText(/You have nothing on your notes/);
@@ -23,7 +23,7 @@ describe('SideNav', () => {
 
 	test('shows empty search result message', () => {
 		window.matchMedia.mockImplementationOnce(matchedQuery(false));
-		const store = createStore(rootReducer, { notes });
+		const store = createStore(rootReducer, { todos });
 		const history = createMemoryHistory();
 		history.push('?q=apple');
 		const { getByText } = renderSideNav(history, store);

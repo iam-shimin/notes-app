@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import rootReducer from 'reducers';
-import notes from 'components/noteList/__test__/dummyNotesData';
+import todos from 'components/todoList/__test__/todos';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
 
-const dummyStore = createStore(rootReducer, { notes });
+const dummyStore = createStore(rootReducer, { todos });
 const dummyHistory = createMemoryHistory();
 
 export function renderWithStore(component) {

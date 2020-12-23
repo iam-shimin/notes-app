@@ -1,8 +1,8 @@
 import { createStore } from 'redux';
 import rootReducers from 'reducers';
-import notes from 'components/noteList/__test__/dummyNotesData';
+import todos from 'components/todoList/__test__/todos';
 
 
-const initialAppState = { notes };
+const initialAppState = { todos };
 
 export default () => createStore(rootReducers, initialAppState);

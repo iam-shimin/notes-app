@@ -1,11 +1,11 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import rootReducers from 'reducers';
 
-import { loadNotes } from 'utils/storage';
+import { loadTodos } from 'utils/storage';
 import persistanceMiddleware from './persistanceMiddleware';
 
 
-const initialAppState = { notes: loadNotes() };
+const initialAppState = { todos: loadTodos() };
 let combinedEnhancers;
 
 if (window.__REDUX_DEVTOOLS_EXTENSION__) {

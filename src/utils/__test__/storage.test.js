@@ -23,17 +23,17 @@ Object.defineProperty(window, 'localStorage', {
 	}
 });
 
-// const visits = 'visits';
+const visits = 'visits';
 const visitFqStr = JSON.stringify(sampleVisitFrequency);
 
 describe('utils/storage', () => {
-	test('loadNotes', () => {
+	test('loadTodos', () => {
 		const sample = [12, 13, 45];
 		window.localStorage.getItem.mockImplementationOnce(() =>
 			JSON.stringify(sample)
 		);
 
-		expect(storage.loadNotes()).toStrictEqual(sample);
+		expect(storage.loadTodos()).toStrictEqual(sample);
 	});
 
 	test.each([
@@ -41,16 +41,16 @@ describe('utils/storage', () => {
 		[null, JSON.stringify(expectedForEmpty)]
 	])('initVisitCounters', (dummyFqCount, dummyFinal) => {
 		window.localStorage.getItem.mockImplementation(key =>
-			key === storage.fqCountKey
+			key === visits
 				? dummyFqCount
-				: key === storage.storeKey
+				: key === 'todos'
 				? JSON.stringify(sampleTodos)
 				: ''
 		);
 		window.localStorage.setItem.mockImplementation((_key, _data) => undefined);
 		storage.initVisitCounters();
 
-		expect(window.localStorage.setItem).toBeCalledWith(storage.fqCountKey, dummyFinal);
+		expect(window.localStorage.setItem).toBeCalledWith(visits, dummyFinal);
 	});
 
 	test('increaseCount', () => {
@@ -60,7 +60,7 @@ describe('utils/storage', () => {
 		storage.increaseCount(firstDummyTodo);
 
 		expect(window.localStorage.setItem).toBeCalledWith(
-			storage.fqCountKey,
+			visits,
 			JSON.stringify(visitFQWithFirstIncrd)
 		);
 	});

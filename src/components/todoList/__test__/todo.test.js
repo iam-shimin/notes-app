@@ -1,15 +1,15 @@
 import React from 'react';
 // import { render } from '@testing-library/react';
-import { Note } from '../note';
+import { Todo } from '../Todo';
 import { createMemoryHistory } from 'history';
-import dummyNotesList from './dummyNotesData';
+import todos from './todos';
 import { renderWithStore } from 'utils/testRenderers';
 import userEvent from '@testing-library/user-event';
 import { fireEvent } from '@testing-library/react';
 
 jest.mock('utils/storage');
 
-describe('<Note />', () => {
+describe('<Todo />', () => {
 	test('content is not editable initially', () => {
 		const { getByLabelText } = renderComponent();
 		const title = getByLabelText(/title/i);
@@ -31,7 +31,7 @@ describe('<Note />', () => {
 		const prioritySelect = getByRole('combobox');
 		fireEvent.change(prioritySelect, { target: { value: 'high' } }); // value should match options
 
-		expect(methods.setNoteField).toBeCalledWith(
+		expect(methods.setTodoField).toBeCalledWith(
 			expect.anything(),
 			expect.anything(),
 			'high'
@@ -44,27 +44,27 @@ describe('<Note />', () => {
 		const deleteButton = getByRole('button', { name: /delete/i });
 		userEvent.click(deleteButton);
 
-		expect(methods.deleteNotes).toBeCalledWith(expect.arrayContaining([1]));
+		expect(methods.deleteTodo).toBeCalledWith(expect.arrayContaining([1]));
 	});
 });
 
 function renderComponent() {
 	const pushToast = jest.fn();
-	const setNoteField = jest.fn();
-	const deleteNotes = jest.fn();
+	const setTodoField = jest.fn();
+	const deleteTodo = jest.fn();
 	const history = createMemoryHistory();
 	const wrapper = renderWithStore(
-		<Note
-			reqNoteId={1}
-			notes={dummyNotesList}
+		<Todo
+			todoid={1}
+			todos={todos}
 			pushToast={pushToast}
-			setNoteField={setNoteField}
-			deleteNotes={deleteNotes}
+			setTodoField={setTodoField}
+			deleteTodo={deleteTodo}
 			match={{}}
 			history={history}
 		/>
 	);
-	const methods = { pushToast, setNoteField, deleteNotes };
+	const methods = { pushToast, setTodoField, deleteTodo };
 
 	return { ...wrapper, history, methods };
 }

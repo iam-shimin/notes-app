@@ -1,9 +1,9 @@
-import { persistNotes } from 'utils/storage';
+import { persistTodos } from 'utils/storage';
 
 export default function persistanceMiddleware(store) {
 	return next => action => {
 		const res = next(action);
-		persistNotes(store.getState().todos);
+		persistTodos(store.getState().todos);
 		return res;
 	};
 }

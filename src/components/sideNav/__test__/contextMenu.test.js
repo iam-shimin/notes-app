@@ -21,7 +21,7 @@ describe('ContextMenu', () => {
 		const { getByRole } = render(
 			<SideNavContextMenu
 				selectedItems={dummySelectedItemSet}
-				deleteNotes={deleteTodo}
+				deleteTodo={deleteTodo}
 				onDeleted={onDeleted}
 			/>
 		);

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Note from 'components/noteList/note';
+import Todo from 'components/todoList/Todo';
 import { getMostVisited } from 'utils/storage';
 
 export default function MostVisited(props) {
-	return <Note reqNoteId={getMostVisited()} {...props} />;
+	return <Todo todoid={getMostVisited()} {...props} />;
 }

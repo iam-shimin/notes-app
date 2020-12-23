@@ -1,22 +1,22 @@
-import { CREATE_NOTE, DELETE_NOTE, SET_NOTE_FIELD } from 'actions/noteActionTypes';
+import { CREATE_TODO, DELETE_TODO, SET_TODO_FIELD } from 'actions/todoTypes';
 
-const initialNotes = [];
+const initialTodos = [];
 
-export default function todoReducer(state = initialNotes, action) {
+export default function todoReducer(state = initialTodos, action) {
 	switch (action.type) {
-		case CREATE_NOTE:
+		case CREATE_TODO:
 			return [...state, action.payload];
 
-		case DELETE_NOTE:
-			return state.filter(note => !action.payload.includes(note.id));
+		case DELETE_TODO:
+			return state.filter(todo => !action.payload.includes(todo.id));
 
-		case SET_NOTE_FIELD:
+		case SET_TODO_FIELD:
 			const { id, field, value } = action.payload;
-			return state.map(note => {
-				if (note.id === id) {
-					return { ...note, [field]: value };
+			return state.map(todo => {
+				if (todo.id === id) {
+					return { ...todo, [field]: value };
 				}
-				return note;
+				return todo;
 			});
 
 		default:

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
 import notifications from './notificationReducer';
-import notes from './todoReducer';
+import todos from './todoReducer';
 
 export default combineReducers({
-	notes,
+	todos,
 	notifications
 });
 // import actions from './actions';

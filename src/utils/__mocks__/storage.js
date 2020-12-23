@@ -1,9 +1,9 @@
 import { sampleVisitFrequency, sampleTodos } from './dummyData';
 
 // NOTES
-export const loadNotes = jest.fn().mockReturnValue(sampleTodos);
+export const loadTodos = jest.fn().mockReturnValue(sampleTodos);
 
-export const persistNotes = jest.fn(currentStateTodos => {});
+export const persistTodos = jest.fn(currentStateTodos => {});
 
 // VISIT COUNTERS
 const getVisitFrequency = jest.fn().mockReturnValue(sampleVisitFrequency);

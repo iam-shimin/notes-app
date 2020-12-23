@@ -9,7 +9,7 @@ import { pushToast } from 'actions/notificationActions';
 
 import 'styles/list.css';
 
-export function SideNav({ noteItems, pushToast }) {
+export function SideNav({ todoItems, pushToast }) {
 	const { isOpenForMobile, isMobile, toggle } = useContext(SidebarContext);
 	const [selectedOnContextMenu, setSelected] = useState(new Set([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
@@ -36,7 +36,7 @@ export function SideNav({ noteItems, pushToast }) {
 	}
 
 	function handleCxSelectAll() {
-		setSelected(new Set(noteItems.map(t => t.id)));
+		setSelected(new Set(todoItems.map(t => t.id)));
 	}
 
 	function handleCxDeselectAll() {
@@ -66,7 +66,7 @@ export function SideNav({ noteItems, pushToast }) {
 		<React.Fragment>
 			<aside className={sidebarClass}>
 				<SideNavItems
-					data={noteItems}
+					data={todoItems}
 					isSelectionModeOn={selectedOnContextMenu.size > 0}
 					selectedItemsSet={selectedOnContextMenu}
 					onContextMenu={handleContextMenu}
@@ -84,7 +84,7 @@ export function SideNav({ noteItems, pushToast }) {
 	);
 }
 
-const mapStateToProps = state => ({ noteItems: state.notes });
+const mapStateToProps = state => ({ todoItems: state.todos });
 const mapDispatchToProps = { pushToast }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
