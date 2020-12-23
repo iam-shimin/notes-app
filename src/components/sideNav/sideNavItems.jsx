@@ -97,6 +97,8 @@ function getTitleFromNote(note) {
 	if (!note) return;
 
 	const firstFewWords = note.split(' ').slice(0, 4).join(' ');
-	const firstWordsSliced = firstFewWords.slice(0, 12);
+	const firstWordsSliced = firstFewWords.length > 12
+		? firstFewWords.slice(0, 12)
+		: firstFewWords;
 	return `${firstWordsSliced}...`;
 }
