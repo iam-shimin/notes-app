@@ -28,6 +28,7 @@ export default function SideNavItems({
 
 	if (matchedTodos.length) {
 		return matchedTodos.map(todo => {
+			const noteTitle = todo.title || getTitleFromNote(todo.notes) || 'Empty Note';
 			const noteByLines = todo.notes.split('\n');
 			const numberOftasksTotal = noteByLines.filter(total).length;
 			const numberOftasksDone = noteByLines.filter(done).length;
@@ -73,7 +74,7 @@ export default function SideNavItems({
 					onContextMenu={toggleTodoSelect}
 					className={`todo-link${itemSelectionCssState}`}
 					key={todo.id}>
-					{todo.title} {hasSubTasks ? `[${progress}]` : null}
+					{noteTitle} {hasSubTasks ? `[${progress}]` : null}
 				</NavLink>
 			);
 		});
@@ -90,4 +91,12 @@ export default function SideNavItems({
 			<i>Start editing to add a new note to the list.</i>
 		</div>
 	);
+}
+
+function getTitleFromNote(note) {
+	if (!note) return;
+
+	const firstFewWords = note.split(' ').slice(0, 4).join(' ');
+	const firstWordsSliced = firstFewWords.slice(0, 12);
+	return `${firstWordsSliced}...`;
 }
