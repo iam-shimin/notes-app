@@ -1,4 +1,4 @@
-import { CREATE_NOTE, DELETE_NOTE, SET_NOTE_FIELD } from 'actions/noteActionTypes';
+import { CREATE_NOTE, DELETE_NOTE, SET_NOTE_FIELD, _MIGRATE } from 'actions/noteActionTypes';
 import { loadNotes } from 'utils/storage';
 
 const initialNotes = loadNotes();
@@ -19,6 +19,9 @@ export default function todoReducer(state = initialNotes, action) {
 				}
 				return note;
 			});
+		
+		case _MIGRATE:
+			return loadNotes('todo reducer');
 
 		default:
 			return state;
