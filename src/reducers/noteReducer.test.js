@@ -1,4 +1,4 @@
-import reducer from './todoReducer';
+import reducer from './noteReducer';
 import { CREATE_NOTE, DELETE_NOTE, SET_NOTE_FIELD } from 'actions/noteActionTypes';
 import { sampleTodos } from 'utils/__mocks__/dummyData';
 

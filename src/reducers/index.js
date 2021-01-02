@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import notifications from './notificationReducer';
-import notes from './todoReducer';
+import notes from './noteReducer';
 
 export default combineReducers({
 	notes,
