@@ -1,22 +1,22 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import rootReducers from 'reducers';
 
-import { loadNotes } from 'utils/storage';
 import persistanceMiddleware from './persistanceMiddleware';
+import storageMigrationMiddleware from './storageMigrationMiddleware';
 
 
-const initialAppState = { notes: loadNotes() };
+const middlewares = applyMiddleware(storageMigrationMiddleware, persistanceMiddleware);
 let combinedEnhancers;
 
 if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 	combinedEnhancers = compose(
-		applyMiddleware(persistanceMiddleware),
+		middlewares,
 		window.__REDUX_DEVTOOLS_EXTENSION__()
 	);
 } else {
-	combinedEnhancers = applyMiddleware(persistanceMiddleware);
+	combinedEnhancers = middlewares;
 }
 
-const store = createStore(rootReducers, initialAppState, combinedEnhancers);
+const store = createStore(rootReducers, combinedEnhancers);
 
 export default store;

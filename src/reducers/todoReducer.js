@@ -1,6 +1,7 @@
 import { CREATE_NOTE, DELETE_NOTE, SET_NOTE_FIELD } from 'actions/noteActionTypes';
+import { loadNotes } from 'utils/storage';
 
-const initialNotes = [];
+const initialNotes = loadNotes();
 
 export default function todoReducer(state = initialNotes, action) {
 	switch (action.type) {
