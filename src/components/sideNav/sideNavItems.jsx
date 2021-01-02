@@ -18,18 +18,18 @@ export default function SideNavItems({
 }) {
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
-	const mostCheckedTodo = getMostVisited();
-	const recentTodo = lastOf(data);
+	const mostCheckedNote = getMostVisited();
+	const recentNote = lastOf(data);
 
-	const matchedTodos = data.filter(
-		todo =>
-			query === null || todo.title.toLowerCase().includes(query.toLowerCase())
+	const matchedNote = data.filter(
+		note =>
+			query === null || note.title.toLowerCase().includes(query.toLowerCase())
 	);
 
-	if (matchedTodos.length) {
-		return matchedTodos.map(todo => {
-			const noteTitle = todo.title || getTitleFromNote(todo.notes) || 'Empty Note';
-			const noteByLines = todo.notes.split('\n');
+	if (matchedNote.length) {
+		return matchedNote.map(note => {
+			const noteTitle = note.title || getTitleFromNote(note.notes) || 'Empty Note';
+			const noteByLines = note.notes.split('\n');
 			const numberOftasksTotal = noteByLines.filter(total).length;
 			const numberOftasksDone = noteByLines.filter(done).length;
 
@@ -38,18 +38,18 @@ export default function SideNavItems({
 			const progress = isComplete
 				? 'Done'
 				: `${numberOftasksDone}/${numberOftasksTotal}`;
-			const itemSelectionCssState = selectedItemsSet.has(todo.id)
+			const itemSelectionCssState = selectedItemsSet.has(note.id)
 				? ' selected'
 				: '';
 
-			function toggleTodoSelect(event) {
+			function toggleNoteSelect(event) {
 				event.preventDefault();
-				onContextMenu(todo.id);
+				onContextMenu(note.id);
 			}
 
 			function handleClick(event) {
 				if (isSelectionModeOn) {
-					toggleTodoSelect(event);
+					toggleNoteSelect(event);
 				}
 				if (onClick) {
 					onClick();
@@ -57,23 +57,23 @@ export default function SideNavItems({
 			}
 
 			function handleActiveLink(match, location) {
-				const isRecentTodo = recentTodo.id === todo.id;
-				const isMostViewedTodo = mostCheckedTodo === String(todo.id);
+				const isRecentNote = recentNote.id === note.id;
+				const isMostViewedNote = mostCheckedNote === String(note.id);
 				const shouldShowMostViewed = location.pathname.includes('most-checked');
-				const shouldShowRecentTodo = location.pathname.includes('recent');
-				const isRecentMatch = shouldShowRecentTodo && isRecentTodo;
-				const isMostViewMatch = shouldShowMostViewed && isMostViewedTodo;
+				const shouldShowRecentNote = location.pathname.includes('recent');
+				const isRecentMatch = shouldShowRecentNote && isRecentNote;
+				const isMostViewMatch = shouldShowMostViewed && isMostViewedNote;
 				return match || isRecentMatch || isMostViewMatch;
 			}
 
 			return (
 				<NavLink
-					to={`/notes/${todo.id}${search}`}
+					to={`/notes/${note.id}${search}`}
 					isActive={handleActiveLink}
 					onClick={handleClick}
-					onContextMenu={toggleTodoSelect}
+					onContextMenu={toggleNoteSelect}
 					className={`todo-link${itemSelectionCssState}`}
-					key={todo.id}>
+					key={note.id}>
 					{noteTitle} {hasSubTasks ? `[${progress}]` : null}
 				</NavLink>
 			);

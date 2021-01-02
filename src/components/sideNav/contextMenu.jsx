@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { deleteTodo } from 'actions/todoActions';
+import { deleteNotes } from 'actions/noteActions';
 
 export function SideNavContextMenu({
 	selectedItems = null,
-	deleteTodo,
+	deleteNotes,
 	onDeleted,
 	onSelectAll,
 	onDeselectAll
@@ -14,10 +14,10 @@ export function SideNavContextMenu({
 	const cxCssState = show ? ' active' : '';
 	const deleteCount = show ? ` (${selectedItems.size})` : '';
 	const canOpenOutside = selectedItems.size === 1;
-	const todoId = canOpenOutside && Array.from(selectedItems)[0];
+	const noteId = canOpenOutside && Array.from(selectedItems)[0];
 
 	function deleteSelected() {
-		deleteTodo(Array.from(selectedItems));
+		deleteNotes(Array.from(selectedItems));
 		onDeleted();
 	}
 
@@ -25,7 +25,7 @@ export function SideNavContextMenu({
 		<div className={`sidenav-context-menu${cxCssState}`}>
 			{canOpenOutside && (
 				<a
-					href={`/notes/${todoId}`}
+					href={`/notes/${noteId}`}
 					className="btn cxmenu-btn"
 					target="_blank"
 					rel="noopener noreferrer">
@@ -46,7 +46,7 @@ export function SideNavContextMenu({
 }
 
 const mapDispatchToProps = {
-	deleteTodo
+	deleteNotes
 };
 
 export default connect(null, mapDispatchToProps)(SideNavContextMenu);

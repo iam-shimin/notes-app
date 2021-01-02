@@ -3,8 +3,8 @@ import { render, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
 import createDummyStore from 'store/dummyStore';
-import ConnectedTodoContent, { TodoContent } from '../todoContent';
-import todos from './todos';
+import ConnectedNoteContent, { NoteContent } from '../noteContent';
+import notes from './dummyNotesData';
 
 // describe
 // test / it
@@ -14,13 +14,13 @@ const assertedValue = 'Apple';
 
 const titleInput = /Title/;
 const noteInput = /Note/;
-const [note] = todos;
+const [note] = notes;
 
-describe('TodoContent', () => {
+describe('NoteContent', () => {
 	test('callback is called on every change', () => {
 		const callbackMock = jest.fn();
 		const { getByLabelText } = render(
-			<TodoContent noteId={note.id} data={note} setTodoField={callbackMock} />
+			<NoteContent noteId={note.id} data={note} setNoteField={callbackMock} />
 		);
 
 		const title = getByLabelText(titleInput);
@@ -34,12 +34,12 @@ describe('TodoContent', () => {
 		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedTodoContent noteId={note.id} data={note} />
+				<ConnectedNoteContent noteId={note.id} data={note} />
 			</Provider>
 		);
 		const title = getByLabelText(titleInput);
 		fireEvent.change(title, { target: { value: assertedValue } });
-		const [ updatedNote ] = store.getState().todos;
+		const [ updatedNote ] = store.getState().notes;
 
 		expect(updatedNote.title).toBe(assertedValue);
 	});
@@ -48,12 +48,12 @@ describe('TodoContent', () => {
 		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedTodoContent noteId={note.id} data={note} />
+				<ConnectedNoteContent noteId={note.id} data={note} />
 			</Provider>
 		);
 		const notes = getByLabelText(noteInput);
 		fireEvent.change(notes, { target: { value: assertedValue } });
-		const [ updatedNote ] = store.getState().todos;
+		const [ updatedNote ] = store.getState().notes;
 		
 		expect(updatedNote.notes).toBe(assertedValue);
 	});
@@ -62,7 +62,7 @@ describe('TodoContent', () => {
 		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedTodoContent
+				<ConnectedNoteContent
 					noteId={1}
 					data={{ title: 'Ok', notes: 'blah', id: 1 }}
 					disableEdit={true}
@@ -78,7 +78,7 @@ describe('TodoContent', () => {
 		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedTodoContent
+				<ConnectedNoteContent
 					noteId={1}
 					data={{ title: 'Ok', notes: 'blah', id: 1 }}
 					disableEdit={true}

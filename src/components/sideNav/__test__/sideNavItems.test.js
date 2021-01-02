@@ -4,15 +4,15 @@ import { MemoryRouter, Router } from 'react-router';
 import { createMemoryHistory } from 'history';
 
 import SideNavItems from '../sideNavItems';
-import todos from 'components/todoList/__test__/todos';
+import dummyNotesList from 'components/noteList/__test__/dummyNotesData';
 import lastOf from 'utils/array';
 
 describe('SideNavItems', () => {
 	test('render items', () => {
-		const { getAllByRole } = renderItem(todos);
+		const { getAllByRole } = renderItem(dummyNotesList);
 		const items = getAllByRole('link');
 
-		expect(items.length).toBe(todos.length);
+		expect(items.length).toBe(dummyNotesList.length);
 	});
 
 	test('search filter works', () => {
@@ -21,8 +21,8 @@ describe('SideNavItems', () => {
 		const { getAllByRole } = render(
 			<Router history={history}>
 				<SideNavItems
-					data={todos}
-					recentTodo={lastOf(todos)}
+					data={dummyNotesList}
+					recentTodo={lastOf(dummyNotesList)}
 					selectedItemsSet={new Set([])}
 				/>
 			</Router>
@@ -35,7 +35,7 @@ describe('SideNavItems', () => {
 	test('right clicking on item will select it', () => {
 		const selectedItemsSet = new Set();
 		const onContextMenu = jest.fn(id => selectedItemsSet.add(id));
-		const { getAllByRole, rerender } = renderItem(todos, {
+		const { getAllByRole, rerender } = renderItem(dummyNotesList, {
 			onContextMenu,
 			selectedItemsSet
 		});
@@ -44,7 +44,7 @@ describe('SideNavItems', () => {
 		rerender();
 
 		expect(firstLink).toHaveClass('selected');
-		expect(onContextMenu).toHaveBeenCalledWith(todos[0].id);
+		expect(onContextMenu).toHaveBeenCalledWith(dummyNotesList[0].id);
 	});
 
 	test('clicking on a selected item will unselect it', () => {
@@ -53,7 +53,7 @@ describe('SideNavItems', () => {
 			() => (isSelectionModeOn = !isSelectionModeOn)
 		);
 		const onClick = jest.fn();
-		const { getAllByRole } = renderItem(todos, {
+		const { getAllByRole } = renderItem(dummyNotesList, {
 			onContextMenu,
 			onClick,
 			isSelectionModeOn
@@ -63,7 +63,7 @@ describe('SideNavItems', () => {
 		fireEvent.click(firstLink);
 
 		expect(firstLink).not.toHaveClass('selected');
-		expect(onContextMenu).toHaveBeenCalledWith(todos[0].id);
+		expect(onContextMenu).toHaveBeenCalledWith(dummyNotesList[0].id);
 		// TODO: expected 2, learn rerender anf fix this
 		expect(onContextMenu).toHaveBeenCalled();
 		expect(onClick).toHaveBeenCalledTimes(1);
@@ -76,7 +76,7 @@ describe('SideNavItems', () => {
 			() => (isSelectionModeOn = !isSelectionModeOn)
 		);
 		const onClick = jest.fn();
-		const { getAllByRole } = renderItem(todos, {
+		const { getAllByRole } = renderItem(dummyNotesList, {
 			onContextMenu,
 			onClick,
 			isSelectionModeOn
@@ -86,8 +86,8 @@ describe('SideNavItems', () => {
 		fireEvent.contextMenu(firstLink);
 
 		expect(firstLink).not.toHaveClass('selected');
-		expect(onContextMenu).toHaveBeenCalledWith(todos[0].id);
-		expect(onContextMenu).toHaveBeenNthCalledWith(2, todos[0].id);
+		expect(onContextMenu).toHaveBeenCalledWith(dummyNotesList[0].id);
+		expect(onContextMenu).toHaveBeenNthCalledWith(2, dummyNotesList[0].id);
 	});
 });
 

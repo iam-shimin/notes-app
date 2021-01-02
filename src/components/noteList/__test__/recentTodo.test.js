@@ -1,11 +1,11 @@
 import React from 'react';
 import { renderWithStore } from 'utils/testRenderers';
 
-import RecentTodo from '../recentTodo';
+import RecentNote from '../recentNote';
 
 jest.mock('utils/storage');
 
 test('mostvisited', () => {
-	const { asFragment } = renderWithStore(<RecentTodo />);
+	const { asFragment } = renderWithStore(<RecentNote />);
 	expect(asFragment()).toMatchSnapshot();
 });

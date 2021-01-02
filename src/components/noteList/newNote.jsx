@@ -2,21 +2,21 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import { addTodo } from 'actions/todoActions';
+import { addNote } from 'actions/noteActions';
 
-export function NewTodo({ totalCount, addTodo }) {
+export function NewTodo({ totalCount, addNote }) {
 	const history = useHistory();
 
 	useEffect(() => {
 		const payload = { title: `Untitled ${totalCount + 1}`, notes: '' };
-		addTodo(payload, todo => history.replace(`/notes/${todo.id}`));
-	}, [addTodo, totalCount, history]);
+		addNote(payload, note => history.replace(`/notes/${note.id}`));
+	}, [ addNote, totalCount, history ]);
 
 	return null;
 }
 
-const mapStateToProps = state => ({ totalCount: state.todos.length });
+const mapStateToProps = state => ({ totalCount: state.notes.length });
 
-const mapDispatchToProps = { addTodo };
+const mapDispatchToProps = { addNote };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewTodo);
