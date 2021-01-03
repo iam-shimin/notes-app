@@ -7,7 +7,9 @@ import { dismissToast } from 'actions/notificationActions';
 const Notification = React.lazy(() => import('./notifications'));
 
 
-function NotificationPannel({ notifications, dismissToast }) {
+function NotificationPannel(
+	{ notifications, dismissToast }: React.ComponentProps<typeof Notification>
+) {
 	if (!notifications.length)
 		return null;
 
@@ -20,7 +22,7 @@ function NotificationPannel({ notifications, dismissToast }) {
 		</React.Suspense>
 	);
 }
-
+// @ts-ignore
 const mapStateToProps = state => ({
 	notifications: state.notifications
 });

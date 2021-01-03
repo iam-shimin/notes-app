@@ -1,7 +1,12 @@
 import React from 'react';
 import Toast from './Toast';
 
-export default function Notifications({ notifications, dismissToast }) {
+interface NotificationsProps {
+	notifications: NotificationI[],
+	dismissToast: React.ComponentProps<typeof Toast>['onDismiss']
+};
+
+export default function Notifications({ notifications, dismissToast }: NotificationsProps) {
 	const activeCssClass = notifications.length > 0 ? ' active' : '';
 
 	return (

@@ -3,14 +3,15 @@ import { render, waitFor } from '@testing-library/react';
 
 import Notifications from '../notifications';
 
-export const sample = [
+export const sample: NotificationI[] = [
 	{ _id: 1, message: 'Test' },
 	{ _id: 2, message: 'Test2' }
 ];
 
 describe('Notifications', () => {
 	test('render notification toasts list', () => {
-		const { getAllByRole } = render(<Notifications notifications={sample} />);
+		const cb = jest.fn();
+		const { getAllByRole } = render(<Notifications notifications={sample} dismissToast={cb} />);
 		const buttons = getAllByRole('button', { name: /Dismiss/ });
 
 		expect(buttons.length).toBe(sample.length);
