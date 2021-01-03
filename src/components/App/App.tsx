@@ -26,7 +26,7 @@ function App() {
 	);
 }
 
-const relativePosition = { position: 'relative' };
+const relativePosition: React.CSSProperties = { position: 'relative' };
 
 function AppLayout() {
 	return (

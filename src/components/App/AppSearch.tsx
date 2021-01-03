@@ -3,14 +3,19 @@ import { useHistory, useLocation } from 'react-router';
 
 import { queryString } from 'utils/url';
 
-export default function AppSearch({ onCancel, onSearch }) {
+interface AppSearchProps {
+	onCancel?(event: React.MouseEvent<HTMLButtonElement>): void,
+	onSearch(): void
+}
+
+export default function AppSearch({ onCancel, onSearch }: AppSearchProps) {
 	const history = useHistory();
 	const { search: query, pathname = '' } = useLocation();
-	const searchBoxEleRef = useRef(null);
+	const searchBoxEleRef = useRef<HTMLInputElement>(null);
 
 	const showMobileButtons = !!onCancel;
 
-	function search(event) {
+	function search(event: React.ChangeEvent<HTMLInputElement>) {
 		const query = event.target.value;
 		if (query) {
 			history.replace(`${pathname}?q=${query}`);
@@ -24,7 +29,7 @@ export default function AppSearch({ onCancel, onSearch }) {
 
 	function clearSearch() {
 		history.replace(pathname);
-		searchBoxEleRef.current.focus();
+		searchBoxEleRef.current?.focus();
 	}
 
 	return (

@@ -9,6 +9,8 @@ import { SidebarProvider } from 'context/sidebar';
 
 describe('AppHeader', () => {
 	test('mobile behaviour works', () => {
+		// @ts-ignore
+		// FIXME
 		window.matchMedia.mockImplementationOnce(matchedQuery(true));
 
 		const { getByText } = renderAppHeader();
@@ -19,6 +21,7 @@ describe('AppHeader', () => {
 
 	test('desktop behaviour works', () => {
 		// TypeError: MutationObserver is not a constructor
+		// @ts-ignore
 		window.matchMedia.mockImplementationOnce(matchedQuery(false));
 
 		const { queryByText } = renderAppHeader();
@@ -27,8 +30,8 @@ describe('AppHeader', () => {
 	});
 });
 
-export function matchedQuery(matches) {
-	return query => ({
+export function matchedQuery(matches: boolean) {
+	return (query: string) => ({
 		matches,
 		media: query,
 		onchange: null,

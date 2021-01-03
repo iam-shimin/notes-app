@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createMemoryHistory } from 'history';
+import { createMemoryHistory, History } from 'history';
 
 import AppSearch from '../AppSearch';
 import { queryString } from 'utils/url';
@@ -42,10 +42,14 @@ describe('AppSearch', () => {
 	});
 });
 
-function renderAppSearch(history, onSearch) {
+function renderAppSearch(
+	history: History,
+	onSearch?: Parameters<typeof AppSearch>[0]['onSearch']
+) {
+	const callback = onSearch || jest.fn();
 	return render(
 		<Router history={history}>
-			<AppSearch onSearch={onSearch} />
+			<AppSearch onSearch={callback} />
 		</Router>
 	);
 }

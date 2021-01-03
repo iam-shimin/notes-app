@@ -3,16 +3,18 @@ import { NavLink } from 'react-router-dom';
 import AppbarSearch from './AppSearch';
 import SidebarContext from 'context/sidebar';
 
-const fontSize = { fontSize: 'initial' };
+const fontSize: React.CSSProperties = { fontSize: 'initial' };
 
 export default function AppHeader() {
+	// @ts-ignore
+	// TODO: hook tobe typed
 	const { toggle, isMobile, isOpenForMobile } = useContext(SidebarContext);
 	const [isSearchShown, setIsSearchShown] = useState(false);
 
 	const shouldShowSearch = !isMobile || isSearchShown;
 	const shouldShowNav = !isMobile || !isSearchShown;
 	const appBarDirection = isMobile && !isSearchShown ? 'column' : 'row';
-	const headerStyle = {
+	const headerStyle: React.CSSProperties = {
 		justifyContent: 'center',
 		flexDirection: appBarDirection
 	};
@@ -58,7 +60,11 @@ export default function AppHeader() {
 	);
 }
 
-function HamburgerButton({ onClick }) {
+interface HamburgerButtonProps {
+	onClick(): void
+}
+
+function HamburgerButton({ onClick }: HamburgerButtonProps) {
 	const toggleSidebar = () => onClick();
 	return (
 		<button className="hamburger-button" onClick={toggleSidebar}>
