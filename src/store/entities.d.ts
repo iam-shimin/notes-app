@@ -1,9 +1,11 @@
 type Id = number;
 
+type Priority = 'low' | 'med' | 'high';
+
 interface NoteI {
 	id: Id,
 	title: string,
-	priority: string,
+	priority: Priority,
 	notes: string
 }
 
