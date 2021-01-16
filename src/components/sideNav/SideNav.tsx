@@ -9,13 +9,19 @@ import { pushToast } from 'actions/notificationActions';
 
 import 'styles/list.css';
 
-export function SideNav({ noteItems, pushToast }) {
+interface SideNavProps {
+	noteItems: NoteI[],
+	pushToast(msg: string): void
+}
+
+export function SideNav({ noteItems, pushToast }: SideNavProps) {
+	// @ts-ignore
 	const { isOpenForMobile, isMobile, toggle } = useContext(SidebarContext);
-	const [selectedOnContextMenu, setSelected] = useState(new Set([]));
+	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
 	const sidebarClass = `sidenav-left${shouldOpenSidebar ? ' open' : ''}`;
 
-	function handleContextMenu(noteId) {
+	function handleContextMenu(noteId: number) {
 		const newSet = new Set(selectedOnContextMenu);
 
 		if (selectedOnContextMenu.has(noteId)) {
@@ -44,11 +50,14 @@ export function SideNav({ noteItems, pushToast }) {
 	}
 
 	useEffect(() => {
+		// @ts-ignore
 		const [sidebar] = document.getElementsByClassName('sidenav-left');
 
+		// @ts-ignore
 		function handleClickOutside(event) {
 			const { target } = event;
 			const isClickOutside = !sidebar.contains(target);
+			// @ts-ignore
 			const isAllowedClickOutside = target.matches(
 				'.hamburger-button, .hamburger-button span, .contextmenu-delete-button'
 			);
@@ -83,7 +92,7 @@ export function SideNav({ noteItems, pushToast }) {
 		</React.Fragment>
 	);
 }
-
+// @ts-ignore
 const mapStateToProps = state => ({ noteItems: state.notes });
 const mapDispatchToProps = { pushToast }
 
