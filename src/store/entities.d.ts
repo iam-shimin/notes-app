@@ -5,7 +5,7 @@ type Priority = 'low' | 'med' | 'high';
 interface NoteI {
 	id: Id,
 	title: string,
-	priority: Priority,
+	priority?: Priority,
 	notes: string
 }
 
