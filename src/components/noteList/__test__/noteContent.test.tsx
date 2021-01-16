@@ -5,16 +5,15 @@ import { Provider } from 'react-redux';
 import createDummyStore from 'store/dummyStore';
 import ConnectedNoteContent, { NoteContent } from '../noteContent';
 import notes from './dummyNotesData';
+import { NoteFieldSetter } from '../noteListTypes';
 
-// describe
-// test / it
-// jest
 
 const assertedValue = 'Apple';
 
 const titleInput = /Title/;
 const noteInput = /Note/;
 const [note] = notes;
+
 
 describe('NoteContent', () => {
 	test('callback is called on every change', () => {
@@ -66,7 +65,6 @@ describe('NoteContent', () => {
 					noteId={1}
 					data={{ title: 'Ok', notes: 'blah', id: 1 }}
 					disableEdit={true}
-					setTodoField={() => {}}
 				/>
 			</Provider>
 		);
@@ -81,9 +79,7 @@ describe('NoteContent', () => {
 				<ConnectedNoteContent
 					noteId={1}
 					data={{ title: 'Ok', notes: 'blah', id: 1 }}
-					disableEdit={true}
-					setTodoField={() => {}}
-				/>
+					disableEdit={true} />
 			</Provider>
 		);
 		const notes = getByLabelText(noteInput);
@@ -91,7 +87,10 @@ describe('NoteContent', () => {
 	});
 });
 
-function changeElementValue(element, shouldFail = false) {
+function changeElementValue(element: HTMLElement, shouldFail = false) {
+	if (!(element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement))
+		throw new Error('Unexpected input element');
+
 	fireEvent.change(element, { target: { value: assertedValue } });
 	expect(element.disabled).toBe(shouldFail);
 	if (shouldFail) {

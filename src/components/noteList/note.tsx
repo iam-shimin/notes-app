@@ -8,6 +8,23 @@ import { connect } from 'react-redux';
 import { pushToast } from 'actions/notificationActions';
 import { deleteNotes, setNoteField } from 'actions/noteActions';
 import { increaseCount } from 'utils/storage';
+import { NoteFieldSetter, NoteId } from './noteListTypes';
+
+interface NoteOwnProps extends RouterReceivedProps {
+	reqNoteId: NoteId
+}
+
+interface NoteStateProps {
+	notes: NoteI[],
+}
+
+interface NoteActionProps {
+	setNoteField: NoteFieldSetter,
+	deleteNotes(noteIds: NoteId[]): void,
+	pushToast(message: string): void
+}
+
+export type NoteProps = NoteOwnProps & NoteStateProps & NoteActionProps;
 
 export function Note({
 	reqNoteId,
@@ -17,7 +34,7 @@ export function Note({
 	setNoteField,
 	deleteNotes,
 	history
-}) {
+}: NoteProps) {
 	const paramid = reqNoteId || match.params.id;
 	const [noteId, setNoteId] = useState(parseInt(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
@@ -27,7 +44,7 @@ export function Note({
 
 	function deleteThisNote() {
 		const thisNoteIndex = notes.findIndex(note => note.id === noteId);
-		const prevNoteIndex = thisNoteIndex !== 0 && thisNoteIndex - 1;
+		const prevNoteIndex = (thisNoteIndex !== 0 && thisNoteIndex - 1) || 0;
 		const prevNoteId = notes[prevNoteIndex]
 			? `/${notes[prevNoteIndex].id}`
 			: '';
@@ -44,6 +61,9 @@ export function Note({
 		}
 		setDisableEdit(true);
 	}, [paramid]);
+
+	if (!data)
+		return null;
 
 	return (
 		<>
@@ -69,10 +89,9 @@ export function Note({
 		</>
 	);
 }
-
+// @ts-ignore
 const mapStateToProps = state => ({
-	notes: state.notes,
-	notifications: state.notifications
+	notes: state.notes
 });
 
 const mapDispatchToProps = {

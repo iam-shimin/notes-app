@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { setNoteField } from 'actions/noteActions';
+import { NoteFieldSetter, NoteFields, NoteId } from './noteListTypes';
 
 const titlePlaceholder = 'What do you need to do ?';
 const textareaPlaceholder = `Write notes on:
@@ -10,16 +11,28 @@ const textareaPlaceholder = `Write notes on:
  * Deadlines
  * Who is going to help ?`;
 
-export function NoteContent({ noteId, data, disableEdit, setNoteField }) {
-	function handleInputFocus(event) {
+interface NoteContentOwnProps {
+	noteId: NoteId,
+	data: NoteI,
+	disableEdit?: boolean,
+}
+
+interface NoteContentActionProps {
+	setNoteField: NoteFieldSetter
+}
+
+type NoteContentProps = NoteContentOwnProps & NoteContentActionProps;
+
+export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteContentProps) {
+	function handleInputFocus(event: React.FocusEvent<HTMLInputElement>) {
 		if (event.currentTarget.value.includes('Untitled')) {
 			event.currentTarget.select();
 		}
 	}
 
-	function onInputChange(event) {
+	function onInputChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
 		const { name, value } = event.target;
-		setNoteField(noteId, name, value);
+		setNoteField(noteId, name as NoteFields, value);
 	}
 
 	const urlIsInvalid = !data;
