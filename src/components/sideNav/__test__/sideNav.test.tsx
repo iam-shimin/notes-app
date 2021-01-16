@@ -22,6 +22,7 @@ describe('SideNav', () => {
 	});
 
 	test('shows empty search result message', () => {
+		// @ts-ignore
 		window.matchMedia.mockImplementationOnce(matchedQuery(false));
 		const store = createStore(rootReducer, { notes });
 		const history = createMemoryHistory();
@@ -33,7 +34,10 @@ describe('SideNav', () => {
 	});
 });
 
-function renderSideNav(history, store) {
+function renderSideNav(
+	history: ReturnType<typeof createMemoryHistory>,
+	store: ReturnType<typeof createStore>
+) {
 	return render(
 		<Router history={history}>
 			<SidebarProvider>
