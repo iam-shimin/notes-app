@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { RouteComponentProps, match } from 'react-router-dom';
 
 import 'styles/note.css';
 
 import NoteContent from './noteContent';
-import { connect } from 'react-redux';
 
 import { pushToast } from 'actions/notificationActions';
 import { deleteNotes, setNoteField } from 'actions/noteActions';
 import { increaseCount } from 'utils/storage';
+import { asNumber } from 'utils/primitive';
 import { NoteFieldSetter, NoteId } from './noteListTypes';
 
-interface NoteOwnProps extends RouterReceivedProps {
-	reqNoteId: NoteId
+interface NoteOwnProps extends Pick<RouteComponentProps, 'history'> {
+	reqNoteId: NoteId,
+	match: match<{id?: string}>
 }
 
 interface NoteStateProps {
@@ -36,7 +39,11 @@ export function Note({
 	history
 }: NoteProps) {
 	const paramid = reqNoteId || match.params.id;
-	const [noteId, setNoteId] = useState(parseInt(paramid));
+
+	if (paramid === undefined)
+		return null;
+	
+	const [noteId, setNoteId] = useState(asNumber(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
 	const toggleEdit = () => setDisableEdit(!disableEdit);
 
@@ -55,9 +62,10 @@ export function Note({
 	}
 
 	useEffect(() => {
-		setNoteId(parseInt(paramid));
+		const id = asNumber(paramid);
+		setNoteId(id);
 		if (paramid) {
-			increaseCount(paramid);
+			increaseCount(id);
 		}
 		setDisableEdit(true);
 	}, [paramid]);

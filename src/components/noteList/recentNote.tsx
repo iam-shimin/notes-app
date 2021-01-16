@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 
 import Note from './note';
 import lastOf from 'utils/array';
 import { NoteId } from './noteListTypes';
 
-interface RecentNoteProps extends RouterReceivedProps {
+interface RecentNoteProps extends RouteComponentProps {
 	lastNoteId: NoteId
 }
 

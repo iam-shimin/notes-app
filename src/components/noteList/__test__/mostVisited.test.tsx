@@ -1,10 +1,10 @@
 import React from 'react';
 import MostVisited from '../mostVisited';
-import { renderWithStore } from 'utils/testRenderers';
+import { renderWithStore, createRouterComponentProps } from 'utils/testRenderers';
 
 jest.mock('utils/storage');
 
 test('mostvisited', () => {
-	const { asFragment } = renderWithStore(<MostVisited history location match />);
+	const { asFragment } = renderWithStore(<MostVisited {...createRouterComponentProps()} />);
 	expect(asFragment()).toMatchSnapshot();
 });

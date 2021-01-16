@@ -3,7 +3,7 @@ import React from 'react';
 import { Note } from '../note';
 import { createMemoryHistory } from 'history';
 import dummyNotesList from './dummyNotesData';
-import { renderWithStore } from 'utils/testRenderers';
+import { renderWithStore, createMatch } from 'utils/testRenderers';
 import userEvent from '@testing-library/user-event';
 import { fireEvent } from '@testing-library/react';
 
@@ -53,6 +53,7 @@ function renderComponent() {
 	const setNoteField = jest.fn();
 	const deleteNotes = jest.fn();
 	const history = createMemoryHistory();
+	const match = createMatch();
 	const wrapper = renderWithStore(
 		<Note
 			reqNoteId={1}
@@ -60,7 +61,7 @@ function renderComponent() {
 			pushToast={pushToast}
 			setNoteField={setNoteField}
 			deleteNotes={deleteNotes}
-			match={{}}
+			match={match}
 			history={history}
 		/>
 	);
