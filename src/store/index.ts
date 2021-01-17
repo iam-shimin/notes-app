@@ -3,14 +3,14 @@ import rootReducers from 'reducers';
 
 import persistanceMiddleware from './persistanceMiddleware';
 import storageMigrationMiddleware from './storageMigrationMiddleware';
-
-
+// TODO: fox ts-ignores
+//@ts-ignore
 const middlewares = applyMiddleware(storageMigrationMiddleware, persistanceMiddleware);
 let combinedEnhancers;
-
+//@ts-ignore
 if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 	combinedEnhancers = compose(
-		middlewares,
+		middlewares,//@ts-ignore
 		window.__REDUX_DEVTOOLS_EXTENSION__()
 	);
 } else {

@@ -6,7 +6,7 @@ test('persistance middleware', () => {
 			return {};
 		}
 	};
-	const action = { type: 'test' };
+	const action = { type: 'test' }; // @ts-ignore
 	const getDispatcher = middleware(storeApi);
 	const dispatch = getDispatcher(a => a);
 	const dispatchedAction = dispatch(action);
