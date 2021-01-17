@@ -5,7 +5,7 @@ export default function useMatchMedia(media = '(max-width: 500px)') {
 	const [isMatch, setIsMatch] = useState(matchMedia.matches);
 
 	useEffect(() => {
-		function updateFlag(event) {
+		function updateFlag(event: any) {
 			setIsMatch(event.matches);
 		}
 		matchMedia.addEventListener('change', updateFlag);
