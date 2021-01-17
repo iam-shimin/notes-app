@@ -1,13 +1,14 @@
 import {
+	NotificationAction,
 	NOTIFICATION_PUSH,
 	NOTIFICATION_DISMISS
 } from 'actions/notificationTypes';
 
-const initialNotifications = [];
+const initialNotifications: NotificationI[] = [];
 
 export default function notificationReducer(
 	state = initialNotifications,
-	action
+	action: NotificationAction
 ) {
 	switch (action.type) {
 		case NOTIFICATION_PUSH: {

@@ -3,7 +3,7 @@ const id_b = 1599332969029;
 
 export const sampleVisitFrequency = { [id_a]: 75, [id_b]: 7 };
 
-export const sampleTodos = [
+export const sampleTodos: NoteI[] = [
 	{
 		id: id_a,
 		notes: '',

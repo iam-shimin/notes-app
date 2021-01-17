@@ -6,16 +6,19 @@ import {
 
 const dummyId = 123;
 const dummyMessage = 'message';
-const dummyNotification = { _id: dummyId, message: dummyMessage };
+const dummyNotification: NotificationI = { _id: dummyId, message: dummyMessage };
 
 const initState = {
 	[NOTIFICATION_DISMISS]: [dummyNotification]
 };
 
 const payloads = {
-	[NOTIFICATION_PUSH]: dummyMessage,
-	[NOTIFICATION_DISMISS]: dummyId
+	[NOTIFICATION_DISMISS]: dummyId,
+	[NOTIFICATION_PUSH]: dummyMessage
 };
+
+type StateKeys = keyof typeof initState;
+type PayloadKeys = keyof typeof payloads;
 
 describe('Notification reducer', () => {
 	test.each([[NOTIFICATION_PUSH], [NOTIFICATION_DISMISS]])(
@@ -27,13 +30,14 @@ describe('Notification reducer', () => {
 				mockedDate = jest.spyOn(Date, 'now').mockReturnValueOnce(dummyId);
 			}
 
-			const state = reducer(initState[actionType], {
+			const state = reducer(initState[actionType as StateKeys], {
+				// @ts-ignore
 				type: actionType,
-				payload: payloads[actionType]
+				payload: payloads[actionType as PayloadKeys]
 			});
 
 			if (actionType === NOTIFICATION_PUSH) {
-				mockedDate.mockRestore();
+				mockedDate?.mockRestore();
 				expect(state).toContainEqual(dummyNotification);
 			} else {
 				expect(state.length).toBe(0);
