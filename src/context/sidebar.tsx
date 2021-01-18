@@ -2,9 +2,21 @@ import React, { createContext, useState, useMemo } from 'react';
 
 import useMatchMedia from 'hooks/useMatchMedia';
 
-const SidebarContext = createContext({ isOpenForMobile: false });
+type ToggleValueSetter = boolean | ((isOpen: boolean) => boolean);
 
-export function SidebarProvider({ children }: React.PropsWithChildren<HTMLDivElement>) {
+interface SidebarI {
+	isOpenForMobile: boolean,
+	isMobile: boolean,
+	toggle(setValue?: ToggleValueSetter) : void
+}
+
+const SidebarContext = createContext<SidebarI>({
+	isOpenForMobile: false,
+	isMobile: true,
+	toggle(){}
+});
+
+export function SidebarProvider({ children }: React.HTMLProps<HTMLDivElement>) {
 	const [isOpenForMobile, setIsOpenForMobile] = useState(false);
 	const isMobile = useMatchMedia('(max-width: 500px)');
 

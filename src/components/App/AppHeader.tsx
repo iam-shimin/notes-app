@@ -6,8 +6,6 @@ import SidebarContext from 'context/sidebar';
 const fontSize: React.CSSProperties = { fontSize: 'initial' };
 
 export default function AppHeader() {
-	// @ts-ignore
-	// TODO: hook tobe typed
 	const { toggle, isMobile, isOpenForMobile } = useContext(SidebarContext);
 	const [isSearchShown, setIsSearchShown] = useState(false);
 

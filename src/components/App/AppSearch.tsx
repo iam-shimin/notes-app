@@ -4,8 +4,8 @@ import { useHistory, useLocation } from 'react-router';
 import { queryString } from 'utils/url';
 
 interface AppSearchProps {
-	onCancel?(event: React.MouseEvent<HTMLButtonElement>): void,
-	onSearch(): void
+	onCancel?: false | ((event: React.MouseEvent<HTMLButtonElement>) => void),
+	onSearch?: false | (() => void)
 }
 
 export default function AppSearch({ onCancel, onSearch }: AppSearchProps) {
@@ -49,7 +49,7 @@ export default function AppSearch({ onCancel, onSearch }: AppSearchProps) {
 					<button className="btn-b" onClick={clearSearch}>X</button>
 					<button
 						className="btn-b"
-						onClick={onCancel}>
+						onClick={onCancel || undefined}>
 						Cancel
 					</button>
 				</>
