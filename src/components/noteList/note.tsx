@@ -40,9 +40,6 @@ export function Note({
 	history
 }: NoteProps) {
 	const paramid = reqNoteId || match.params.id;
-
-	if (paramid === undefined)
-		return null;
 	
 	const [noteId, setNoteId] = useState(asNumber(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
@@ -71,7 +68,7 @@ export function Note({
 		setDisableEdit(true);
 	}, [paramid]);
 
-	if (!data)
+	if (paramid === undefined || !data)
 		return null;
 
 	return (

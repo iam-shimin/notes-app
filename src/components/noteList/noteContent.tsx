@@ -79,5 +79,5 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 const mapDispatchToProps = {
 	setNoteField
 };
-
+//@ts-ignore
 export default connect(null, mapDispatchToProps)(NoteContent);
