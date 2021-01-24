@@ -7,6 +7,8 @@ import SideNavItems from './sideNavItems';
 import SidebarContext from 'context/sidebar';
 import { pushToast } from 'actions/notificationActions';
 
+import { NotesAppState } from 'reducers';
+
 import 'styles/list.css';
 
 interface SideNavProps {
@@ -15,7 +17,6 @@ interface SideNavProps {
 }
 
 export function SideNav({ noteItems, pushToast }: SideNavProps) {
-	// @ts-ignore
 	const { isOpenForMobile, isMobile, toggle } = useContext(SidebarContext);
 	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
@@ -53,11 +54,10 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 		// @ts-ignore
 		const [sidebar] = document.getElementsByClassName('sidenav-left');
 
-		// @ts-ignore
-		function handleClickOutside(event) {
+		function handleClickOutside(event: MouseEvent) {
 			const { target } = event;
 			const isClickOutside = !sidebar.contains(target);
-			// @ts-ignore
+			//@ts-ignore
 			const isAllowedClickOutside = target.matches(
 				'.hamburger-button, .hamburger-button span, .contextmenu-delete-button'
 			);
@@ -92,8 +92,8 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 		</React.Fragment>
 	);
 }
-// @ts-ignore
-const mapStateToProps = state => ({ noteItems: state.notes });
+
+const mapStateToProps = (state: NotesAppState) => ({ noteItems: state.notes });
 const mapDispatchToProps = { pushToast }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);

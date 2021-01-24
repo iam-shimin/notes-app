@@ -1,11 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router';
+import { Location } from 'history';
 // import { connect } from 'react-redux';
 import { queryString } from 'utils/url';
 import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
 import { total, done } from 'utils/todos';
+import { getTitleFromNote } from 'utils/note';
 
 // TODO: scroll to the selected item in the sidebar
 
@@ -14,7 +16,7 @@ interface SideNavItemsProps {
 	isSelectionModeOn: boolean,
 	selectedItemsSet: Set<number>,
 	onContextMenu(id: NoteI['id']): void,
-	onClick(): void
+	onClick?: false | (() => void)
 }
 
 export default function SideNavItems({
@@ -69,9 +71,8 @@ export default function SideNavItems({
 						}
 					}
 
-					// @ts-ignore
-					function handleActiveLink(match, location) {
-						const isRecentNote = recentNote.id === note.id;
+					function handleActiveLink(match: any, location: Location) {
+						const isRecentNote = recentNote?.id === note.id;
 						const isMostViewedNote = mostCheckedNote === String(note.id);
 						const shouldShowMostViewed = location.pathname.includes(
 							'most-checked'
@@ -109,14 +110,4 @@ export default function SideNavItems({
 			<i>Start editing to add a new note to the list.</i>
 		</div>
 	);
-}
-
-function getTitleFromNote(note: string) {
-	if (!note) return;
-
-	const firstFewWords = note.split(' ').slice(0, 4).join(' ');
-	const firstWordsSliced = firstFewWords.length > 12
-		? firstFewWords.slice(0, 12)
-		: firstFewWords;
-	return `${firstWordsSliced}...`;
 }

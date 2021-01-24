@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { dismissToast } from 'actions/notificationActions';
+import { NotesAppState } from 'reducers';
 
 const Notification = React.lazy(() => import('./notifications'));
 
@@ -22,8 +23,8 @@ function NotificationPannel(
 		</React.Suspense>
 	);
 }
-// @ts-ignore
-const mapStateToProps = state => ({
+
+const mapStateToProps = (state: NotesAppState) => ({
 	notifications: state.notifications
 });
 

@@ -7,6 +7,7 @@ import Note from './note';
 import RecentNote from './recentNote';
 import NewNote from './newNote';
 import MostVisited from './mostVisited';
+import { NotesAppState } from 'reducers';
 
 interface NotePageRedirectProps { hasNotes: boolean }
 
@@ -14,8 +15,8 @@ function NotePageRedirect({ hasNotes }: NotePageRedirectProps) {
 	const redirectionURL = hasNotes ? '/notes/recent' : '/notes/new';
 	return <Redirect to={redirectionURL} />;
 }
-// @ts-ignore
-const mapStateToProps = state => ({ hasNotes: state.notes.length !== 0 });
+
+const mapStateToProps = (state: NotesAppState) => ({ hasNotes: state.notes.length !== 0 });
 
 const LandingPageRedirect = connect(mapStateToProps)(NotePageRedirect);
 

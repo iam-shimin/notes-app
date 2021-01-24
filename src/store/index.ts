@@ -3,7 +3,8 @@ import rootReducers from 'reducers';
 
 import persistanceMiddleware from './persistanceMiddleware';
 import storageMigrationMiddleware from './storageMigrationMiddleware';
-// TODO: fox ts-ignores
+// TODO: fix ts-ignores
+// TODO: add typing for store.state
 //@ts-ignore
 const middlewares = applyMiddleware(storageMigrationMiddleware, persistanceMiddleware);
 let combinedEnhancers;

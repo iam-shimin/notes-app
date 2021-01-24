@@ -11,6 +11,7 @@ import { deleteNotes, setNoteField } from 'actions/noteActions';
 import { increaseCount } from 'utils/storage';
 import { asNumber } from 'utils/primitive';
 import { NoteFieldSetter, NoteId } from './noteListTypes';
+import { NotesAppState } from 'reducers';
 
 interface NoteOwnProps extends Pick<RouteComponentProps, 'history'> {
 	reqNoteId: NoteId,
@@ -97,8 +98,8 @@ export function Note({
 		</>
 	);
 }
-// @ts-ignore
-const mapStateToProps = state => ({
+
+const mapStateToProps = (state: NotesAppState) => ({
 	notes: state.notes
 });
 
@@ -107,5 +108,6 @@ const mapDispatchToProps = {
 	deleteNotes,
 	pushToast
 };
-
+// FIXME: 
+//@ts-ignore
 export default connect(mapStateToProps, mapDispatchToProps)(Note);

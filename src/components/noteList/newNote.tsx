@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import { addNote } from 'actions/noteActions';
+import { NotesAppState } from 'reducers';
 
 interface NewTodoStateProps {
 	totalCount: number
@@ -24,8 +25,8 @@ export function NewTodo({ totalCount, addNote }: NewTodoProps) {
 
 	return null;
 }
-// @ts-ignore
-const mapStateToProps = state => ({ totalCount: state.notes.length });
+
+const mapStateToProps = (state: NotesAppState) => ({ totalCount: state.notes.length });
 
 const mapDispatchToProps = { addNote };
 
