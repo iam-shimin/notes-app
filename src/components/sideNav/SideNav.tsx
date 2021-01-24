@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
 import SideNavItems from './sideNavItems';
-import SidebarContext from 'context/sidebar';
+import { useSidebar } from 'context/sidebar';
 import { pushToast } from 'actions/notificationActions';
 
 import { NotesAppState } from 'reducers';
@@ -17,7 +17,7 @@ interface SideNavProps {
 }
 
 export function SideNav({ noteItems, pushToast }: SideNavProps) {
-	const { isOpenForMobile, isMobile, toggle } = useContext(SidebarContext);
+	const { isOpenForMobile, isMobile, toggle } = useSidebar();
 	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
 	const sidebarClass = `sidenav-left${shouldOpenSidebar ? ' open' : ''}`;

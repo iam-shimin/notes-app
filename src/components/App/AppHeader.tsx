@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import AppbarSearch from './AppSearch';
-import SidebarContext from 'context/sidebar';
+import { useSidebar } from 'context/sidebar';
 
 const fontSize: React.CSSProperties = { fontSize: 'initial' };
 
 export default function AppHeader() {
-	const { toggle, isMobile, isOpenForMobile } = useContext(SidebarContext);
+	const { toggle, isMobile, isOpenForMobile } = useSidebar();
 	const [isSearchShown, setIsSearchShown] = useState(false);
 
 	const shouldShowSearch = !isMobile || isSearchShown;
