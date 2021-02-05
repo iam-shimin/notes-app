@@ -39,6 +39,8 @@ input[type="search"]::-webkit-search-results-decoration {
 	background: #0bcc9f;
 	display: flex;
 	height: var(--app-bar-h);
+	position: relative;
+	z-index: 1000;
 }
 .app-bar-search-box {
 	font-size: 1.8rem;
@@ -204,13 +206,15 @@ button.hamburger-button {
 .btn-b {
 	font-size: 1rem;
 	border: transparent;
-	color: #022a21;
+	color: #888;
+	border: none;
+	outline: none;
 }
 
 .btn-b:hover {
-	border: solid #888;
+	color: #02352a;
 }
 
 .btn-b:active {
-	border: solid #000;
+	color: #000;
 }

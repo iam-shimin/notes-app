@@ -17,7 +17,6 @@ function Backdrop({ show = false }) {
 	useEffect(() => {
 		const bd = document.getElementById('backdrop');
 		requestAnimationFrame(() => {
-			console.info('call', bd?.style?.opacity)
 			if (show && bd?.style?.opacity !== undefined) {
 				bd.style.opacity = '1';
 			}
