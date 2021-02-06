@@ -12,7 +12,7 @@ describe('Notifications', () => {
 	test('render notification toasts list', () => {
 		const cb = jest.fn();
 		const { getAllByRole } = render(<Notifications notifications={sample} dismissToast={cb} />);
-		const buttons = getAllByRole('button', { name: /Dismiss/ });
+		const buttons = getAllByRole('button', { name: /X/ });
 
 		expect(buttons.length).toBe(sample.length);
 	});
