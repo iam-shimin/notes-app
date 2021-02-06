@@ -249,3 +249,10 @@ button.hamburger-button {
 .btn-b:active {
 	color: #000;
 }
+
+.btn-float,
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
