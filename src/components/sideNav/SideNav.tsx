@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
 import SideNavItems from './sideNavItems';
+import NotePriority from 'components/noteList/notePriority';
 import { useSidebar } from 'context/sidebar';
 import { pushToast } from 'actions/notificationActions';
 
@@ -18,9 +19,21 @@ interface SideNavProps {
 
 export function SideNav({ noteItems, pushToast }: SideNavProps) {
 	const { isOpenForMobile, isMobile, toggle } = useSidebar();
+	const [filterBy, setFilterBy] = useState<Priority>('low');
 	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
 	const sidebarClass = `sidenav-left${shouldOpenSidebar ? ' open' : ''}`;
+
+	const filteredNotes = noteItems.filter(note => {
+		const value = {
+			low: 0,
+			med: 1,
+			high: 2
+		};
+		const noteValue = (note.priority && value[note.priority]) || 0;
+		const filter = value[filterBy] || 0;
+		return noteValue >= filter;
+	});
 
 	function handleContextMenu(noteId: number) {
 		const newSet = new Set(selectedOnContextMenu);
@@ -74,8 +87,18 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 	return (
 		<React.Fragment>
 			<aside className={sidebarClass}>
+				<div className="sidebar-filter">
+					<label className="flex-center">
+						Filter notes:
+						<NotePriority
+							value={filterBy}
+							onChange={({ currentTarget }) => setFilterBy(currentTarget.value as Priority)}
+							style={{ marginLeft: 'auto' }}
+						/>
+					</label>
+				</div>
 				<SideNavItems
-					data={noteItems}
+					data={filteredNotes}
 					isSelectionModeOn={selectedOnContextMenu.size > 0}
 					selectedItemsSet={selectedOnContextMenu}
 					onContextMenu={handleContextMenu}

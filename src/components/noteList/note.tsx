@@ -80,9 +80,8 @@ export function Note({
 				</button>
 				<NotePriority
 					value={data?.priority || 'low'}
-					onChange={({ target }) =>
-						//@ts-ignore
-						setNoteField(noteId, 'priority', target.value)
+					onChange={({ currentTarget }) =>
+						setNoteField(noteId, 'priority', currentTarget.value)
 					}
 				/>
 				<button className="todo-controls" onClick={deleteThisNote}>

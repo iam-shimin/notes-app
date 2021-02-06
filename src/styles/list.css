@@ -115,6 +115,19 @@
 	background: red;
 }
 
+.sidebar-filter {
+	padding: 0.5em 1em;
+	background: #67736d;
+}
+
+.sf-select {
+	flex: 1;
+	margin: 0 2em;
+	padding: 0.5em;
+	border-radius: 0.2em;
+	border: solid 1px #888;
+}
+
 @media (max-width: 500px) {
 	.btn-float {
 		z-index: 1000;
