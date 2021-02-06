@@ -49,8 +49,8 @@ export function Note({
 
 	function deleteThisNote() {
 		const thisNoteIndex = notes.findIndex(note => note.id === noteId);
-		const prevNoteIndex = (thisNoteIndex !== 0 && thisNoteIndex - 1) || 0;
-		const prevNoteId = notes[prevNoteIndex]
+		const prevNoteIndex = thisNoteIndex !== 0 && thisNoteIndex - 1;
+		const prevNoteId = prevNoteIndex
 			? `/${notes[prevNoteIndex].id}`
 			: '';
 
