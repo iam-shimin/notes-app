@@ -89,7 +89,7 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 			<aside className={sidebarClass}>
 				<div className="sidebar-filter">
 					<label className="flex-center">
-						Filter notes:
+						<span className="sidebar-title">All Notes</span>
 						<NotePriority
 							value={filterBy}
 							onChange={({ currentTarget }) => setFilterBy(currentTarget.value as Priority)}
