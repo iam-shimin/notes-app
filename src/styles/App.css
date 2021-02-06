@@ -90,13 +90,18 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .toast {
 	background: #282831;
-	color: #b19999;
+	color: #fff;
 	border: solid 1px #000;
 	height: 3rem;
 	width: 90%;
 	margin: 0.5rem;
 	animation: toaster 0.15s linear;
 	display: flex;
+	align-items: center;
+}
+
+.toast {
+	border-radius: 0.5em;
 }
 
 .toast,
@@ -105,10 +110,18 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .toast button {
-	color: #fff;
-	background: #f00;
+	color: #b19999;;
+	background: #444;
 	border: solid 1px #718078;
+	border-radius: 50%;
 	cursor: pointer;
+	height: 3.2em;
+	width: 3.2em;
+}
+
+.toast button:hover {
+	color: #fff;
+	background: #ff000082;
 }
 
 @keyframes toaster {
