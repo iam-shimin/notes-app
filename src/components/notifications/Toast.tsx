@@ -42,7 +42,7 @@ export default function Toast({
 		(active || null) && (
 			<div className="toast">
 				<span>{messageObj.message}</span>
-				<button onClick={dismissToast}>Dismiss</button>
+				<button onClick={dismissToast}>X</button>
 			</div>
 		)
 	);
