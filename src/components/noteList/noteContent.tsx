@@ -48,7 +48,7 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 
 	return (
 		<React.Fragment>
-			<label>
+			<label className="note-label">
 				Title:
 				<input
 					name="title"
@@ -61,7 +61,7 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 				/>
 			</label>
 
-			<label>
+			<label className="note-label">
 				Note Content:
 				<textarea
 					name="notes"
