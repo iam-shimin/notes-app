@@ -5,6 +5,7 @@ import { RouteComponentProps, match } from 'react-router-dom';
 import 'styles/note.css';
 
 import NoteContent from './noteContent';
+import NotePriority from './notePriority';
 
 import { pushToast } from 'actions/notificationActions';
 import { deleteNotes, setNoteField } from 'actions/noteActions';
@@ -77,16 +78,13 @@ export function Note({
 				<button className="todo-controls" onClick={toggleEdit}>
 					{disableEdit ? 'Edit' : 'Save'}
 				</button>
-				<select
-					className="todo-controls"
+				<NotePriority
 					value={data?.priority || 'low'}
 					onChange={({ target }) =>
+						//@ts-ignore
 						setNoteField(noteId, 'priority', target.value)
-					}>
-					<option value="high">High</option>
-					<option value="med">Medium</option>
-					<option value="low">Low</option>
-				</select>
+					}
+				/>
 				<button className="todo-controls" onClick={deleteThisNote}>
 					Delete
 				</button>
