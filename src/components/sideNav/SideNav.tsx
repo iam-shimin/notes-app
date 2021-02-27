@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
 import SideNavItems from './sideNavItems';
-import NotePriority from 'components/noteList/notePriority';
+import NotesFilterer from './filter';
 import { useSidebar } from 'context/sidebar';
 import { pushToast } from 'actions/notificationActions';
 
@@ -13,27 +13,15 @@ import { NotesAppState } from 'reducers';
 import 'styles/list.css';
 
 interface SideNavProps {
-	noteItems: NoteI[],
-	pushToast(msg: string): void
+	noteItems: NoteI[];
+	pushToast(msg: string): void;
 }
 
 export function SideNav({ noteItems, pushToast }: SideNavProps) {
 	const { isOpenForMobile, isMobile, toggle } = useSidebar();
-	const [filterBy, setFilterBy] = useState<Priority>('low');
 	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
 	const sidebarClass = `sidenav-left${shouldOpenSidebar ? ' open' : ''}`;
-
-	const filteredNotes = noteItems.filter(note => {
-		const value = {
-			low: 0,
-			med: 1,
-			high: 2
-		};
-		const noteValue = (note.priority && value[note.priority]) || 0;
-		const filter = value[filterBy] || 0;
-		return noteValue >= filter;
-	});
 
 	function handleContextMenu(noteId: number) {
 		const newSet = new Set(selectedOnContextMenu);
@@ -50,7 +38,7 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 
 	function handelDeleteSelected() {
 		setSelected(prev => {
-			pushToast(`Deleted ${prev.size} notes`)
+			pushToast(`Deleted ${prev.size} notes`);
 			return new Set([]);
 		});
 	}
@@ -87,23 +75,17 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 	return (
 		<React.Fragment>
 			<aside className={sidebarClass}>
-				<div className="sidebar-filter">
-					<label className="flex-center">
-						<span className="sidebar-title">All Notes</span>
-						<NotePriority
-							value={filterBy}
-							onChange={({ currentTarget }) => setFilterBy(currentTarget.value as Priority)}
-							style={{ marginLeft: 'auto' }}
+				<NotesFilterer list={noteItems}>
+					{notes => (
+						<SideNavItems
+							data={notes}
+							isSelectionModeOn={selectedOnContextMenu.size > 0}
+							selectedItemsSet={selectedOnContextMenu}
+							onContextMenu={handleContextMenu}
+							onClick={isMobile && toggle}
 						/>
-					</label>
-				</div>
-				<SideNavItems
-					data={filteredNotes}
-					isSelectionModeOn={selectedOnContextMenu.size > 0}
-					selectedItemsSet={selectedOnContextMenu}
-					onContextMenu={handleContextMenu}
-					onClick={isMobile && toggle}
-				/>
+					)}
+				</NotesFilterer>
 			</aside>
 			<FloatButton label="+" />
 			<ContextMenu
@@ -117,6 +99,6 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 }
 
 const mapStateToProps = (state: NotesAppState) => ({ noteItems: state.notes });
-const mapDispatchToProps = { pushToast }
+const mapDispatchToProps = { pushToast };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
