@@ -8,6 +8,7 @@ import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
 import { total, done } from 'utils/todos';
 import { getTitleFromNote } from 'utils/note';
+import { joinString } from 'utils/primitive';
 
 // TODO: scroll to the selected item in the sidebar
 
@@ -51,9 +52,7 @@ export default function SideNavItems({
 					const progress = isComplete
 						? 'Done'
 						: `${numberOftasksDone}/${numberOftasksTotal}`;
-					const itemSelectionCssState = selectedItemsSet.has(note.id)
-						? ' selected'
-						: '';
+					const itemSelectionCssState = selectedItemsSet.has(note.id) && 'selected';
 
 					function toggleNoteSelect(
 						event: React.MouseEvent<HTMLAnchorElement>
@@ -89,7 +88,7 @@ export default function SideNavItems({
 							isActive={handleActiveLink}
 							onClick={handleClick}
 							onContextMenu={toggleNoteSelect}
-							className={`todo-link${itemSelectionCssState}`}
+							className={joinString(['todo-link', itemSelectionCssState, note.priority || 'low'])}
 							key={note.id}>
 							{noteTitle} {hasSubTasks ? `[${progress}]` : null}
 						</NavLink>

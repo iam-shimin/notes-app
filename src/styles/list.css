@@ -4,6 +4,7 @@
 	padding: 0.5rem 1.5rem;
 	text-decoration: none;
 	color: #ddd;
+	position: relative;
 }
 
 .todo-link:last-child {
@@ -39,6 +40,31 @@
 .todo-link.selected.active:hover {
 	background: #91041be6;
 }
+
+.todo-link.low::after {
+	content: 'low';
+}
+.todo-link.med::after {
+	content: 'med';
+}
+.todo-link.high::after {
+	content: 'high';
+}
+
+.todo-link.low::after,
+.todo-link.med::after,
+.todo-link.high::after {
+	display: block;
+	position: absolute;
+	text-transform: uppercase;
+	font-size: 0.5em;
+	border: solid 1px;
+	padding: 1px;
+	width: 2.6em;
+	right: 1em;
+	top: 1.5em;
+  }
+  
 
 .btn-float {
 	position: fixed;
@@ -116,9 +142,10 @@
 }
 
 .sidebar-title {
-	padding: 0 0.6em;
 	color: #09a1a7;
 	font-weight: bold;
+	font-size: 1rem;
+	margin: 0.6em 0;
 }
 
 .sidebar-filter {
