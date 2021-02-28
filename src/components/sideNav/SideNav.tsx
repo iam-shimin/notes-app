@@ -79,6 +79,7 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 					{notes => (
 						<SideNavItems
 							data={notes}
+							isMobile={isMobile}
 							isSelectionModeOn={selectedOnContextMenu.size > 0}
 							selectedItemsSet={selectedOnContextMenu}
 							onContextMenu={handleContextMenu}

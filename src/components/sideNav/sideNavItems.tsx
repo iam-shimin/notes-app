@@ -15,6 +15,7 @@ import { joinString } from 'utils/primitive';
 interface SideNavItemsProps {
 	data: NoteI[],
 	isSelectionModeOn: boolean,
+	isMobile: boolean,
 	selectedItemsSet: Set<number>,
 	onContextMenu(id: NoteI['id']): void,
 	onClick?: false | (() => void)
@@ -23,6 +24,7 @@ interface SideNavItemsProps {
 export default function SideNavItems({
 	data,
 	isSelectionModeOn,
+	isMobile,
 	selectedItemsSet,
 	onContextMenu,
 	onClick
@@ -90,7 +92,7 @@ export default function SideNavItems({
 							onContextMenu={toggleNoteSelect}
 							className={joinString(['todo-link', itemSelectionCssState, note.priority || 'low'])}
 							key={note.id}>
-							{noteTitle} {hasSubTasks ? `[${progress}]` : null}
+							{sidebarListLabelFormat(noteTitle, isMobile)} {hasSubTasks ? `[${progress}]` : null}
 						</NavLink>
 					);
 				})}
@@ -109,4 +111,12 @@ export default function SideNavItems({
 			<i>Start editing to add a new note to the list.</i>
 		</div>
 	);
+}
+
+function sidebarListLabelFormat(title: string, isMobile: boolean) {
+	const maxLength = isMobile? 24: 36;
+	if (title.length > maxLength) {
+		return title.slice(0, maxLength - 3) + '...';
+	}
+	return title;
 }
