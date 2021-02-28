@@ -54,10 +54,10 @@ export default function AppHeader() {
 				<nav className="app-bar-nav">
 					{isMobile && <HamburgerButton onClick={showSidebar} />}
 
-					<NavLink to="/notes/recent" className="app-bar-nav-link">
+					<NavLink to="/notes/recent" className="flex-center app-bar-nav-link">
 						Recent
 					</NavLink>
-					<NavLink to="/notes/most-checked" className="app-bar-nav-link">
+					<NavLink to="/notes/most-checked" className="flex-center app-bar-nav-link">
 						Most Checked
 					</NavLink>
 
