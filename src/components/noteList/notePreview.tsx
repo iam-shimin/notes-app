@@ -1,74 +1,93 @@
 import React from 'react';
-import { getTextFromTodo, isDoneTodo, isTodo } from 'utils/todos';
-
-type TextBlock = {
-	type: 'text',
-	data: string
-}
-
-type TodoItem = {text: string, isDone: boolean};
-
-type TodoBlock = {
-	type: 'todo',
-	data: TodoItem[]
-}
-
-type ParsedData = {
-	currentTodoList?: any[],
-	data: (TodoBlock | TextBlock)[]
-};
+import { getDeltaFromText, getTextFromDelta, getIsEmptyDelta } from 'utils/delta';
 
 export default function NotePreview({
-	content
-}: { content: string }) {
-	const lines = content.split('\n');
-	const initialParsedData: ParsedData = { data: [] };
-	
-	const parsedData = lines.reduce((acc, line) => {
-		if (isTodo(line)) {
-			const todoItem = {text: getTextFromTodo(line), isDone: isDoneTodo(line)};
-			if (Array.isArray(acc.currentTodoList)){
-				acc.currentTodoList.push(todoItem);
-			} else {
-				const newtodoList = [todoItem];
-				acc.data.push({
-					type: 'todo',
-					data: newtodoList
-				});
-				acc.currentTodoList = newtodoList;
-			}
-		} else {
-			acc.currentTodoList = undefined;
-			acc.data.push({
-				type: 'text',
-				data: line
-			});
-		}
-		return acc;
-	}, initialParsedData);
+	content,
+	onTodoStatusChange
+}: {
+	content: string;
+	onTodoStatusChange: (note: string) => void;
+}) {
+	const parsedData = getDeltaFromText(content);
 
-	parsedData.currentTodoList = undefined;
+	function updateTodo(event: React.ChangeEvent<HTMLInputElement>) {
+		const { dataset, checked } = event.currentTarget;
+		const updatedData = parsedData.map((lineData, lineIndex) => {
+			if (
+				lineData.type === 'todo' &&
+				lineIndex.toString() === dataset.dataIndex
+			) {
+				const upatedTodos = lineData.data.map((todoData, todoIndex) => {
+					if (todoIndex.toString() === dataset.todoIndex) {
+						return { text: todoData.text, isDone: checked };
+					}
+					return todoData;
+				});
+				return { type: lineData.type, data: upatedTodos };
+			}
+			return lineData;
+		});
+
+		console.log({updatedData})
+
+		onTodoStatusChange(getTextFromDelta(updatedData));
+	}
+
+	if (getIsEmptyDelta(parsedData)) {
+		return <div style={{marginTop: '1em'}}>Click 'Edit' to add content.</div>
+	}
 
 	return (
 		<div>
-			{parsedData.data.map(lineData => {
+			{parsedData.map((lineData, dataIndex) => {
 				if (lineData.type === 'todo') {
 					return (
-						<div>
-							{lineData.data.map(todo => <TodoListItem key={todo.text} {...todo} />)}
+						<div key={JSON.stringify(lineData.data)}>
+							{lineData.data.map((todo, todoIndex) => (
+								<TodoListItem
+									key={todo.text}
+									{...todo}
+									dataIndex={dataIndex}
+									todoIndex={todoIndex}
+									onChange={updateTodo}
+								/>
+							))}
 						</div>
 					);
+				} else if (lineData.data === '') {
+					return <br/>
 				}
-				return <p>{lineData.data}</p>
+				
+				return <p key={lineData.data}>{lineData.data}</p>;
 			})}
 		</div>
-	)
+	);
 }
 
-function TodoListItem({text, isDone}: {text: string, isDone: boolean}) {
+interface TodoItemProps {
+	text: string;
+	isDone: boolean;
+	dataIndex: number;
+	todoIndex: number;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function TodoListItem({
+	text,
+	isDone,
+	dataIndex,
+	todoIndex,
+	onChange
+}: TodoItemProps) {
 	return (
-		<label style={{display: 'block'}}>
-			<input type="checkbox" checked={isDone} />
+		<label style={{ display: 'block' }}>
+			<input
+				type="checkbox"
+				data-data-index={dataIndex}
+				data-todo-index={todoIndex}
+				checked={isDone}
+				onChange={onChange}
+			/>
 			{text}
 		</label>
 	);

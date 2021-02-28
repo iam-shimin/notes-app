@@ -50,7 +50,7 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 	return (
 		<React.Fragment>
 			<label className="note-label">
-				<span style={{color: 'grey'}}>Title:</span>
+				<span style={{ color: 'grey' }}>Title:</span>
 				<input
 					name="title"
 					placeholder={titlePlaceholder}
@@ -63,15 +63,22 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 			</label>
 
 			<label className="note-label">
-				<span style={{color: 'grey'}}>Note Content:</span>
-				{disableEdit? <NotePreview content={data.notes} />: <textarea
-					name="notes"
-					placeholder={textareaPlaceholder}
-					value={data?.notes}
-					disabled={disableEdit}
-					className="edit-note-text"
-					onChange={onInputChange}
-				/>}
+				<span style={{ color: 'grey' }}>Note Content:</span>
+				{disableEdit ? (
+					<NotePreview
+						content={data.notes}
+						onTodoStatusChange={note => setNoteField(data.id, 'notes', note)}
+					/>
+				) : (
+					<textarea
+						name="notes"
+						placeholder={textareaPlaceholder}
+						value={data?.notes}
+						disabled={disableEdit}
+						className="edit-note-text"
+						onChange={onInputChange}
+					/>
+				)}
 			</label>
 		</React.Fragment>
 	);
