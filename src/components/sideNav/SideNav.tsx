@@ -5,6 +5,7 @@ import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
 import SideNavItems from './sideNavItems';
 import NotesFilterer from './filter';
+import { useBackdrop } from 'context/backdrop';
 import { useSidebar } from 'context/sidebar';
 import { pushToast } from 'actions/notificationActions';
 
@@ -19,6 +20,7 @@ interface SideNavProps {
 
 export function SideNav({ noteItems, pushToast }: SideNavProps) {
 	const { isOpenForMobile, isMobile, toggle } = useSidebar();
+	const togglebackdrop = useBackdrop();
 	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
 	const sidebarClass = `sidenav-left${shouldOpenSidebar ? ' open' : ''}`;
@@ -65,12 +67,13 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 
 			if (isOpenForMobile && !isAllowedClickOutside && isClickOutside) {
 				toggle(false);
+				togglebackdrop();
 			}
 		}
 
 		window.addEventListener('mousedown', handleClickOutside);
 		return () => window.removeEventListener('mousedown', handleClickOutside);
-	}, [isOpenForMobile, toggle]);
+	}, [isOpenForMobile, toggle, togglebackdrop]);
 
 	return (
 		<React.Fragment>
