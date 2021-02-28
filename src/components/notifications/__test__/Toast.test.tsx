@@ -11,7 +11,7 @@ describe('Toast', () => {
 		const { getByRole } = render(
 			<Toast messageObj={sample[0]} dismissTime={1000} onDismiss={callback} />
 		);
-		const dismissButton = getByRole('button', { name: /Dismiss/ });
+		const dismissButton = getByRole('button', { name: /X/ });
 		userEvent.click(dismissButton);
 
 		expect(dismissButton).not.toBeInTheDocument();

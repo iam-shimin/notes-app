@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import 'styles/App.css';
 
+import BackdropProvider from 'context/backdrop';
 import NotesPage from 'components/noteList';
 import NotificationPannel from 'components/notifications/notificationPannel';
 import AppHeader from './AppHeader';
@@ -32,6 +33,7 @@ function AppLayout() {
 	return (
 		<main>
 			<SidebarProvider>
+				<BackdropProvider>
 				<AppHeader />
 				<article style={relativePosition}>
 					<Switch>
@@ -39,6 +41,7 @@ function AppLayout() {
 						<Redirect to="/notes" />
 					</Switch>
 				</article>
+				</BackdropProvider>
 			</SidebarProvider>
 		</main>
 	);

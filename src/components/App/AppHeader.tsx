@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import AppbarSearch from './AppSearch';
-import SidebarContext from 'context/sidebar';
+import { useSidebar } from 'context/sidebar';
+import { useBackdrop } from 'context/backdrop';
 
 const fontSize: React.CSSProperties = { fontSize: 'initial' };
 
 export default function AppHeader() {
-	const { toggle, isMobile, isOpenForMobile } = useContext(SidebarContext);
+	const { toggle: toggleSidebar, isMobile, isOpenForMobile } = useSidebar();
 	const [isSearchShown, setIsSearchShown] = useState(false);
 
 	const shouldShowSearch = !isMobile || isSearchShown;
@@ -17,12 +18,27 @@ export default function AppHeader() {
 		flexDirection: appBarDirection
 	};
 
+	const toggleBackdrop = useBackdrop();
+
+	function showSidebar() {
+		toggleSidebar();
+		if (isMobile) {
+			toggleBackdrop();
+		}
+	}
+
 	function showSearch() {
 		setIsSearchShown(true);
+		if (isMobile) {
+			toggleBackdrop();
+		}
 	}
 
 	function hideSearch() {
 		setIsSearchShown(false);
+		if (isMobile) {
+			toggleBackdrop();
+		}
 	}
 
 	return (
@@ -30,18 +46,18 @@ export default function AppHeader() {
 			{shouldShowSearch && (
 				<AppbarSearch
 					onCancel={isMobile && hideSearch}
-					onSearch={!isOpenForMobile && toggle}
+					onSearch={!isOpenForMobile && toggleSidebar}
 				/>
 			)}
 
 			{shouldShowNav && (
 				<nav className="app-bar-nav">
-					{isMobile && <HamburgerButton onClick={toggle} />}
+					{isMobile && <HamburgerButton onClick={showSidebar} />}
 
-					<NavLink to="/notes/recent" className="app-bar-nav-link">
+					<NavLink to="/notes/recent" className="flex-center app-bar-nav-link">
 						Recent
 					</NavLink>
-					<NavLink to="/notes/most-checked" className="app-bar-nav-link">
+					<NavLink to="/notes/most-checked" className="flex-center app-bar-nav-link">
 						Most Checked
 					</NavLink>
 

@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import FloatButton from './floatButton';
 import ContextMenu from './contextMenu';
 import SideNavItems from './sideNavItems';
-import SidebarContext from 'context/sidebar';
+import NotesFilterer from './filter';
+import { useBackdrop } from 'context/backdrop';
+import { useSidebar } from 'context/sidebar';
 import { pushToast } from 'actions/notificationActions';
 
 import { NotesAppState } from 'reducers';
@@ -12,12 +14,13 @@ import { NotesAppState } from 'reducers';
 import 'styles/list.css';
 
 interface SideNavProps {
-	noteItems: NoteI[],
-	pushToast(msg: string): void
+	noteItems: NoteI[];
+	pushToast(msg: string): void;
 }
 
 export function SideNav({ noteItems, pushToast }: SideNavProps) {
-	const { isOpenForMobile, isMobile, toggle } = useContext(SidebarContext);
+	const { isOpenForMobile, isMobile, toggle } = useSidebar();
+	const togglebackdrop = useBackdrop();
 	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
 	const shouldOpenSidebar = selectedOnContextMenu.size > 0 || isOpenForMobile;
 	const sidebarClass = `sidenav-left${shouldOpenSidebar ? ' open' : ''}`;
@@ -37,7 +40,7 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 
 	function handelDeleteSelected() {
 		setSelected(prev => {
-			pushToast(`Deleted ${prev.size} notes`)
+			pushToast(`Deleted ${prev.size} notes`);
 			return new Set([]);
 		});
 	}
@@ -64,23 +67,29 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 
 			if (isOpenForMobile && !isAllowedClickOutside && isClickOutside) {
 				toggle(false);
+				togglebackdrop();
 			}
 		}
 
 		window.addEventListener('mousedown', handleClickOutside);
 		return () => window.removeEventListener('mousedown', handleClickOutside);
-	}, [isOpenForMobile, toggle]);
+	}, [isOpenForMobile, toggle, togglebackdrop]);
 
 	return (
 		<React.Fragment>
 			<aside className={sidebarClass}>
-				<SideNavItems
-					data={noteItems}
-					isSelectionModeOn={selectedOnContextMenu.size > 0}
-					selectedItemsSet={selectedOnContextMenu}
-					onContextMenu={handleContextMenu}
-					onClick={isMobile && toggle}
-				/>
+				<NotesFilterer list={noteItems}>
+					{notes => (
+						<SideNavItems
+							data={notes}
+							isMobile={isMobile}
+							isSelectionModeOn={selectedOnContextMenu.size > 0}
+							selectedItemsSet={selectedOnContextMenu}
+							onContextMenu={handleContextMenu}
+							onClick={isMobile && toggle}
+						/>
+					)}
+				</NotesFilterer>
 			</aside>
 			<FloatButton label="+" />
 			<ContextMenu
@@ -94,6 +103,6 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 }
 
 const mapStateToProps = (state: NotesAppState) => ({ noteItems: state.notes });
-const mapDispatchToProps = { pushToast }
+const mapDispatchToProps = { pushToast };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);

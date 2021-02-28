@@ -1,4 +1,9 @@
-import React, { createContext, useState, useMemo } from 'react';
+import React, {
+	createContext,
+	useState,
+	useMemo,
+	useContext
+} from 'react';
 
 import useMatchMedia from 'hooks/useMatchMedia';
 
@@ -34,6 +39,10 @@ export function SidebarProvider({ children }: React.HTMLProps<HTMLDivElement>) {
 	return (
 		<SidebarContext.Provider value={toggle}>{children}</SidebarContext.Provider>
 	);
+}
+
+export function useSidebar() {
+	return useContext(SidebarContext);
 }
 
 export default SidebarContext;

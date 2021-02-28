@@ -8,12 +8,14 @@ import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
 import { total, done } from 'utils/todos';
 import { getTitleFromNote } from 'utils/note';
+import { joinString } from 'utils/primitive';
 
 // TODO: scroll to the selected item in the sidebar
 
 interface SideNavItemsProps {
 	data: NoteI[],
 	isSelectionModeOn: boolean,
+	isMobile: boolean,
 	selectedItemsSet: Set<number>,
 	onContextMenu(id: NoteI['id']): void,
 	onClick?: false | (() => void)
@@ -22,6 +24,7 @@ interface SideNavItemsProps {
 export default function SideNavItems({
 	data,
 	isSelectionModeOn,
+	isMobile,
 	selectedItemsSet,
 	onContextMenu,
 	onClick
@@ -51,9 +54,7 @@ export default function SideNavItems({
 					const progress = isComplete
 						? 'Done'
 						: `${numberOftasksDone}/${numberOftasksTotal}`;
-					const itemSelectionCssState = selectedItemsSet.has(note.id)
-						? ' selected'
-						: '';
+					const itemSelectionCssState = selectedItemsSet.has(note.id) && 'selected';
 
 					function toggleNoteSelect(
 						event: React.MouseEvent<HTMLAnchorElement>
@@ -89,9 +90,9 @@ export default function SideNavItems({
 							isActive={handleActiveLink}
 							onClick={handleClick}
 							onContextMenu={toggleNoteSelect}
-							className={`todo-link${itemSelectionCssState}`}
+							className={joinString(['todo-link', itemSelectionCssState, note.priority || 'low'])}
 							key={note.id}>
-							{noteTitle} {hasSubTasks ? `[${progress}]` : null}
+							{sidebarListLabelFormat(noteTitle, isMobile)} {hasSubTasks ? `[${progress}]` : null}
 						</NavLink>
 					);
 				})}
@@ -110,4 +111,12 @@ export default function SideNavItems({
 			<i>Start editing to add a new note to the list.</i>
 		</div>
 	);
+}
+
+function sidebarListLabelFormat(title: string, isMobile: boolean) {
+	const maxLength = isMobile? 24: 36;
+	if (title.length > maxLength) {
+		return title.slice(0, maxLength - 3) + '...';
+	}
+	return title;
 }

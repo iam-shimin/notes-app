@@ -8,3 +8,7 @@ export function asNumber(number?: string | number, fallback = 0) {
 export function asString(value: any) {
 	return typeof value === 'string' ? value : String(value);
 }
+
+export function joinString(strings: (string | undefined | false)[], separator = ' ') {
+	return strings.filter(i => i).join(separator);
+}
