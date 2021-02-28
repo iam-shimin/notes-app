@@ -39,8 +39,6 @@ export default function NotesFilterer({list = [], children }: FilterProps) {
 		}
 	});
 
-	console.log(orderedNotes)
-
 	return (
 		<>
 			<div className="sidebar-filter">
@@ -63,6 +61,7 @@ export default function NotesFilterer({list = [], children }: FilterProps) {
 						<span className="filter-label">Filter</span>
 						<NotePriority
 							value={filterBy}
+							optionLabels={{low: 'All', med: 'Medium and High', high: 'Only High'}}
 							onChange={({ currentTarget }) =>
 								setFilterBy(currentTarget.value as Priority)
 							}

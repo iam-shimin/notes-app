@@ -2,12 +2,18 @@ import React from 'react';
 import { joinString } from 'utils/primitive';
 
 interface NotePriorityProps extends React.HTMLProps<HTMLSelectElement> {
+	optionLabels?: Partial<{
+		high: string,
+		med: string,
+		low: string
+	}>
 	value: Priority
 }
 
 export default function NotePriority({
 	value,
 	className,
+	optionLabels,
 	...restProps
 }:NotePriorityProps) {
 	return (
@@ -17,9 +23,9 @@ export default function NotePriority({
 			{...restProps}
 		>
 
-			<option value="high">High</option>
-			<option value="med">Medium</option>
-			<option value="low">Low</option>
+			<option value="low">{optionLabels?.low || 'Low'}</option>
+			<option value="med">{optionLabels?.med || 'Medium'}</option>
+			<option value="high">{optionLabels?.high || 'High'}</option>
 
 		</select>
 	);
