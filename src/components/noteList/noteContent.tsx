@@ -2,6 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
+import NotePreview from './notePreview';
 import { setNoteField } from 'actions/noteActions';
 import { NoteFieldSetter, NoteFields, NoteId } from './noteListTypes';
 
@@ -49,7 +50,7 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 	return (
 		<React.Fragment>
 			<label className="note-label">
-				Title:
+				<span style={{color: 'grey'}}>Title:</span>
 				<input
 					name="title"
 					placeholder={titlePlaceholder}
@@ -62,15 +63,15 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 			</label>
 
 			<label className="note-label">
-				Note Content:
-				<textarea
+				<span style={{color: 'grey'}}>Note Content:</span>
+				{disableEdit? <NotePreview content={data.notes} />: <textarea
 					name="notes"
 					placeholder={textareaPlaceholder}
 					value={data?.notes}
 					disabled={disableEdit}
 					className="edit-note-text"
 					onChange={onInputChange}
-				/>
+				/>}
 			</label>
 		</React.Fragment>
 	);
