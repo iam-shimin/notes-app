@@ -71,5 +71,5 @@ export function getTextFromDelta(delta: DeltaData[]) {
 }
 
 export function getIsEmptyDelta(delta: DeltaData[]) {
-	return delta.length === 1 && delta[0].type === 'text';
+	return delta.length === 1 && delta[0].type === 'text' && delta[0].data === '';
 }
