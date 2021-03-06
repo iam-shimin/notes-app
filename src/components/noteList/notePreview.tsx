@@ -2,13 +2,14 @@ import React from 'react';
 import { getDeltaFromText, getTextFromDelta, getIsEmptyDelta } from 'utils/delta';
 
 export default function NotePreview({
-	content,
+	data,
 	onTodoStatusChange
 }: {
-	content: string;
+	data: NoteI;
 	onTodoStatusChange: (note: string) => void;
 }) {
-	const parsedData = getDeltaFromText(content);
+	const parsedData = getDeltaFromText(data.notes);
+	const createdAt = new Date(data.id);
 
 	function updateTodo(event: React.ChangeEvent<HTMLInputElement>) {
 		const { dataset, checked } = event.currentTarget;
@@ -36,6 +37,10 @@ export default function NotePreview({
 	}
 
 	return (
+		<>
+		<h1>{data.title}</h1>
+		<span>{createdAt.toLocaleDateString()} {createdAt.toLocaleTimeString()}</span>
+		<hr />
 		<div>
 			{parsedData.map((lineData, dataIndex) => {
 				if (lineData.type === 'todo') {
@@ -59,6 +64,7 @@ export default function NotePreview({
 				return <p key={lineData.data}>{lineData.data}</p>;
 			})}
 		</div>
+		</>
 	);
 }
 

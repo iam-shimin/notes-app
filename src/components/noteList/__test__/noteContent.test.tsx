@@ -18,7 +18,7 @@ describe('NoteContent', () => {
 	test('callback is called on every change', () => {
 		const callbackMock = jest.fn();
 		const { getByLabelText } = render(
-			<NoteContent noteId={note.id} data={note} setNoteField={callbackMock} />
+			<NoteContent noteId={note.id} disableEdit={false} data={note} setNoteField={callbackMock} />
 		);
 
 		const title = getByLabelText(titleInput);
@@ -32,7 +32,7 @@ describe('NoteContent', () => {
 		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedNoteContent noteId={note.id} data={note} />
+				<ConnectedNoteContent disableEdit={false} noteId={note.id} data={note} />
 			</Provider>
 		);
 		const title = getByLabelText(titleInput);
@@ -46,7 +46,7 @@ describe('NoteContent', () => {
 		const store = createDummyStore();
 		const { getByLabelText } = render(
 			<Provider store={store}>
-				<ConnectedNoteContent noteId={note.id} data={note} />
+				<ConnectedNoteContent disableEdit={false} noteId={note.id} data={note} />
 			</Provider>
 		);
 		const notes = getByLabelText(noteInput);
@@ -58,7 +58,7 @@ describe('NoteContent', () => {
 
 	test('disable title text: text not changing', () => {
 		const store = createDummyStore();
-		const { getByLabelText } = render(
+		const { queryByLabelText } = render(
 			<Provider store={store}>
 				<ConnectedNoteContent
 					noteId={1}
@@ -67,8 +67,8 @@ describe('NoteContent', () => {
 				/>
 			</Provider>
 		);
-		const title = getByLabelText(titleInput);
-		changeElementValue(title, true);
+		const title = queryByLabelText(titleInput);
+		expect(title).not.toBeInTheDocument();
 	});
 
 	test('disable note text: note edit box disappears', () => {
