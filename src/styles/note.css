@@ -46,3 +46,12 @@
 .color-grey {
 	color: grey;
 }
+
+.smaller {
+	font-size: smaller;
+}
+
+.divider{
+	border: solid 1px grey;
+	border-bottom: none;
+}

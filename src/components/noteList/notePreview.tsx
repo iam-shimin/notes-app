@@ -1,5 +1,9 @@
 import React from 'react';
-import { getDeltaFromText, getTextFromDelta, getIsEmptyDelta } from 'utils/delta';
+import {
+	getDeltaFromText,
+	getTextFromDelta,
+	getIsEmptyDelta
+} from 'utils/delta';
 
 export default function NotePreview({
 	data,
@@ -32,38 +36,40 @@ export default function NotePreview({
 		onTodoStatusChange(getTextFromDelta(updatedData));
 	}
 
-	if (getIsEmptyDelta(parsedData)) {
-		return <div style={{marginTop: '1em'}}>Click 'Edit' to add content.</div>
-	}
-
 	return (
 		<>
-		<h1>{data.title}</h1>
-		<span>{createdAt.toLocaleDateString()} {createdAt.toLocaleTimeString()}</span>
-		<hr />
-		<div>
-			{parsedData.map((lineData, dataIndex) => {
-				if (lineData.type === 'todo') {
-					return (
-						<div key={JSON.stringify(lineData.data)}>
-							{lineData.data.map((todo, todoIndex) => (
-								<TodoListItem
-									key={todo.text}
-									{...todo}
-									dataIndex={dataIndex}
-									todoIndex={todoIndex}
-									onChange={updateTodo}
-								/>
-							))}
-						</div>
-					);
-				} else if (lineData.data === '') {
-					return <br/>
-				}
-				
-				return <p key={lineData.data}>{lineData.data}</p>;
-			})}
-		</div>
+			<h1>{data.title}</h1>
+			<span className="smaller color-grey">
+				{createdAt.toLocaleDateString()} {createdAt.toLocaleTimeString()}
+			</span>
+			<hr className="divider" />
+			<div>
+				{getIsEmptyDelta(parsedData) ? (
+					<div style={{ marginTop: '1em' }}>Click 'Edit' to add content.</div>
+				) : (
+					parsedData.map((lineData, dataIndex) => {
+						if (lineData.type === 'todo') {
+							return (
+								<div key={JSON.stringify(lineData.data)}>
+									{lineData.data.map((todo, todoIndex) => (
+										<TodoListItem
+											key={todo.text}
+											{...todo}
+											dataIndex={dataIndex}
+											todoIndex={todoIndex}
+											onChange={updateTodo}
+										/>
+									))}
+								</div>
+							);
+						} else if (lineData.data === '') {
+							return <br />;
+						}
+
+						return <p key={lineData.data}>{lineData.data}</p>;
+					})
+				)}
+			</div>
 		</>
 	);
 }
