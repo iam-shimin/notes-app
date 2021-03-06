@@ -6,9 +6,11 @@ type TodoItem = { text: string; isDone: boolean };
 
 type TodoBlock = { type: 'todo'; data: TodoItem[]; };
 
+type HeadingBlock = { type: 'heading', data: { headingText: string, level: number }};
+
 type ParsedData = { currentTodoList?: any[]; data: DeltaData[]; };
 
-type DeltaData = TextBlock | TodoBlock;
+type DeltaData = TextBlock | TodoBlock | HeadingBlock;
 
 export function getDeltaFromText(text: string) {
 	const lines = text.split('\n');
@@ -30,6 +32,25 @@ export function getDeltaFromText(text: string) {
 				});
 				acc.currentTodoList = newtodoList;
 			}
+		} else if (line.startsWith('#')) {
+			let level = 0;
+			let headingText = '';
+			let isBroken = false;
+			line.split('').forEach(ctr => {
+				if (!isBroken) {
+					if (ctr === '#') {
+						++level;
+						return;
+					} else {
+						isBroken = true;
+					}
+				}
+				headingText += ctr;
+			});
+			acc.data.push({
+				type: 'heading',
+				data: { headingText: headingText, level: level>6? 6: level }
+			});
 		} else {
 			acc.currentTodoList = undefined;
 			acc.data.push({
@@ -61,6 +82,8 @@ export function getTextFromDelta(delta: DeltaData[]) {
 				''
 			);
 			acc += lineSeparator + todolistAsString;
+		} else if (lineData.type === 'heading') {
+			acc += lineSeparator + '#'.repeat(lineData.data.level) + lineData.data.headingText;
 		} else {
 			acc += lineSeparator + lineData.data;
 		}

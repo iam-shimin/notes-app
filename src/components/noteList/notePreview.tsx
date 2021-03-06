@@ -83,6 +83,10 @@ export default function NotePreview({
 							);
 						} else if (lineData.data === '') {
 							return <br key={dataIndex} />;
+						} else if (lineData.type === 'heading') {
+							const H = `h${lineData.data.level}`;
+							// @ts-ignore
+							return <H key={dataIndex}>{lineData.data.headingText}</H>
 						}
 
 						return <p key={`${dataIndex}${lineData.data}`}>{lineData.data}</p>;
