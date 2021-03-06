@@ -32,7 +32,6 @@ export default function SideNavItems({
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
 	const mostCheckedNote = getMostVisited();
-	const recentNote = lastOf(data);
 
 	const matchedNote = data.filter(
 		note =>
@@ -73,6 +72,8 @@ export default function SideNavItems({
 					}
 
 					function handleActiveLink(match: any, location: Location) {
+						const notesOrderedByCreatedAt = data.sort((a, b) => a.id - b.id);
+						const recentNote = lastOf(notesOrderedByCreatedAt);
 						const isRecentNote = recentNote?.id === note.id;
 						const isMostViewedNote = mostCheckedNote === String(note.id);
 						const shouldShowMostViewed = location.pathname.includes(
