@@ -274,3 +274,7 @@ button.hamburger-button {
 .word-wrap {
 	word-wrap: anywhere;
 }
+
+.app-bar-search-box:focus {
+	background: #38deb7;
+}
