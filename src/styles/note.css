@@ -59,3 +59,13 @@
 .word-wrap {
 	word-wrap: anywhere;
 }
+
+fieldset.reset {
+	border: none;
+	padding: 0
+}
+
+.todo-item--checked {
+	color: grey;
+	text-decoration: line-through;
+}

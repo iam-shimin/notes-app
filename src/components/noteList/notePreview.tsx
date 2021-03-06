@@ -4,8 +4,9 @@ import {
 	getTextFromDelta,
 	getIsEmptyDelta
 } from 'utils/delta';
+import { joinString } from 'utils/primitive';
 
-type TodoEvent = {dataIndex:any, todo: string};
+type TodoEvent = { dataIndex: any; todo: string };
 
 export default function NotePreview({
 	data,
@@ -105,7 +106,7 @@ function TodoListItem({
 	onChange
 }: TodoItemProps) {
 	return (
-		<label style={{ display: 'block' }}>
+		<label className={joinString(['block', isDone && 'todo-item--checked'])}>
 			<input
 				type="checkbox"
 				data-data-index={dataIndex}
@@ -118,11 +119,16 @@ function TodoListItem({
 	);
 }
 
-function AddTodoForm({ id, onSubmit }: { id: any, onSubmit: (event: TodoEvent) => void }) {
+interface AddTodoFormProps {
+	id: any;
+	onSubmit: (event: TodoEvent) => void;
+}
+
+function AddTodoForm({ id, onSubmit }: AddTodoFormProps) {
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const { currentTarget } = event;
-		const textNode = currentTarget.elements.item(0) as (HTMLInputElement | null);
+		const textNode = currentTarget.elements.item(0) as HTMLInputElement | null;
 		const todo = textNode?.value;
 		if (!todo || !textNode) return;
 		textNode.value = '';
