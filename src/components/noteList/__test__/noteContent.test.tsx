@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import createDummyStore from 'store/dummyStore';
 import ConnectedNoteContent, { NoteContent } from '../noteContent';
 import notes from './dummyNotesData';
-import { NoteFieldSetter } from '../noteListTypes';
 
 
 const assertedValue = 'Apple';
@@ -72,9 +71,9 @@ describe('NoteContent', () => {
 		changeElementValue(title, true);
 	});
 
-	test('disable note text: note not changing', () => {
+	test('disable note text: note edit box disappears', () => {
 		const store = createDummyStore();
-		const { getByLabelText } = render(
+		const { queryByLabelText } = render(
 			<Provider store={store}>
 				<ConnectedNoteContent
 					noteId={1}
@@ -82,8 +81,8 @@ describe('NoteContent', () => {
 					disableEdit={true} />
 			</Provider>
 		);
-		const notes = getByLabelText(noteInput);
-		changeElementValue(notes, true);
+		const notes = queryByLabelText(noteInput);
+		expect(notes).not.toBeInTheDocument();
 	});
 });
 
