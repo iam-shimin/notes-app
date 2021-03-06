@@ -59,16 +59,19 @@ export default function NotePreview({
 			</span>
 			<hr className="divider" />
 			<div>
+				{/* FIXME: the 'keys' with index causes too much remounts
+						This was added so that same line repeating will not cause corrupted UI
+				 */}
 				{getIsEmptyDelta(parsedData) ? (
 					<div style={{ marginTop: '1em' }}>Click 'Edit' to add content.</div>
 				) : (
 					parsedData.map((lineData, dataIndex) => {
 						if (lineData.type === 'todo') {
 							return (
-								<div key={JSON.stringify(lineData.data)}>
+								<div key={`${dataIndex}${JSON.stringify(lineData.data)}`}>
 									{lineData.data.map((todo, todoIndex) => (
 										<TodoListItem
-											key={todo.text}
+											key={`${todoIndex}${todo.text}`}
 											{...todo}
 											dataIndex={dataIndex}
 											todoIndex={todoIndex}
@@ -79,10 +82,10 @@ export default function NotePreview({
 								</div>
 							);
 						} else if (lineData.data === '') {
-							return <br />;
+							return <br key={dataIndex} />;
 						}
 
-						return <p key={lineData.data}>{lineData.data}</p>;
+						return <p key={`${dataIndex}${lineData.data}`}>{lineData.data}</p>;
 					})
 				)}
 			</div>
