@@ -14,6 +14,7 @@ export default function AppSearch({ onCancel, onSearch }: AppSearchProps) {
 	const searchBoxEleRef = useRef<HTMLInputElement>(null);
 
 	const showMobileButtons = !!onCancel;
+	const searchText = queryString(query, 'q');
 
 	function search(event: React.ChangeEvent<HTMLInputElement>) {
 		const query = event.target.value;
@@ -38,15 +39,16 @@ export default function AppSearch({ onCancel, onSearch }: AppSearchProps) {
 				ref={searchBoxEleRef}
 				type="search"
 				onChange={search}
-				value={queryString(query, 'q') || ''}
+				value={searchText || ''}
 				placeholder="Search Notes ..."
 				className="app-bar-search-box"
 				autoFocus
 			/>
 
+			{searchText && <button className="btn-b" onClick={clearSearch}>X</button>}
+
 			{showMobileButtons && (
 				<>
-					<button className="btn-b" onClick={clearSearch}>X</button>
 					<button
 						className="btn-b"
 						onClick={onCancel || undefined}>
