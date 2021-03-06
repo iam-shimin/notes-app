@@ -47,7 +47,7 @@ export function SidebarProvider({ children }: React.HTMLProps<HTMLDivElement>) {
 			setIsOpenForMobile(false);
 			toggleBackdrop();
 		}
-	}, [isMobile, isOpenForMobile]);
+	}, [isMobile, isOpenForMobile, toggleBackdrop]);
 
 	return (
 		<SidebarContext.Provider value={toggle}>{children}</SidebarContext.Provider>
