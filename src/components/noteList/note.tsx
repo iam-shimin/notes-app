@@ -13,6 +13,7 @@ import { increaseCount } from 'utils/storage';
 import { asNumber } from 'utils/primitive';
 import { NoteFieldSetter, NoteId } from './noteListTypes';
 import { NotesAppState } from 'reducers';
+import { toggleEdit } from 'actions/appActions';
 
 interface NoteOwnProps extends Pick<RouteComponentProps, 'history'> {
 	reqNoteId: NoteId,
@@ -26,7 +27,8 @@ interface NoteStateProps {
 interface NoteActionProps {
 	setNoteField: NoteFieldSetter,
 	deleteNotes(noteIds: NoteId[]): void,
-	pushToast(message: string): void
+	pushToast(message: string): void,
+	toggleEdit(noteId: NoteI['id'] | null): void
 }
 
 export type NoteProps = NoteOwnProps & NoteStateProps & NoteActionProps;
@@ -38,13 +40,22 @@ export function Note({
 	pushToast,
 	setNoteField,
 	deleteNotes,
+	toggleEdit: updateEditingTodoId,
 	history
 }: NoteProps) {
 	const paramid = reqNoteId || match.params.id;
 	
 	const [noteId, setNoteId] = useState(asNumber(paramid));
 	const [disableEdit, setDisableEdit] = useState(true);
-	const toggleEdit = () => setDisableEdit(!disableEdit);
+	const toggleEdit = () => setDisableEdit(state => {
+		const isDisableAction = !state;
+		if (!isDisableAction) {
+			updateEditingTodoId(noteId);
+		} else {
+			updateEditingTodoId(null);
+		}
+		return isDisableAction;
+	});
 
 	const data = notes.find(note => note.id === noteId);
 
@@ -100,7 +111,8 @@ const mapStateToProps = (state: NotesAppState) => ({
 const mapDispatchToProps = {
 	setNoteField,
 	deleteNotes,
-	pushToast
+	pushToast,
+	toggleEdit
 };
 // FIXME: 
 //@ts-ignore

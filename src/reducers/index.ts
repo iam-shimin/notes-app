@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 
 import notifications from './notificationReducer';
 import notes from './noteReducer';
+import appData from './appReducer';
 
 // import { NoteAction } from 'actions/noteActionTypes';
 // import { NotificationAction } from 'actions/notificationTypes';
 
 export interface NotesAppState {
+	appData: ReturnType<typeof appData>,
 	notes: ReturnType<typeof notes>,
 	notifications: ReturnType<typeof notifications>
 }
@@ -14,6 +16,7 @@ export interface NotesAppState {
 // type AppReduxActions = NoteAction | NotificationAction;
 
 export default combineReducers<NotesAppState>({
+	appData,
 	notes,
 	notifications
 });

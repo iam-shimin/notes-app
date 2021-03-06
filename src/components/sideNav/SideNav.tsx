@@ -15,10 +15,11 @@ import 'styles/list.css';
 
 interface SideNavProps {
 	noteItems: NoteI[];
+	isEditingNote: null | NoteI['id'];
 	pushToast(msg: string): void;
 }
 
-export function SideNav({ noteItems, pushToast }: SideNavProps) {
+export function SideNav({ noteItems, isEditingNote, pushToast }: SideNavProps) {
 	const { isOpenForMobile, isMobile, toggle } = useSidebar();
 	const togglebackdrop = useBackdrop();
 	const [selectedOnContextMenu, setSelected] = useState(new Set<number>([]));
@@ -90,7 +91,7 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 					)}
 				</NotesFilterer>
 			</aside>
-			<FloatButton label="+" />
+			{!(isEditingNote && isMobile) && <FloatButton label="+" />}
 			<ContextMenu
 				selectedItems={selectedOnContextMenu}
 				onDeleted={handelDeleteSelected}
@@ -101,7 +102,10 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 	);
 }
 
-const mapStateToProps = (state: NotesAppState) => ({ noteItems: state.notes });
+const mapStateToProps = (state: NotesAppState) => ({
+	noteItems: state.notes,
+	isEditingNote: state.appData.noteEditing
+});
 const mapDispatchToProps = { pushToast };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
