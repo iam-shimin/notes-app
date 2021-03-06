@@ -162,7 +162,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .notifications {
 	position: fixed;
 	bottom: 0;
-	right: 3%;
+	/* right: 3%; */
 }
 
 button.hamburger-button {
