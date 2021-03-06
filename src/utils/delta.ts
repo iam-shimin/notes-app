@@ -51,6 +51,7 @@ export function getTextFromDelta(delta: DeltaData[]) {
 	}
 
 	const deltaAsString = delta.reduce((acc, lineData, lineIndex) => {
+		const lineSeparator = lineIndex > 0? '\n': '';
 		if (lineData.type === 'todo') {
 			const todolistAsString = lineData.data.reduce(
 				(innerAcc, todo, todoIndex) =>
@@ -59,9 +60,9 @@ export function getTextFromDelta(delta: DeltaData[]) {
 						: innerAcc,
 				''
 			);
-			acc += lineIndex > 0? '\n': '' + todolistAsString;
+			acc += lineSeparator + todolistAsString;
 		} else {
-			acc += lineIndex > 0? '\n': '' + lineData.data;
+			acc += lineSeparator + lineData.data;
 		}
 
 		return acc;
