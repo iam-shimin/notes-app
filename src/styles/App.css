@@ -51,7 +51,7 @@ input[type="search"]::-webkit-search-results-decoration {
 	max-width: 70%;
 }
 .app-bar-nav {
-	flex: 1;
+	/* flex: 1; */
 	display: flex;
 	justify-content: flex-end;
 }
@@ -265,4 +265,8 @@ button.hamburger-button {
 
 .block {
 	display: block;
+}
+
+.full-width {
+	flex: 1;
 }

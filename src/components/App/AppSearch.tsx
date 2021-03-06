@@ -41,7 +41,7 @@ export default function AppSearch({ onCancel, onSearch }: AppSearchProps) {
 				onChange={search}
 				value={searchText || ''}
 				placeholder="Search Notes ..."
-				className="app-bar-search-box"
+				className="full-width app-bar-search-box"
 				autoFocus
 			/>
 
