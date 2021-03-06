@@ -2,10 +2,12 @@ import React, {
 	createContext,
 	useState,
 	useMemo,
-	useContext
+	useContext,
+	useEffect
 } from 'react';
 
 import useMatchMedia from 'hooks/useMatchMedia';
+import { useBackdrop } from './backdrop';
 
 type ToggleValueSetter = boolean | ((isOpen: boolean) => boolean);
 
@@ -24,6 +26,7 @@ const SidebarContext = createContext<SidebarI>({
 export function SidebarProvider({ children }: React.HTMLProps<HTMLDivElement>) {
 	const [isOpenForMobile, setIsOpenForMobile] = useState(false);
 	const isMobile = useMatchMedia('(max-width: 500px)');
+	const toggleBackdrop = useBackdrop();
 
 	const toggle = useMemo(
 		() => ({
@@ -31,10 +34,20 @@ export function SidebarProvider({ children }: React.HTMLProps<HTMLDivElement>) {
 			isMobile,
 			toggle(setvalue = (isOpen: boolean) => !isOpen) {
 				setIsOpenForMobile(setvalue);
+				if (isMobile) {
+					toggleBackdrop();
+				}
 			}
 		}),
-		[isOpenForMobile, isMobile]
+		[isOpenForMobile, isMobile, toggleBackdrop]
 	);
+
+	useEffect(() => {
+		if (!isMobile && isOpenForMobile) {
+			setIsOpenForMobile(false);
+			toggleBackdrop();
+		}
+	}, [isMobile, isOpenForMobile]);
 
 	return (
 		<SidebarContext.Provider value={toggle}>{children}</SidebarContext.Provider>

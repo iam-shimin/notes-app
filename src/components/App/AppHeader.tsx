@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import AppbarSearch from './AppSearch';
 import { useSidebar } from 'context/sidebar';
-import { useBackdrop } from 'context/backdrop';
 
 const fontSize: React.CSSProperties = { fontSize: 'initial' };
 
@@ -18,27 +17,16 @@ export default function AppHeader() {
 		flexDirection: appBarDirection
 	};
 
-	const toggleBackdrop = useBackdrop();
-
 	function showSidebar() {
 		toggleSidebar();
-		if (isMobile) {
-			toggleBackdrop();
-		}
 	}
 
 	function showSearch() {
 		setIsSearchShown(true);
-		if (isMobile) {
-			toggleBackdrop();
-		}
 	}
 
 	function hideSearch() {
 		setIsSearchShown(false);
-		if (isMobile) {
-			toggleBackdrop();
-		}
 	}
 
 	return (

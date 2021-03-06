@@ -59,7 +59,6 @@ export function getTextFromDelta(delta: DeltaData[]) {
 						: innerAcc,
 				''
 			);
-			console.log({todolistAsString})
 			acc += todolistAsString;
 		} else {
 			acc += lineIndex > 0? '\n': '' + lineData.data;
@@ -67,7 +66,6 @@ export function getTextFromDelta(delta: DeltaData[]) {
 
 		return acc;
 	}, '');
-	console.log({delta, deltaAsString})
 
 	return deltaAsString
 }

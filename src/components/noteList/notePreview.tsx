@@ -28,8 +28,6 @@ export default function NotePreview({
 			return lineData;
 		});
 
-		console.log({updatedData})
-
 		onTodoStatusChange(getTextFromDelta(updatedData));
 	}
 

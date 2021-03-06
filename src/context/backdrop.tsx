@@ -33,7 +33,12 @@ function Backdrop({ show = false }) {
 function BackdropProvider({ children }: React.HTMLProps<HTMLDivElement>) {
 	const [isActive, setIsActive] = React.useState(false);
 
-	const toggle = React.useCallback(() => setIsActive(current => !current), []);
+	const toggle = React.useCallback((state?: boolean) => setIsActive(current => {
+		if (state !== undefined) {
+			return state;
+		}
+		return !current;
+	}), []);
 
 	return (
 		<BackdropCxt.Provider value={toggle}>
