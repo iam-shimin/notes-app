@@ -34,7 +34,7 @@ export default function AppHeader() {
 			{shouldShowSearch && (
 				<AppbarSearch
 					onCancel={isMobile && hideSearch}
-					onSearch={!isOpenForMobile && toggleSidebar}
+					onSearch={isMobile && !isOpenForMobile && toggleSidebar}
 				/>
 			)}
 
