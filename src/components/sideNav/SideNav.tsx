@@ -67,7 +67,6 @@ export function SideNav({ noteItems, pushToast }: SideNavProps) {
 
 			if (isOpenForMobile && !isAllowedClickOutside && isClickOutside) {
 				toggle(false);
-				togglebackdrop();
 			}
 		}
 

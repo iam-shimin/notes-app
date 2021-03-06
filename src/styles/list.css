@@ -153,6 +153,11 @@
 	background: #67736d;
 }
 
+.filter-label {
+	font-size: smaller;
+	display: block;
+}
+
 .sf-select {
 	flex: 1;
 	margin: 0 2em;

@@ -42,3 +42,20 @@
 	flex-direction: column;
 	margin-top: 1em;
 }
+
+.color-grey {
+	color: grey;
+}
+
+.smaller {
+	font-size: smaller;
+}
+
+.divider{
+	border: solid 1px grey;
+	border-bottom: none;
+}
+
+.word-wrap {
+	word-wrap: anywhere;
+}

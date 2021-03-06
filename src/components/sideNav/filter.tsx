@@ -39,28 +39,35 @@ export default function NotesFilterer({list = [], children }: FilterProps) {
 		}
 	});
 
-	console.log(orderedNotes)
-
 	return (
 		<>
-		<div className="sidebar-filter">
-					<h1 className="sidebar-title">All Notes</h1>
-			<select
-				className="todo-controls"
-				value={orderBy}
-				onChange={({ currentTarget }) =>
-					setOrderBy(currentTarget.value as keyof NoteI)
-				}>
-				<option value="id">Created</option>
-				<option value="title">Title</option>
-				<option value="priority">Priority</option>
-			</select>
-			<NotePriority
-				value={filterBy}
-				onChange={({ currentTarget }) =>
-					setFilterBy(currentTarget.value as Priority)
-				}
-			/>
+			<div className="sidebar-filter">
+				<h1 className="sidebar-title">All Notes</h1>
+				<div className="flex">
+					<label>
+						<span className="filter-label">Sort</span>
+						<select
+							className="todo-controls"
+							value={orderBy}
+							onChange={({ currentTarget }) =>
+								setOrderBy(currentTarget.value as keyof NoteI)
+							}>
+							<option value="id">Created</option>
+							<option value="title">Title</option>
+							<option value="priority">Priority</option>
+						</select>
+					</label>
+					<label>
+						<span className="filter-label">Filter</span>
+						<NotePriority
+							value={filterBy}
+							optionLabels={{low: 'All', med: 'Medium and High', high: 'Only High'}}
+							onChange={({ currentTarget }) =>
+								setFilterBy(currentTarget.value as Priority)
+							}
+						/>
+					</label>
+				</div>
 			</div>
 			{children(orderedNotes)}
 		</>

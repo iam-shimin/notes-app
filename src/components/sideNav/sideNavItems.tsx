@@ -6,7 +6,7 @@ import { Location } from 'history';
 import { queryString } from 'utils/url';
 import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
-import { total, done } from 'utils/todos';
+import { isTodo, isDoneTodo } from 'utils/todos';
 import { getTitleFromNote } from 'utils/note';
 import { joinString } from 'utils/primitive';
 
@@ -32,7 +32,6 @@ export default function SideNavItems({
 	const search = useLocation().search;
 	const query = queryString(search, 'q');
 	const mostCheckedNote = getMostVisited();
-	const recentNote = lastOf(data);
 
 	const matchedNote = data.filter(
 		note =>
@@ -46,8 +45,8 @@ export default function SideNavItems({
 					const noteTitle =
 						note.title || getTitleFromNote(note.notes) || 'Empty Note';
 					const noteByLines = note.notes.split('\n');
-					const numberOftasksTotal = noteByLines.filter(total).length;
-					const numberOftasksDone = noteByLines.filter(done).length;
+					const numberOftasksTotal = noteByLines.filter(isTodo).length;
+					const numberOftasksDone = noteByLines.filter(isDoneTodo).length;
 
 					const hasSubTasks = numberOftasksTotal !== 0;
 					const isComplete = numberOftasksDone === numberOftasksTotal;
@@ -73,6 +72,8 @@ export default function SideNavItems({
 					}
 
 					function handleActiveLink(match: any, location: Location) {
+						const notesOrderedByCreatedAt = data.sort((a, b) => a.id - b.id);
+						const recentNote = lastOf(notesOrderedByCreatedAt);
 						const isRecentNote = recentNote?.id === note.id;
 						const isMostViewedNote = mostCheckedNote === String(note.id);
 						const shouldShowMostViewed = location.pathname.includes(
