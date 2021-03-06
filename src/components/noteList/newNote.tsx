@@ -23,7 +23,7 @@ export function NewTodo({ totalCount, addNote, location }: NewTodoProps) {
 	useEffect(() => {
 		const payload = { title: passedNoteTitle || `Untitled ${totalCount + 1}`, notes: '' };
 		addNote(payload, (note: NoteI) => history.replace(`/notes/${note.id}`));
-	}, [ addNote, totalCount, history ]);
+	}, [ addNote, totalCount, passedNoteTitle, history ]);
 
 	return null;
 }
