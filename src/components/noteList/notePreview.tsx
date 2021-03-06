@@ -5,6 +5,8 @@ import {
 	getIsEmptyDelta
 } from 'utils/delta';
 
+type TodoEvent = {dataIndex:any, todo: string};
+
 export default function NotePreview({
 	data,
 	onTodoStatusChange
@@ -36,6 +38,18 @@ export default function NotePreview({
 		onTodoStatusChange(getTextFromDelta(updatedData));
 	}
 
+	function handleNewTodo(event: TodoEvent) {
+		const updatedData = [...parsedData];
+		const selectedDeltaItem = updatedData[event.dataIndex];
+		if (selectedDeltaItem.type === 'todo') {
+			selectedDeltaItem.data.push({
+				text: event.todo,
+				isDone: false
+			});
+			onTodoStatusChange(getTextFromDelta(updatedData));
+		}
+	}
+
 	return (
 		<>
 			<h1 className="word-wrap">{data.title}</h1>
@@ -60,6 +74,7 @@ export default function NotePreview({
 											onChange={updateTodo}
 										/>
 									))}
+									<AddTodoForm id={dataIndex} onSubmit={handleNewTodo} />
 								</div>
 							);
 						} else if (lineData.data === '') {
@@ -100,5 +115,24 @@ function TodoListItem({
 			/>
 			{text}
 		</label>
+	);
+}
+
+function AddTodoForm({ id, onSubmit }: { id: any, onSubmit: (event: TodoEvent) => void }) {
+	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const { currentTarget } = event;
+		const textNode = currentTarget.elements.item(0) as (HTMLInputElement | null);
+		const todo = textNode?.value;
+		if (!todo || !textNode) return;
+		textNode.value = '';
+		textNode.focus();
+		onSubmit({ dataIndex: currentTarget.id, todo });
+	}
+	return (
+		<form id={id} onSubmit={handleSubmit}>
+			<input aria-label="Add todo" placeholder="Add todo" type="text" />
+			<button>+</button>
+		</form>
 	);
 }
