@@ -32,17 +32,17 @@ const relativePosition: React.CSSProperties = { position: 'relative' };
 function AppLayout() {
 	return (
 		<main>
-			<SidebarProvider>
-				<BackdropProvider>
-				<AppHeader />
-				<article style={relativePosition}>
-					<Switch>
-						<Route path="/notes" component={NotesPage} />
-						<Redirect to="/notes" />
-					</Switch>
-				</article>
-				</BackdropProvider>
-			</SidebarProvider>
+			<BackdropProvider>
+				<SidebarProvider>
+					<AppHeader />
+					<article style={relativePosition}>
+						<Switch>
+							<Route path="/notes" component={NotesPage} />
+							<Redirect to="/notes" />
+						</Switch>
+					</article>
+				</SidebarProvider>
+			</BackdropProvider>
 		</main>
 	);
 }

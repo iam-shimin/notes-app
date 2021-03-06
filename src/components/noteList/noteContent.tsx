@@ -2,19 +2,16 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
+import NotePreview from './notePreview';
+import NoteEditor from './noteEditor';
 import { setNoteField } from 'actions/noteActions';
 import { NoteFieldSetter, NoteFields, NoteId } from './noteListTypes';
 
-const titlePlaceholder = 'What do you need to do ?';
-const textareaPlaceholder = `Write notes on:
- * How to achieve the goal
- * Deadlines
- * Who is going to help ?`;
 
 interface NoteContentOwnProps {
 	noteId: NoteId,
 	data: NoteI,
-	disableEdit?: boolean,
+	disableEdit: boolean
 }
 
 interface NoteContentActionProps {
@@ -38,41 +35,32 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 	const urlIsInvalid = !data;
 
 	if (urlIsInvalid) {
+		return <NoteUrlError />;
+	} else if (disableEdit) {
 		return (
-			<div className="warning-msg">
-				<h2>Invalid URL</h2>
-				<p>The note was either deleted or the url is mispelled.</p>
-			</div>
+			<NotePreview
+				data={data}
+				onTodoStatusChange={note => setNoteField(data.id, 'notes', note)}
+			/>
+		);
+	} else {
+		return (
+			<NoteEditor 
+				noteTitle={data?.title}
+				noteContent={data?.notes}
+				disabled={disableEdit}
+				onFocus={handleInputFocus}
+				onChange={onInputChange} />
 		);
 	}
+}
 
+function NoteUrlError() {
 	return (
-		<React.Fragment>
-			<label className="note-label">
-				Title:
-				<input
-					name="title"
-					placeholder={titlePlaceholder}
-					value={data?.title}
-					disabled={disableEdit}
-					className="edit-note-title"
-					onFocus={handleInputFocus}
-					onChange={onInputChange}
-				/>
-			</label>
-
-			<label className="note-label">
-				Note Content:
-				<textarea
-					name="notes"
-					placeholder={textareaPlaceholder}
-					value={data?.notes}
-					disabled={disableEdit}
-					className="edit-note-text"
-					onChange={onInputChange}
-				/>
-			</label>
-		</React.Fragment>
+		<div className="warning-msg">
+			<h2>Invalid URL</h2>
+			<p>The note was either deleted or the url is mispelled.</p>
+		</div>
 	);
 }
 
