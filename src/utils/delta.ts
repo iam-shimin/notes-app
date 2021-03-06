@@ -53,13 +53,13 @@ export function getTextFromDelta(delta: DeltaData[]) {
 	const deltaAsString = delta.reduce((acc, lineData, lineIndex) => {
 		if (lineData.type === 'todo') {
 			const todolistAsString = lineData.data.reduce(
-				(innerAcc, todo) =>
+				(innerAcc, todo, todoIndex) =>
 					todo
-						? innerAcc + (lineIndex > 0? '\n': '') + `${todo.isDone ? '*' : 'o'} ${todo.text}`
+						? innerAcc + (todoIndex > 0? '\n': '') + `${todo.isDone ? '*' : 'o'} ${todo.text}`
 						: innerAcc,
 				''
 			);
-			acc += todolistAsString;
+			acc += lineIndex > 0? '\n': '' + todolistAsString;
 		} else {
 			acc += lineIndex > 0? '\n': '' + lineData.data;
 		}
