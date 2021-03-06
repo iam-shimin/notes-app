@@ -56,10 +56,6 @@
 	border-bottom: none;
 }
 
-.word-wrap {
-	word-wrap: anywhere;
-}
-
 fieldset.reset {
 	border: none;
 	padding: 0

@@ -270,3 +270,7 @@ button.hamburger-button {
 .full-width {
 	flex: 1;
 }
+
+.word-wrap {
+	word-wrap: anywhere;
+}

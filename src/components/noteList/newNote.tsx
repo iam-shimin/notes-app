@@ -6,7 +6,8 @@ import { addNote } from 'actions/noteActions';
 import { NotesAppState } from 'reducers';
 
 interface NewTodoStateProps {
-	totalCount: number
+	totalCount: number,
+	location: any
 }
 
 interface NewTodoActionProps {
@@ -15,11 +16,12 @@ interface NewTodoActionProps {
 
 type NewTodoProps = NewTodoStateProps & NewTodoActionProps;
 
-export function NewTodo({ totalCount, addNote }: NewTodoProps) {
+export function NewTodo({ totalCount, addNote, location }: NewTodoProps) {
 	const history = useHistory();
+	const passedNoteTitle = location?.title;
 
 	useEffect(() => {
-		const payload = { title: `Untitled ${totalCount + 1}`, notes: '' };
+		const payload = { title: passedNoteTitle || `Untitled ${totalCount + 1}`, notes: '' };
 		addNote(payload, (note: NoteI) => history.replace(`/notes/${note.id}`));
 	}, [ addNote, totalCount, history ]);
 
