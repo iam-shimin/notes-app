@@ -58,7 +58,7 @@ export default function NotePreview({
 				{createdAt.toLocaleDateString()} {createdAt.toLocaleTimeString()}
 			</span>
 			<hr className="divider" />
-			<div>
+			<div className="note-preview-area">
 				{/* FIXME: the 'keys' with index causes too much remounts
 						This was added so that same line repeating will not cause corrupted UI
 				 */}

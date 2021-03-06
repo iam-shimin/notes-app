@@ -65,3 +65,13 @@ fieldset.reset {
 	color: grey;
 	text-decoration: line-through;
 }
+
+.note-preview-area p,
+.note-preview-area h1,
+.note-preview-area h2,
+.note-preview-area h3,
+.note-preview-area h4,
+.note-preview-area h5,
+.note-preview-area h6 {
+    margin: 0;
+}
