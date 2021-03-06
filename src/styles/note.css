@@ -55,3 +55,7 @@
 	border: solid 1px grey;
 	border-bottom: none;
 }
+
+.word-wrap {
+	word-wrap: anywhere;
+}
