@@ -278,3 +278,7 @@ button.hamburger-button {
 .app-bar-search-box:focus {
 	background: #38deb7;
 }
+
+.biggest-font {
+	font-size: 1.8rem;
+}

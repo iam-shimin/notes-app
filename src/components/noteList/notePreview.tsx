@@ -53,7 +53,7 @@ export default function NotePreview({
 
 	return (
 		<>
-			<h1 className="word-wrap">{data.title}</h1>
+			<h1 className="biggest-font word-wrap">{data.title}</h1>
 			<span className="smaller color-grey">
 				{createdAt.toLocaleDateString()} {createdAt.toLocaleTimeString()}
 			</span>
