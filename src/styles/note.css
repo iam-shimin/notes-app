@@ -75,3 +75,21 @@ fieldset.reset {
 .note-preview-area h6 {
     margin: 0;
 }
+
+.note-input {
+    border-radius: 0.4em;
+    border: solid 1px #bbb;
+    background: #f1f1f1;
+}
+
+.note-input:focus {
+	background: #fff;
+}
+
+.edit-note-text {
+    padding: 1em;
+}
+
+.note-preview-area {
+	margin-bottom: 4em;
+}

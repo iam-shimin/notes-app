@@ -31,7 +31,7 @@ export default function NoteEditor({
 					placeholder={titlePlaceholder}
 					value={noteTitle}
 					disabled={disabled}
-					className="edit-note-title"
+					className="note-input edit-note-title"
 					onFocus={onFocus}
 					onChange={onChange}
 				/>
@@ -44,7 +44,7 @@ export default function NoteEditor({
 						placeholder={textareaPlaceholder}
 						value={noteContent}
 						disabled={disabled}
-						className="edit-note-text"
+						className="note-input edit-note-text"
 						onChange={onChange}
 					/>
 			</label>
