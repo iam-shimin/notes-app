@@ -100,3 +100,12 @@ fieldset.reset {
 .note-preview-area {
 	margin-bottom: 4em;
 }
+
+.inline-todo-list {
+	background: #dfdfdf;
+	padding: 1em 0.6em;
+	border-radius: 0.5em;
+	margin: 0.5em 0;
+	width: max-content;
+	max-width: 95%;
+}

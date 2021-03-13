@@ -288,3 +288,15 @@ button.hamburger-button {
 .biggest-font {
 	font-size: 1.8rem;
 }
+
+.border1 {
+	border: solid 1px;
+}
+
+.ml {
+	margin-left: 0.5em;
+}
+
+.mt {
+	margin-top: 0.5em;
+}

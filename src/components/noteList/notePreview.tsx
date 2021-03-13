@@ -68,7 +68,7 @@ export default function NotePreview({
 					parsedData.map((lineData, dataIndex) => {
 						if (lineData.type === 'todo') {
 							return (
-								<div key={`${dataIndex}${JSON.stringify(lineData.data)}`}>
+								<div className="inline-todo-list" key={`${dataIndex}${JSON.stringify(lineData.data)}`}>
 									{lineData.data.map((todo, todoIndex) => (
 										<TodoListItem
 											key={`${todoIndex}${todo.text}`}
@@ -149,9 +149,9 @@ function AddTodoForm({ id, onSubmit }: AddTodoFormProps) {
 		onSubmit({ dataIndex: currentTarget.id, todo });
 	}
 	return (
-		<form id={id} onSubmit={handleSubmit}>
-			<input aria-label="Add todo" placeholder="Add todo" type="text" />
-			<button>+</button>
+		<form className="flex mt" id={id} onSubmit={handleSubmit}>
+			<input aria-label="Add todo" placeholder="Add todo" type="text" className="border1" />
+			<button className="ml border1">+</button>
 		</form>
 	);
 }
