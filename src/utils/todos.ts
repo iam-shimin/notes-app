@@ -1,5 +1,6 @@
-const todoComplete = ['[*]', '[ * ]', '*', '0', 'x', 'X'];
-const todoIncomplete = ['o', 'O', '[]', '[ ]'];
+// TODO: refactor to RegEx
+const todoComplete = ['* [ x ]'];
+const todoIncomplete = ['* [ ]'];
 
 function allTodoTypes() {
 	return [...todoComplete, ...todoIncomplete];
