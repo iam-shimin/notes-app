@@ -17,7 +17,8 @@ export function getDeltaFromText(text: string) {
 	const initialParsedData: ParsedData = { data: [] };
 
 	const parsedData = lines.reduce((acc, line) => {
-		if (isTodo(line)) {
+		const isTodoLine = isTodo(line)
+		if (isTodoLine) {
 			const todoItem = {
 				text: getTextFromTodo(line),
 				isDone: isDoneTodo(line)
@@ -52,11 +53,14 @@ export function getDeltaFromText(text: string) {
 				data: { headingText: headingText, level: level>6? 6: level }
 			});
 		} else {
-			acc.currentTodoList = undefined;
 			acc.data.push({
 				type: 'text',
 				data: line
 			});
+		}
+
+		if (!isTodoLine) {
+			acc.currentTodoList = undefined;
 		}
 		return acc;
 	}, initialParsedData);
