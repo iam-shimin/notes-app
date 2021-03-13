@@ -3,7 +3,7 @@ import {
 	getDeltaFromText,
 	getTextFromDelta,
 	getIsEmptyDelta
-} from 'utils/delta';
+} from 'utils/deltas/delta';
 import { joinString } from 'utils/primitive';
 
 type TodoEvent = { dataIndex: any; todo: string };

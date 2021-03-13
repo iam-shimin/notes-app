@@ -1,4 +1,4 @@
-import { getTextFromTodo, isDoneTodo, isTodo } from 'utils/todos';
+import { getTextFromTodo, isDoneTodo, isTodo } from 'utils/deltas/todos';
 
 type TextBlock = { type: 'text'; data: string; };
 

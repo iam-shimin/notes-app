@@ -6,7 +6,7 @@ import { Location } from 'history';
 import { queryString } from 'utils/url';
 import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
-import { isTodo, isDoneTodo } from 'utils/todos';
+import { isTodo, isDoneTodo } from 'utils/deltas/todos';
 import { getTitleFromNote } from 'utils/note';
 import { joinString } from 'utils/primitive';
 
