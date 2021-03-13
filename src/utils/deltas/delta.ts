@@ -1,73 +1,27 @@
-import { getTextFromTodo, isDoneTodo, isTodo } from 'utils/deltas/todos';
-
-type TextBlock = { type: 'text'; data: string; };
-
-type TodoItem = { text: string; isDone: boolean };
-
-type TodoBlock = { type: 'todo'; data: TodoItem[]; };
-
-type HeadingBlock = { type: 'heading', data: { headingText: string, level: number }};
-
-type ParsedData = { currentTodoList?: any[]; data: DeltaData[]; };
-
-type DeltaData = TextBlock | TodoBlock | HeadingBlock;
+import { isTodo, appendTodoDelta, todoToString } from 'utils/deltas/todos';
+import { appendHeadingDelta, headingToString } from './heading';
 
 export function getDeltaFromText(text: string) {
 	const lines = text.split('\n');
-	const initialParsedData: ParsedData = { data: [] };
+	const initialParsedData: DeltaData[] = [];
 
 	const parsedData = lines.reduce((acc, line) => {
 		const isTodoLine = isTodo(line)
 		if (isTodoLine) {
-			const todoItem = {
-				text: getTextFromTodo(line),
-				isDone: isDoneTodo(line)
-			};
-			if (Array.isArray(acc.currentTodoList)) {
-				acc.currentTodoList.push(todoItem);
-			} else {
-				const newtodoList = [todoItem];
-				acc.data.push({
-					type: 'todo',
-					data: newtodoList
-				});
-				acc.currentTodoList = newtodoList;
-			}
+			acc = appendTodoDelta(line, acc);
 		} else if (line.startsWith('#')) {
-			let level = 0;
-			let headingText = '';
-			let isBroken = false;
-			line.split('').forEach(ctr => {
-				if (!isBroken) {
-					if (ctr === '#') {
-						++level;
-						return;
-					} else {
-						isBroken = true;
-					}
-				}
-				headingText += ctr;
-			});
-			acc.data.push({
-				type: 'heading',
-				data: { headingText: headingText, level: level>6? 6: level }
-			});
+			acc = appendHeadingDelta(line, acc);
 		} else {
-			acc.data.push({
+			acc.push({
 				type: 'text',
 				data: line
 			});
 		}
 
-		if (!isTodoLine) {
-			acc.currentTodoList = undefined;
-		}
 		return acc;
 	}, initialParsedData);
 
-	parsedData.currentTodoList = undefined;
-
-	return parsedData.data;
+	return parsedData;
 }
 
 export function getTextFromDelta(delta: DeltaData[]) {
@@ -78,16 +32,9 @@ export function getTextFromDelta(delta: DeltaData[]) {
 	const deltaAsString = delta.reduce((acc, lineData, lineIndex) => {
 		const lineSeparator = lineIndex > 0? '\n': '';
 		if (lineData.type === 'todo') {
-			const todolistAsString = lineData.data.reduce(
-				(innerAcc, todo, todoIndex) =>
-					todo
-						? innerAcc + (todoIndex > 0? '\n': '') + `${todo.isDone ? '*' : 'o'} ${todo.text}`
-						: innerAcc,
-				''
-			);
-			acc += lineSeparator + todolistAsString;
+			acc += lineSeparator + todoToString(lineData.data);
 		} else if (lineData.type === 'heading') {
-			acc += lineSeparator + '#'.repeat(lineData.data.level) + lineData.data.headingText;
+			acc += lineSeparator + headingToString(lineData.data);
 		} else {
 			acc += lineSeparator + lineData.data;
 		}

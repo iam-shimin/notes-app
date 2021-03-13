@@ -1,6 +1,8 @@
+import lastOf from 'utils/array';
+
 // TODO: refactor to RegEx
-const todoComplete = ['* [ x ]'];
-const todoIncomplete = ['* [ ]'];
+export const todoComplete = ['* [ x ]'];
+export const todoIncomplete = ['* [ ]'];
 
 function allTodoTypes() {
 	return [...todoComplete, ...todoIncomplete];
@@ -29,4 +31,34 @@ export function getTextFromTodo(todo: string) {
 		}
 	}
 	return '';
+}
+
+export function appendTodoDelta(line: string, delta: DeltaData[]) {
+	const todoItem = {
+		text: getTextFromTodo(line),
+		isDone: isDoneTodo(line)
+	};
+	const lastDelta = lastOf(delta);
+
+	if (lastDelta?.type === 'todo') {
+		lastDelta.data.push(todoItem);
+		return delta;
+	} else {
+		const newtodoList: TodoBlock = {
+			type: 'todo',
+			data: [todoItem]
+		};
+		return [...delta, newtodoList]
+	}
+}
+
+export function todoToString(todos: TodoItem[]) {
+	const todolistAsString = todos.reduce(
+		(innerAcc, todo, todoIndex) =>
+			todo
+				? innerAcc + (todoIndex > 0? '\n': '') + `${todo.isDone ? todoComplete[0] : todoIncomplete[0]} ${todo.text}`
+				: innerAcc,
+		''
+	);
+	return todolistAsString;
 }
