@@ -87,6 +87,12 @@ export default function NotePreview({
 							const H = `h${lineData.data.level}`;
 							// @ts-ignore
 							return <H key={dataIndex}>{lineData.data.headingText}</H>
+						} else if (lineData.type === 'list/ol' || lineData.type === 'list/ul') {
+							return <List
+										key={JSON.stringify(lineData.data)}
+										type={lineData.type}
+										items={lineData.data}
+									/>
 						}
 
 						return <p key={`${dataIndex}${lineData.data}`}>{lineData.data}</p>;
@@ -148,4 +154,14 @@ function AddTodoForm({ id, onSubmit }: AddTodoFormProps) {
 			<button>+</button>
 		</form>
 	);
+}
+
+
+function List({ type, items }: { type: ListBlock['type'], items: string[] }) {
+	const ListContainer = type === 'list/ol'? 'ol': 'ul';
+	return (
+		<ListContainer>
+			{items.map(item => <li key={item}>{item}</li>)}
+		</ListContainer>
+	)
 }

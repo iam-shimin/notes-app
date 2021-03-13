@@ -1,16 +1,18 @@
 import { isTodo, appendTodoDelta, todoToString } from 'utils/deltas/todos';
 import { appendHeadingDelta, headingToString } from './heading';
+import { appendListDelta, isList, listToString } from './list';
 
 export function getDeltaFromText(text: string) {
 	const lines = text.split('\n');
 	const initialParsedData: DeltaData[] = [];
-
+	
 	const parsedData = lines.reduce((acc, line) => {
-		const isTodoLine = isTodo(line)
-		if (isTodoLine) {
+		if (isTodo(line)) {
 			acc = appendTodoDelta(line, acc);
 		} else if (line.startsWith('#')) {
 			acc = appendHeadingDelta(line, acc);
+		} else if (isList(line)) {
+			acc = appendListDelta(line, acc);
 		} else {
 			acc.push({
 				type: 'text',
@@ -35,6 +37,8 @@ export function getTextFromDelta(delta: DeltaData[]) {
 			acc += lineSeparator + todoToString(lineData.data);
 		} else if (lineData.type === 'heading') {
 			acc += lineSeparator + headingToString(lineData.data);
+		} else if (lineData.type === 'list/ul' || lineData.type === 'list/ol') {
+			acc += lineSeparator + listToString(lineData);
 		} else {
 			acc += lineSeparator + lineData.data;
 		}

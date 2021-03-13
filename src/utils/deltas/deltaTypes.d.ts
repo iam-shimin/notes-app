@@ -1,9 +1,18 @@
-type TextBlock = { type: 'text'; data: string; };
+type TextBlock = { type: 'text'; data: string };
 
 type TodoItem = { text: string; isDone: boolean };
 
-type TodoBlock = { type: 'todo'; data: TodoItem[]; };
+type TodoBlock = { type: 'todo'; data: TodoItem[] };
 
-type HeadingBlock = { type: 'heading', data: { headingText: string, level: number }};
+type HeadingBlock = {
+	type: 'heading';
+	data: { headingText: string; level: number };
+};
 
-type DeltaData = TextBlock | TodoBlock | HeadingBlock;
+type OrderedListBlock = { type: 'list/ol'; data: string[] };
+
+type UnorderedListBlock = { type: 'list/ul'; data: string[] };
+
+type ListBlock = OrderedListBlock | UnorderedListBlock;
+
+type DeltaData = TextBlock | TodoBlock | HeadingBlock | ListBlock;
