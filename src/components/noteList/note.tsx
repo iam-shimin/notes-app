@@ -63,6 +63,9 @@ export function Note({
 	const data = notes.find(note => note.id === noteId);
 
 	function deleteThisNote() {
+		if (!window.confirm(`Are you sure you want to delete this note '${data?.title}' ?`))
+			return;
+
 		const thisNoteIndex = notes.findIndex(note => note.id === noteId);
 		const prevNoteIndex = thisNoteIndex !== 0 && thisNoteIndex - 1;
 		const prevNoteId = prevNoteIndex
