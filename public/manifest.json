@@ -8,6 +8,12 @@
       "type": "image/x-icon"
     },
     {
+    	"src": "note-maskable.png",
+    	"type": "image/png",
+    	"sizes": "196x196",
+    	"purpose": "maskable"
+    },
+    {
       "src": "note.png",
       "type": "image/png",
       "sizes": "512x512"

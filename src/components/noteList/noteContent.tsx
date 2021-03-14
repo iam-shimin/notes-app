@@ -6,12 +6,14 @@ import NotePreview from './notePreview';
 import NoteEditor from './noteEditor';
 import { setNoteField } from 'actions/noteActions';
 import { NoteFieldSetter, NoteFields, NoteId } from './noteListTypes';
+import useMatchMedia from 'hooks/useMatchMedia';
 
 
 interface NoteContentOwnProps {
 	noteId: NoteId,
 	data: NoteI,
-	disableEdit: boolean
+	disableEdit: boolean,
+	autoFocus?: string
 }
 
 interface NoteContentActionProps {
@@ -20,7 +22,8 @@ interface NoteContentActionProps {
 
 type NoteContentProps = NoteContentOwnProps & NoteContentActionProps;
 
-export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteContentProps) {
+export function NoteContent({ noteId, data, disableEdit, autoFocus, setNoteField }: NoteContentProps) {
+	const isPWA = useMatchMedia('(display-mode: standalone)');
 	function handleInputFocus(event: React.FocusEvent<HTMLInputElement>) {
 		if (event.currentTarget.value.includes('Untitled')) {
 			event.currentTarget.select();
@@ -36,7 +39,7 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 
 	if (urlIsInvalid) {
 		return <NoteUrlError />;
-	} else if (disableEdit) {
+	} else if (disableEdit && isPWA) {
 		return (
 			<NotePreview
 				data={data}
@@ -49,6 +52,7 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 				noteTitle={data?.title}
 				noteContent={data?.notes}
 				disabled={disableEdit}
+				autoFocusField={autoFocus}
 				onFocus={handleInputFocus}
 				onChange={onInputChange} />
 		);

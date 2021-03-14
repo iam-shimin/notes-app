@@ -47,6 +47,7 @@ export default function NotesFilterer({list = [], children }: FilterProps) {
 					<label>
 						<span className="filter-label">Sort</span>
 						<select
+							aria-label="Order notes by"
 							className="todo-controls"
 							value={orderBy}
 							onChange={({ currentTarget }) =>
@@ -60,6 +61,7 @@ export default function NotesFilterer({list = [], children }: FilterProps) {
 					<label>
 						<span className="filter-label">Filter</span>
 						<NotePriority
+							label="Filter notes by priority"
 							value={filterBy}
 							optionLabels={{low: 'All', med: 'Medium and High', high: 'Only High'}}
 							onChange={({ currentTarget }) =>

@@ -13,7 +13,7 @@ export default function AppHeader() {
 	const shouldShowNav = !isMobile || !isSearchShown;
 	const appBarDirection = isMobile && !isSearchShown ? 'column' : 'row';
 	const headerStyle: React.CSSProperties = {
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		flexDirection: appBarDirection
 	};
 
@@ -39,7 +39,7 @@ export default function AppHeader() {
 			)}
 
 			{shouldShowNav && (
-				<nav className="app-bar-nav">
+				<nav className="app-bar-nav" style={{flex: isMobile? 1: ''}}>
 					{isMobile && <HamburgerButton onClick={showSidebar} />}
 
 					<NavLink to="/notes/recent" className="flex-center app-bar-nav-link">
