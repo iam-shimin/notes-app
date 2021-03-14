@@ -14,12 +14,14 @@ export default function NotePriority({
 	value,
 	className,
 	optionLabels,
+	label,
 	...restProps
 }:NotePriorityProps) {
 	return (
 		<select
 			className={joinString(['todo-controls', className])}
 			value={value}
+			aria-label={label || 'Select the Priority of the Note'}
 			{...restProps}
 		>
 
