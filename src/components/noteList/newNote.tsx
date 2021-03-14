@@ -19,6 +19,7 @@ type NewTodoProps = NewTodoStateProps & NewTodoActionProps;
 export function NewTodo({ totalCount, addNote, location }: NewTodoProps) {
 	const history = useHistory();
 	const passedNoteTitle = location?.title;
+	const passedCallback = location?.callback;
 
 	useEffect(() => {
 		const payload = { title: passedNoteTitle || `Untitled ${totalCount + 1}`, notes: '' };
@@ -27,7 +28,10 @@ export function NewTodo({ totalCount, addNote, location }: NewTodoProps) {
 			// @ts-ignore
 			isNewNote: true
 		}));
-	}, [ addNote, totalCount, passedNoteTitle, history ]);
+		if (typeof passedCallback === 'function') {
+			passedCallback();
+		}
+	}, [ addNote, totalCount, passedNoteTitle, passedCallback, history ]);
 
 	return null;
 }

@@ -111,7 +111,8 @@ export default function SideNavItems({
 			)}
 			<i>Add a <Link to={{
 				pathname: '/notes/new',
-				title: query
+				title: query,
+				callback: onClick
 			}} className="dashed-link">new note</Link> to the list.</i>
 		</div>
 	);
