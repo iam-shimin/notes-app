@@ -54,7 +54,7 @@ export default function NotePreview({
 	return (
 		<>
 			<h1 className="biggest-font word-wrap">{data.title}</h1>
-			<span className="smaller color-grey">
+			<span className="smaller color-grey" title="Created At">
 				{createdAt.toLocaleDateString()} {createdAt.toLocaleTimeString()}
 			</span>
 			<hr className="divider" />
