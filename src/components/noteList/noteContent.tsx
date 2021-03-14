@@ -12,7 +12,8 @@ import useMatchMedia from 'hooks/useMatchMedia';
 interface NoteContentOwnProps {
 	noteId: NoteId,
 	data: NoteI,
-	disableEdit: boolean
+	disableEdit: boolean,
+	autoFocus?: string
 }
 
 interface NoteContentActionProps {
@@ -21,7 +22,7 @@ interface NoteContentActionProps {
 
 type NoteContentProps = NoteContentOwnProps & NoteContentActionProps;
 
-export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteContentProps) {
+export function NoteContent({ noteId, data, disableEdit, autoFocus, setNoteField }: NoteContentProps) {
 	const isPWA = useMatchMedia('(display-mode: standalone)');
 	function handleInputFocus(event: React.FocusEvent<HTMLInputElement>) {
 		if (event.currentTarget.value.includes('Untitled')) {
@@ -51,6 +52,7 @@ export function NoteContent({ noteId, data, disableEdit, setNoteField }: NoteCon
 				noteTitle={data?.title}
 				noteContent={data?.notes}
 				disabled={disableEdit}
+				autoFocusField={autoFocus}
 				onFocus={handleInputFocus}
 				onChange={onInputChange} />
 		);

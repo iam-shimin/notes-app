@@ -15,7 +15,7 @@ import { NoteFieldSetter, NoteId } from './noteListTypes';
 import { NotesAppState } from 'reducers';
 import { toggleEdit } from 'actions/appActions';
 
-interface NoteOwnProps extends Pick<RouteComponentProps, 'history'> {
+interface NoteOwnProps extends Pick<RouteComponentProps, 'history' | 'location'> {
 	reqNoteId: NoteId,
 	match: match<{id?: string}>
 }
@@ -41,12 +41,15 @@ export function Note({
 	setNoteField,
 	deleteNotes,
 	toggleEdit: updateEditingTodoId,
+	location,
 	history
 }: NoteProps) {
 	const paramid = reqNoteId || match.params.id;
+	// @ts-ignore
+	const isNewNote = !!location.isNewNote;
 	
 	const [noteId, setNoteId] = useState(asNumber(paramid));
-	const [disableEdit, setDisableEdit] = useState(true);
+	const [disableEdit, setDisableEdit] = useState(!isNewNote);
 	const toggleEdit = () => setDisableEdit(state => {
 		const isDisableAction = !state;
 		if (!isDisableAction) {
@@ -77,8 +80,8 @@ export function Note({
 		if (paramid) {
 			increaseCount(id);
 		}
-		setDisableEdit(true);
-	}, [paramid]);
+		setDisableEdit(!isNewNote);
+	}, [isNewNote, paramid]);
 
 	if (paramid === undefined || !data)
 		return null;
@@ -99,7 +102,12 @@ export function Note({
 					Delete
 				</button>
 			</div>
-			<NoteContent noteId={noteId} data={data} disableEdit={disableEdit} />
+			<NoteContent
+				noteId={noteId}
+				data={data}
+				disableEdit={disableEdit}
+				autoFocus={isNewNote? 'notes': ''}
+			/>
 		</>
 	);
 }
