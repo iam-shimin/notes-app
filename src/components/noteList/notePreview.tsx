@@ -3,7 +3,10 @@ import {
 	getDeltaFromText,
 	getTextFromDelta,
 	getIsEmptyDelta
-} from 'utils/delta';
+} from 'utils/deltas/delta';
+import { joinString } from 'utils/primitive';
+
+type TodoEvent = { dataIndex: any; todo: string };
 
 export default function NotePreview({
 	data,
@@ -36,14 +39,26 @@ export default function NotePreview({
 		onTodoStatusChange(getTextFromDelta(updatedData));
 	}
 
+	function handleNewTodo(event: TodoEvent) {
+		const updatedData = [...parsedData];
+		const selectedDeltaItem = updatedData[event.dataIndex];
+		if (selectedDeltaItem.type === 'todo') {
+			selectedDeltaItem.data.push({
+				text: event.todo,
+				isDone: false
+			});
+			onTodoStatusChange(getTextFromDelta(updatedData));
+		}
+	}
+
 	return (
 		<>
-			<h1 className="word-wrap">{data.title}</h1>
-			<span className="smaller color-grey">
+			<h1 className="biggest-font word-wrap">{data.title}</h1>
+			<span className="smaller color-grey" title="Created At">
 				{createdAt.toLocaleDateString()} {createdAt.toLocaleTimeString()}
 			</span>
 			<hr className="divider" />
-			<div>
+			<div className="note-preview-area">
 				{/* FIXME: the 'keys' with index causes too much remounts
 						This was added so that same line repeating will not cause corrupted UI
 				 */}
@@ -53,7 +68,7 @@ export default function NotePreview({
 					parsedData.map((lineData, dataIndex) => {
 						if (lineData.type === 'todo') {
 							return (
-								<div key={`${dataIndex}${JSON.stringify(lineData.data)}`}>
+								<div className="inline-todo-list" key={`${dataIndex}${JSON.stringify(lineData.data)}`}>
 									{lineData.data.map((todo, todoIndex) => (
 										<TodoListItem
 											key={`${todoIndex}${todo.text}`}
@@ -63,10 +78,21 @@ export default function NotePreview({
 											onChange={updateTodo}
 										/>
 									))}
+									<AddTodoForm id={dataIndex} onSubmit={handleNewTodo} />
 								</div>
 							);
 						} else if (lineData.data === '') {
 							return <br key={dataIndex} />;
+						} else if (lineData.type === 'heading') {
+							const H = `h${lineData.data.level}`;
+							// @ts-ignore
+							return <H key={dataIndex}>{lineData.data.headingText}</H>
+						} else if (lineData.type === 'list/ol' || lineData.type === 'list/ul') {
+							return <List
+										key={JSON.stringify(lineData.data)}
+										type={lineData.type}
+										items={lineData.data}
+									/>
 						}
 
 						return <p key={`${dataIndex}${lineData.data}`}>{lineData.data}</p>;
@@ -93,7 +119,7 @@ function TodoListItem({
 	onChange
 }: TodoItemProps) {
 	return (
-		<label style={{ display: 'block' }}>
+		<label className={joinString(['block', isDone && 'todo-item--checked'])}>
 			<input
 				type="checkbox"
 				data-data-index={dataIndex}
@@ -104,4 +130,38 @@ function TodoListItem({
 			{text}
 		</label>
 	);
+}
+
+interface AddTodoFormProps {
+	id: any;
+	onSubmit: (event: TodoEvent) => void;
+}
+
+function AddTodoForm({ id, onSubmit }: AddTodoFormProps) {
+	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const { currentTarget } = event;
+		const textNode = currentTarget.elements.item(0) as HTMLInputElement | null;
+		const todo = textNode?.value;
+		if (!todo || !textNode) return;
+		textNode.value = '';
+		textNode.focus();
+		onSubmit({ dataIndex: currentTarget.id, todo });
+	}
+	return (
+		<form className="flex mt" id={id} onSubmit={handleSubmit}>
+			<input aria-label="Add todo" placeholder="Add todo" type="text" className="border1" />
+			<button className="ml border1">+</button>
+		</form>
+	);
+}
+
+
+function List({ type, items }: { type: ListBlock['type'], items: string[] }) {
+	const ListContainer = type === 'list/ol'? 'ol': 'ul';
+	return (
+		<ListContainer>
+			{items.map(item => <li key={item}>{item}</li>)}
+		</ListContainer>
+	)
 }

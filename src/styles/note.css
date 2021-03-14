@@ -29,6 +29,13 @@
 	margin: 2px;
 }
 
+@media screen and (max-width: 500px) {
+	.todo-controls {
+		font-size: 1em;
+		height: 30px;
+	}
+}
+
 .todo-controls:hover {
 	background: white;
 }
@@ -56,6 +63,56 @@
 	border-bottom: none;
 }
 
-.word-wrap {
-	word-wrap: anywhere;
+fieldset.reset {
+	border: none;
+	padding: 0
+}
+
+.todo-item--checked {
+	color: grey;
+	text-decoration: line-through;
+}
+
+.note-preview-area p,
+.note-preview-area h1,
+.note-preview-area h2,
+.note-preview-area h3,
+.note-preview-area h4,
+.note-preview-area h5,
+.note-preview-area h6,
+.note-preview-area ol,
+.note-preview-area ul {
+    margin: 0;
+}
+
+.note-preview-area ol,
+.note-preview-area ul {
+	padding-left: 22px;
+}
+
+.note-input {
+    border-radius: 0.4em;
+    border: solid 1px #bbb;
+    background: #f1f1f1;
+}
+
+.note-input:focus {
+	background: #fff;
+}
+
+.edit-note-text {
+    padding: 1em;
+}
+
+.note-preview-area {
+	margin-bottom: 4em;
+}
+
+.inline-todo-list {
+	background: #dfdfdf;
+	padding: 1em 0.6em;
+	border-radius: 0.5em;
+	margin: 0.5em 0;
+	width: max-content;
+	max-width: 95%;
 }

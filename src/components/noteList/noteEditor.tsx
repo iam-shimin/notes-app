@@ -11,6 +11,7 @@ interface NoteEditorProps {
 	noteTitle: string,
 	noteContent: string,
 	disabled: boolean,
+	autoFocusField?: string,
 	onFocus: (event: React.FocusEvent<HTMLInputElement>) => void,
 	onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
@@ -19,6 +20,7 @@ export default function NoteEditor({
 	noteTitle,
 	noteContent,
 	disabled,
+	autoFocusField,
 	onFocus,
 	onChange
 }: NoteEditorProps){
@@ -31,7 +33,8 @@ export default function NoteEditor({
 					placeholder={titlePlaceholder}
 					value={noteTitle}
 					disabled={disabled}
-					className="edit-note-title"
+					className="note-input edit-note-title"
+					autoFocus={autoFocusField === 'title'}
 					onFocus={onFocus}
 					onChange={onChange}
 				/>
@@ -44,7 +47,8 @@ export default function NoteEditor({
 						placeholder={textareaPlaceholder}
 						value={noteContent}
 						disabled={disabled}
-						className="edit-note-text"
+						autoFocus={autoFocusField === 'notes'}
+						className="note-input edit-note-text"
 						onChange={onChange}
 					/>
 			</label>

@@ -1,12 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import { Location } from 'history';
 // import { connect } from 'react-redux';
 import { queryString } from 'utils/url';
 import lastOf from 'utils/array';
 import { getMostVisited } from 'utils/storage';
-import { isTodo, isDoneTodo } from 'utils/todos';
+import { isTodo, isDoneTodo } from 'utils/deltas/todos';
 import { getTitleFromNote } from 'utils/note';
 import { joinString } from 'utils/primitive';
 
@@ -104,12 +104,15 @@ export default function SideNavItems({
 		<div className="msg-sidenav-empty">
 			{query ? (
 				<h2>
-					Nothing matched your search <em style={{ color: '#eee' }}>{query}</em>
+					Nothing matched your search <em className="word-wrap" style={{ color: '#eee' }}>{query}</em>
 				</h2>
 			) : (
 				<h2>You have nothing on your notes</h2>
 			)}
-			<i>Start editing to add a new note to the list.</i>
+			<i>Add a <Link to={{
+				pathname: '/notes/new',
+				title: query
+			}} className="dashed-link">new note</Link> to the list.</i>
 		</div>
 	);
 }
