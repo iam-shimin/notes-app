@@ -150,8 +150,8 @@ function AddTodoForm({ id, onSubmit }: AddTodoFormProps) {
 	}
 	return (
 		<form className="flex mt" id={id} onSubmit={handleSubmit}>
-			<input aria-label="Add todo" placeholder="Add todo" type="text" className="border1" />
-			<button className="ml border1">+</button>
+			<input aria-label="Add todo" placeholder="Add todo" type="text" className="pd border1" />
+			<button className="ml pd border1">+</button>
 		</form>
 	);
 }
